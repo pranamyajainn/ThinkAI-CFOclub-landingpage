@@ -2,10 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
-  Brain,
-  Clock,
-  Layers,
   CheckCircle2,
   Users,
   ShieldCheck,
@@ -30,21 +28,21 @@ export default function ProblemSolution() {
 
   const problemCards = [
     {
-      icon: <Brain className="w-6 h-6 text-primary" />,
+      image: "/illustrations/knowledge-gap.png",
       tag: "84% Skill Gap",
       title: "The Knowledge Gap",
       description:
         "84% of finance teams lack practical AI skills. We provide direct hands-on training to bridge this gap.",
     },
     {
-      icon: <Clock className="w-6 h-6 text-primary" />,
+      image: "/illustrations/no-time.png",
       tag: "40% Time Drain",
       title: "No Time to Learn",
       description:
         "Locked in spreadsheets and close cycles. We show you how to automate 45% of reporting immediately.",
     },
     {
-      icon: <Layers className="w-6 h-6 text-primary" />,
+      image: "/illustrations/noise-filter.png",
       tag: "48% Wasted Spend",
       title: "Overwhelmed by Noise",
       description:
@@ -84,11 +82,17 @@ export default function ProblemSolution() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 variants={cardVariants}
-                className="bg-surface-pure rounded-2xl p-8 border-l-4 border-l-secondary-container border border-surface-dim shadow-[0_4px_25px_rgba(0,19,86,0.02)] hover:shadow-[0_12px_40px_rgba(0,19,86,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                className="bg-surface-pure rounded-2xl p-6 border-l-4 border-l-secondary-container border border-surface-dim shadow-[0_4px_25px_rgba(0,19,86,0.02)] hover:shadow-[0_12px_40px_rgba(0,19,86,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center mb-6">
-                    {card.icon}
+                  {/* High quality visual illustration frame */}
+                  <div className="relative w-full h-44 rounded-xl overflow-hidden mb-6 bg-surface-container-low border border-surface-dim/40 flex items-center justify-center p-2">
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      className="object-contain hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <span className="inline-block px-2.5 py-0.5 mb-3.5 rounded bg-secondary-container/10 text-secondary-container text-xs font-bold font-sans">
                     {card.tag}
