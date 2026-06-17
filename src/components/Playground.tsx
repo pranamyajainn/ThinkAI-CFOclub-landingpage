@@ -435,7 +435,7 @@ export default function Playground() {
                   </div>
 
                   {/* Chart Rendering */}
-                  <div className="flex-1 w-full h-[280px]">
+                  <div className="w-full h-[280px] relative">
                     {mounted ? (
                       <ResponsiveContainer width="100%" height="100%">
                         <AreaChart

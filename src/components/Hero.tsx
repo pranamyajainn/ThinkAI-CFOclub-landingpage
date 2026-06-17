@@ -56,7 +56,7 @@ export default function Hero() {
           {/* Heading */}
           <motion.h1
             variants={itemVariants}
-            className="font-display text-[40px] leading-[1.05] sm:text-[60px] md:text-[72px] font-black text-primary mb-6 tracking-tight"
+            className="font-display text-3xl sm:text-5xl md:text-7xl font-black text-primary mb-6 tracking-tight leading-none"
           >
             90% of CFOs believe AI will transform finance.{" "}
             <span className="text-gradient-secondary">0%</span> are using it effectively.{" "}
@@ -66,11 +66,9 @@ export default function Hero() {
           {/* Description */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-lg md:text-xl text-on-surface-variant mb-10 leading-relaxed max-w-2xl"
+            className="font-sans text-base md:text-lg text-on-surface-variant mb-8 leading-relaxed max-w-2xl"
           >
-            CFO Intelligence Club closes that gap — monthly briefings, live workshops, and a peer
-            community of finance leaders who are actually implementing AI. Built by practitioners,
-            not publishers.
+            We close that gap. Get monthly practitioner briefings, interactive workshops, and a peer community of finance leaders actually executing AI integrations.
           </motion.p>
 
           {/* CTAs */}
@@ -91,6 +89,22 @@ export default function Hero() {
             >
               Explore AI Playground
             </a>
+          </motion.div>
+
+          {/* Integrations row */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-10 pt-6 border-t border-surface-dim/50 w-full"
+          >
+            <p className="text-[10px] uppercase tracking-wider font-extrabold text-text-muted mb-3">
+              INTEGRATES SECURELY WITH:
+            </p>
+            <div className="flex flex-wrap gap-2.5 text-[10px] text-primary/60 font-sans font-bold select-none">
+              <span className="px-2.5 py-1 rounded bg-surface-container-low border border-surface-dim/40">NetSuite</span>
+              <span className="px-2.5 py-1 rounded bg-surface-container-low border border-surface-dim/40">Stripe</span>
+              <span className="px-2.5 py-1 rounded bg-surface-container-low border border-surface-dim/40">Salesforce</span>
+              <span className="px-2.5 py-1 rounded bg-surface-container-low border border-surface-dim/40">Excel</span>
+            </div>
           </motion.div>
         </motion.div>
 

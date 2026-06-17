@@ -31,24 +31,24 @@ export default function ProblemSolution() {
   const problemCards = [
     {
       icon: <Brain className="w-6 h-6 text-primary" />,
-      tag: "21/25 CFOs",
+      tag: "84% Skill Gap",
       title: "The Knowledge Gap",
       description:
-        "A fundamental lack of practical AI skill sets stands as the number one blocker to organizational implementations.",
+        "84% of finance teams lack practical AI skills. We provide direct hands-on training to bridge this gap.",
     },
     {
       icon: <Clock className="w-6 h-6 text-primary" />,
-      tag: "10/25 CFOs",
+      tag: "40% Time Drain",
       title: "No Time to Learn",
       description:
-        "Teams remain buried under month-end closes, audits, and spreadsheet reconciliation, leaving zero bandwidth for research.",
+        "Locked in spreadsheets and close cycles. We show you how to automate 45% of reporting immediately.",
     },
     {
       icon: <Layers className="w-6 h-6 text-primary" />,
-      tag: "48% Unused Subscriptions",
+      tag: "48% Wasted Spend",
       title: "Overwhelmed by Noise",
       description:
-        "Thousands of AI apps launch daily. Finance leaders lack a trusted, CFO-level filter to determine which tools actually drive ROI.",
+        "Thousands of AI tools, zero direction. We supply pre-vetted, high-ROI playbooks built for CFOs.",
     },
   ];
 
@@ -71,8 +71,7 @@ export default function ProblemSolution() {
               Why CFOs Are Falling Behind
             </h2>
             <p className="font-sans text-lg text-on-surface-variant leading-relaxed">
-              The speed of AI progress creates a massive execution gap between elite tech companies
-              and traditional finance departments.
+              The speed of AI progress creates a massive execution gap in traditional finance departments.
             </p>
           </div>
 
@@ -124,23 +123,22 @@ export default function ProblemSolution() {
             <h2 className="font-display text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
               Stay Informed.
               <br />
-              Without the Research Burden.
+              Without the Burden.
             </h2>
             <p className="font-sans text-base md:text-lg text-on-surface-variant mb-8 leading-relaxed">
-              CFO Intelligence Club filters the daily tech noise into direct financial applications.
-              You gain practical capabilities in under 90 minutes a month.
+              We translate raw AI advancements into copy-paste finance workflows. Gain capabilities in under 90 minutes a month.
             </p>
 
-            <ul className="space-y-4 w-full">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               {[
-                "Curated insights engineered specifically for senior finance leaders",
-                "Ready-to-use custom prompt libraries that automate complex reporting",
-                "Strictly practitioner-led briefings—absolutely no product sales pitches",
-                "A vetted network of high-caliber peers facing identical challenges",
+                "Curated Finance Briefings",
+                "Copy-Paste Prompt Libraries",
+                "100% Practitioner Vetted",
+                "Private Executive Peer Network",
               ].map((item, idx) => (
-                <li key={idx} className="flex items-start gap-3.5">
-                  <CheckCircle2 className="w-5 h-5 text-secondary-container shrink-0 mt-0.5" />
-                  <span className="font-sans text-sm md:text-base text-on-surface-variant">
+                <li key={idx} className="flex items-center gap-2.5 bg-surface-pure/80 p-3 rounded-xl border border-surface-dim/60">
+                  <CheckCircle2 className="w-5 h-5 text-secondary-container shrink-0" />
+                  <span className="font-sans text-xs md:text-sm font-semibold text-primary">
                     {item}
                   </span>
                 </li>

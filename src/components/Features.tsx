@@ -9,25 +9,25 @@ export default function Features() {
     {
       icon: <BookOpen className="w-6 h-6 text-on-primary" />,
       title: "Monthly Briefings",
-      description: "High-level, distilled summaries of AI breakthroughs that actually impact corporate finance.",
+      description: "15-minute executive summaries of AI breakthroughs impacting finance.",
       popular: false,
     },
     {
       icon: <Terminal className="w-6 h-6 text-on-primary" />,
       title: "Prompt Library",
-      description: "Copy-paste production-tested prompts for variance audits, scenario forecasting, and tax prep.",
+      description: "Copy-paste prompts for variance analyses, forecasting, and NetSuite audits.",
       popular: true,
     },
     {
       icon: <Users className="w-6 h-6 text-on-primary" />,
       title: "Peer Forum",
-      description: "Direct access to fellow CFOs and finance VPS implementing AI systems inside their orgs.",
+      description: "Direct channel to verified mid-market & enterprise CFOs deploying AI.",
       popular: false,
     },
     {
       icon: <GraduationCap className="w-6 h-6 text-on-primary" />,
       title: "Live Workshops",
-      description: "Hands-on, expert-guided builds of real AI automation workflows for closing ledgers.",
+      description: "Interactive monthly builds showing real-world finance API integrations.",
       popular: false,
     },
   ];
