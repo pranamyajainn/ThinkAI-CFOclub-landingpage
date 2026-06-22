@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { firstName, lastName, email } = body;
+    const { firstName, lastName, email, role, companySize, aiChallenges, aiAspirations } = body;
 
     // Server-side validation
     if (!firstName || typeof firstName !== "string" || !firstName.trim()) {
@@ -18,6 +18,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "A valid email address is required." }, { status: 400 });
     }
 
+    if (!role || typeof role !== "string" || !role.trim()) {
+      return NextResponse.json({ message: "Role is required." }, { status: 400 });
+    }
+
+    if (!companySize || typeof companySize !== "string" || !companySize.trim()) {
+      return NextResponse.json({ message: "Company size is required." }, { status: 400 });
+    }
+
+    if (!Array.isArray(aiChallenges) || aiChallenges.length === 0) {
+      return NextResponse.json({ message: "At least one AI challenge is required." }, { status: 400 });
+    }
+
+    if (!Array.isArray(aiAspirations) || aiAspirations.length === 0) {
+      return NextResponse.json({ message: "At least one AI goal is required." }, { status: 400 });
+    }
+
     // Simulate backend network latency (500ms)
     await new Promise((resolve) => setTimeout(resolve, 600));
 
@@ -28,7 +44,7 @@ export async function POST(request: Request) {
     }
     const queueNo = 300 + (sum % 199);
 
-    console.log(`[Waitlist Submission] Name: ${firstName} ${lastName}, Email: ${email}, Assigned Queue: #${queueNo}`);
+    console.log(`[Waitlist Submission] Name: ${firstName} ${lastName}, Email: ${email}, Role: ${role}, Size: ${companySize}, Challenges: ${aiChallenges.join(", ")}, Goals: ${aiAspirations.join(", ")}, Assigned Queue: #${queueNo}`);
 
     /*
      * PROD DB BINDING TEMPLATE:

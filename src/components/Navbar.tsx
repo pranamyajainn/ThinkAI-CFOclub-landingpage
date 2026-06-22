@@ -37,11 +37,11 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#" className="flex items-center group">
             <Image
-              src="/selona-logo.png"
-              alt="Selona Logo"
-              width={120}
-              height={32}
-              className="h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+              src="/cfo-forward-logo.png"
+              alt="CFO Forward Logo"
+              width={160}
+              height={40}
+              className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
               priority
             />
           </a>
@@ -61,7 +61,7 @@ export default function Navbar() {
                 href="#playground"
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
-                AI Playground
+                Content Preview
               </a>
             </li>
             <li>
@@ -126,7 +126,7 @@ export default function Navbar() {
                 href="#playground"
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
-                AI Playground
+                Content Preview
               </a>
               <a
                 onClick={() => setMobileMenuOpen(false)}

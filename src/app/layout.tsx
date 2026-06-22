@@ -17,7 +17,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Selona CFO Intelligence Club - AI-Powered Financial Leadership",
+  title: "CFO Forward — AI in Finance for Practitioners",
   description: "Monthly briefings, live workshops, and an exclusive peer community of finance leaders implementing AI. Built by practitioners, not publishers.",
 };
 

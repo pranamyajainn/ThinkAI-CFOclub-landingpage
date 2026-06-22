@@ -52,7 +52,7 @@ export default function Ticker() {
           ))}
         </framerMotion.div>
         <p className="text-center text-[10px] font-semibold text-text-muted mt-5">
-          {"*Real survey data collected from Selona's June 2026 Financial AI Summit"}
+          {"Live poll data from Selona's June 2026 CFO AI seminar. 26 attendees. 5 questions."}
         </p>
       </div>
     </section>

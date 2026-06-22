@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, TrendingUp, DollarSign, Brain } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   const containerVariants = {
@@ -27,6 +28,17 @@ export default function Hero() {
 
   return (
     <section className="relative pt-32 pb-24 md:pt-40 md:pb-36 overflow-hidden bg-surface noise-bg">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        <Image
+          src="/hero-bg.png"
+          alt="CFO Forward Hero Background"
+          fill
+          className="object-cover object-right opacity-30 md:opacity-40"
+          priority
+        />
+      </div>
+
       {/* Dynamic Aurora glow effects */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-surface-container-highest/60 blur-[100px] animate-pulse-slow"></div>
