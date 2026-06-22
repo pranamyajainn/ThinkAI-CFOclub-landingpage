@@ -12,8 +12,8 @@ export default function Footer() {
             <Image
               src="/cfo-forward-logo.png"
               alt="CFO Forward Logo"
-              width={140}
-              height={35}
+              width={155}
+              height={32}
               className="h-8 w-auto object-contain brightness-0 invert"
             />
           </div>

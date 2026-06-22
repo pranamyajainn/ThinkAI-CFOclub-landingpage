@@ -39,7 +39,7 @@ export default function Navbar() {
             <Image
               src="/cfo-forward-logo.png"
               alt="CFO Forward Logo"
-              width={160}
+              width={194}
               height={40}
               className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
               priority
