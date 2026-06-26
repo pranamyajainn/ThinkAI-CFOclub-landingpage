@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="w-full min-h-screen pt-2">
+      <main className="w-full min-h-screen">
         <Hero />
         <Ticker />
         <ProblemSolution />
