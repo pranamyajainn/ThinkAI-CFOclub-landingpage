@@ -10,15 +10,15 @@ export default function Footer() {
         <div className="md:col-span-2 flex flex-col items-start">
           <div className="flex items-center mb-4">
             <Image
-              src="/cfo-forward-logo.png"
-              alt="CFO Forward Logo"
-              width={155}
-              height={32}
+              src="/cfo-ai-hub-logo.png"
+              alt="CFO AI Hub Logo"
+              width={160}
+              height={40}
               className="h-8 w-auto object-contain brightness-0 invert"
             />
           </div>
           <p className="text-xs text-on-primary/60 max-w-sm leading-relaxed">
-            {"CFO Forward is Selona's practitioner-built newsletter and community for finance leaders implementing AI. Built from 9 months of live CFO events. Not vendor content."}
+            {"CFO AI Hub is Selona's practitioner-built newsletter and community for finance leaders implementing AI. Built from 9 months of live CFO events across the UK and India."}
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default function Footer() {
       {/* Copy */}
       <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-on-primary/10 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-[10px] font-medium text-on-primary/40">
-          © 2026 CFO Forward by Selona. All rights reserved.
+          © 2026 CFO AI Hub by Selona. All rights reserved.
         </p>
         <p className="text-[10px] font-medium text-on-primary/40">
           Curated by practitioners, engineered with precision.

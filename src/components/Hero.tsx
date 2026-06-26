@@ -31,8 +31,8 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <Image
-          src="/hero-bg.png"
-          alt="CFO Forward Hero Background"
+          src="/hero-bg-new.png"
+          alt="CFO AI Hub Hero Background"
           fill
           className="object-cover object-right opacity-30 md:opacity-40"
           priority

@@ -221,10 +221,10 @@ export default function WaitlistForm() {
               <div className="text-center mb-10">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/40 border border-on-primary/10 text-xs font-semibold tracking-wider text-secondary-container mb-4">
                   <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-                  Apply for Founding Membership
+                  Executive Cohort Entry
                 </span>
                 <h2 className="font-display text-4xl md:text-5xl font-extrabold text-white mb-4">
-                  Join the Waitlist
+                  Apply for Founding Membership
                 </h2>
                 <p className="font-sans text-sm md:text-base text-on-primary/80">
                   30 founding member seats. Founding rate. Closes when full.
@@ -410,7 +410,7 @@ export default function WaitlistForm() {
                     name="agreed"
                     checked={formData.agreed}
                     onChange={handleChange}
-                    className="mt-1 w-4 h-4 rounded border-surface-dim bg-surface-pure accent-secondary-container cursor-pointer shrink-0"
+                    className="mt-1 w-4 h-4 rounded border-surface-dim bg-surface-pure accent-[#E8762B] cursor-pointer shrink-0"
                     disabled={isLoading}
                   />
                   <label

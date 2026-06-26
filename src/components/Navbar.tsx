@@ -37,10 +37,10 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#" className="flex items-center group">
             <Image
-              src="/cfo-forward-logo.png"
-              alt="CFO Forward Logo"
-              width={194}
-              height={40}
+              src="/cfo-ai-hub-logo.png"
+              alt="CFO AI Hub Logo"
+              width={200}
+              height={50}
               className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
               priority
             />
