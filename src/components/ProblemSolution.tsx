@@ -167,11 +167,11 @@ export default function ProblemSolution() {
                 <div className="flex items-center gap-2">
                   <Users className="w-5 h-5 text-primary" />
                   <h4 className="text-xs font-bold text-primary font-display">
-                    Exclusive Peer Network Directory
+                    Peer Network Directory
                   </h4>
                 </div>
                 <span className="text-[10px] font-bold text-secondary-container px-2 py-0.5 bg-secondary-container/5 rounded border border-secondary-container/10">
-                  Vetted Members Only
+                  Verified Finance Leaders
                 </span>
               </div>
 

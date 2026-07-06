@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { firstName, lastName, email, role, companySize, aiChallenges, aiAspirations } = body;
+    const { firstName, lastName, email, role } = body;
 
     // Server-side validation
     if (!firstName || typeof firstName !== "string" || !firstName.trim()) {
@@ -22,47 +24,28 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Role is required." }, { status: 400 });
     }
 
-    if (!companySize || typeof companySize !== "string" || !companySize.trim()) {
-      return NextResponse.json({ message: "Company size is required." }, { status: 400 });
-    }
+    // Save to Firestore
+    const docRef = await addDoc(collection(db, "waitlist"), {
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim(),
+      role: role.trim(),
+      timestamp: serverTimestamp()
+    });
 
-    if (!Array.isArray(aiChallenges) || aiChallenges.length === 0) {
-      return NextResponse.json({ message: "At least one AI challenge is required." }, { status: 400 });
-    }
+    console.log(`[Waitlist Submission] Saved to Firebase with ID: ${docRef.id}`);
 
-    if (!Array.isArray(aiAspirations) || aiAspirations.length === 0) {
-      return NextResponse.json({ message: "At least one AI goal is required." }, { status: 400 });
-    }
-
-    // Simulate backend network latency (500ms)
-    await new Promise((resolve) => setTimeout(resolve, 600));
-
-    // Generate a deterministic queue number based on email hash or random
+    // Generate a deterministic queue number based on email hash or random for presentation
     let sum = 0;
     for (let i = 0; i < email.length; i++) {
       sum += email.charCodeAt(i);
     }
     const queueNo = 300 + (sum % 199);
 
-    console.log(`[Waitlist Submission] Name: ${firstName} ${lastName}, Email: ${email}, Role: ${role}, Size: ${companySize}, Challenges: ${aiChallenges.join(", ")}, Goals: ${aiAspirations.join(", ")}, Assigned Queue: #${queueNo}`);
-
-    /*
-     * PROD DB BINDING TEMPLATE:
-     * If you want to connect a database in the future, you can use the code below:
-     *
-     * Example: Vercel KV / Redis
-     * import { kv } from '@vercel/kv';
-     * await kv.hset(`waitlist:${email}`, { firstName, lastName, email, queueNo, appliedAt: new Date() });
-     *
-     * Example: Firestore
-     * import { db } from '@/lib/firebase';
-     * import { collection, addDoc } from 'firebase/firestore';
-     * await addDoc(collection(db, "applicants"), { firstName, lastName, email, queueNo, timestamp: new Date() });
-     */
-
     return NextResponse.json(
       {
-        message: "Application submitted successfully.",
+        message: "Successfully joined the waitlist.",
+        id: docRef.id,
         queueNo,
       },
       { status: 200 }
@@ -70,8 +53,9 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Waitlist API error:", error);
     return NextResponse.json(
-      { message: "Server error processing application. Please try again." },
+      { message: "Server error processing waitlist signup. Please try again." },
       { status: 500 }
     );
   }
 }
+

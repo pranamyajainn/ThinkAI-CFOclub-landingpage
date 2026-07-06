@@ -155,7 +155,7 @@ export default function Playground() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="font-sans text-xs font-bold text-secondary-container uppercase tracking-wider mb-3 block">
-            Exclusive Preview
+            Playground Preview
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold text-primary mb-4">
             Financial Intelligence in Action

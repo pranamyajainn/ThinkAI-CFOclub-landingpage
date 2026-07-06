@@ -61,7 +61,7 @@ export default function Hero() {
           >
             <span className="w-2.5 h-2.5 rounded-full bg-secondary-container animate-pulse"></span>
             <span className="font-sans text-xs font-semibold text-primary tracking-wide">
-              Applications open for Founding Members
+              Early Access Waitlist Open
             </span>
           </motion.div>
 
@@ -92,7 +92,7 @@ export default function Hero() {
               href="#apply"
               className="bg-secondary-container hover:bg-secondary text-on-secondary px-8 py-4 rounded-xl font-bold text-base text-center transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group"
             >
-              Apply for Membership
+              Join the Waitlist
               <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
             </a>
             <a

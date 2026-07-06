@@ -150,11 +150,11 @@ export default function Navbar() {
                 href="#apply"
                 className="w-full py-4 text-center rounded-xl bg-secondary-container text-on-secondary font-bold text-lg flex items-center justify-center gap-2 hover:bg-secondary transition-colors"
               >
-                Apply for Membership
+                Join the Waitlist
                 <ArrowRight className="w-5 h-5" />
               </a>
               <p className="text-center text-xs text-text-muted">
-                Executive cohort space is strictly limited.
+                Join our waitlist for updates.
               </p>
             </div>
           </motion.div>

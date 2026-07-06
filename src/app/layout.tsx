@@ -18,7 +18,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "CFO AI Hub — AI in Finance for Practitioners",
-  description: "Monthly briefings, live workshops, and an exclusive peer community of finance leaders implementing AI. Built by practitioners, not publishers.",
+  description: "Monthly briefings, live workshops, and a peer community of finance leaders implementing AI. Built by practitioners, not publishers.",
 };
 
 export default function RootLayout({
