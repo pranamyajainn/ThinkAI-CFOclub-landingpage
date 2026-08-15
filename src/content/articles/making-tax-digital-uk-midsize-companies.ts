@@ -106,9 +106,5 @@ export const articleMakingTaxDigital: NewsletterArticle = {
     text: "It isn't 'are we MTD compliant today.' It's 'will we still be compliant next quarter, and the one after that, without anyone in my team burning hours policing it manually.' If the honest answer is uncertain, that's the gap worth closing before HMRC closes it for you.",
     actionItem: "Neoflo.ai helps UK mid-size companies keep AP/AR execution clean, continuous, and MTD-compliant — without adding headcount. Get in touch to see how it fits your finance operation."
   },
-  relatedSlugs: [
-    "enterprise-ai-governance-framework-cfo",
-    "autonomous-fpa-stack-cfo-close-cycle",
-    "genai-roi-finance-calculator"
-  ]
+  relatedSlugs: []
 };

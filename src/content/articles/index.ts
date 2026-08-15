@@ -1,10 +1,5 @@
 import { NewsletterArticle } from "@/types/newsletter";
 import { articleMakingTaxDigital } from "./making-tax-digital-uk-midsize-companies";
-import { articleAutonomousFPA } from "./autonomous-fpa-stack";
-import { articleEnterpriseAIGovernance } from "./enterprise-ai-governance-framework";
-import { articleAgenticTreasury } from "./agentic-treasury-cashflow-ai";
-import { articleGenAIROI } from "./genai-roi-finance-calculator";
-import { articleNextGenBoardDeck } from "./next-gen-board-deck-multimodal";
 
 /**
  * MASTER LIST OF ALL NEWSLETTER ARTICLES
@@ -15,9 +10,4 @@ import { articleNextGenBoardDeck } from "./next-gen-board-deck-multimodal";
  */
 export const allArticles: NewsletterArticle[] = [
   articleMakingTaxDigital,
-  articleAutonomousFPA,
-  articleEnterpriseAIGovernance,
-  articleAgenticTreasury,
-  articleGenAIROI,
-  articleNextGenBoardDeck,
 ];
