@@ -4,10 +4,14 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +25,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const getHref = (hash: string) => {
+    return isHomePage ? hash : `/${hash}`;
+  };
+
   return (
     <>
       <motion.nav
@@ -29,13 +37,13 @@ export default function Navbar() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
           isScrolled
-            ? "h-16 bg-surface-container-lowest/80 backdrop-blur-md border-b border-surface-dim/50 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
+            ? "h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-surface-dim/50 shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
             : "h-24 bg-transparent border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center group">
+          <Link href="/" className="flex items-center group">
             <Image
               src="/cfo-ai-hub-logo.png"
               alt="CFO AI Hub Logo"
@@ -44,13 +52,13 @@ export default function Navbar() {
               className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
               priority
             />
-          </a>
+          </Link>
 
           {/* Desktop Links */}
-          <ul className="hidden md:flex items-center space-x-8">
+          <ul className="hidden md:flex items-center space-x-7 lg:space-x-8">
             <li>
               <a
-                href="#why-join"
+                href={getHref("#why-join")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
                 Why Join
@@ -58,7 +66,7 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#playground"
+                href={getHref("#playground")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
                 Content Preview
@@ -66,15 +74,28 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#what-you-get"
+                href={getHref("#what-you-get")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
                 What You Get
               </a>
             </li>
             <li>
+              <Link
+                href="/newsletter"
+                className={`transition-colors text-sm font-medium tracking-wide flex items-center gap-1.5 ${
+                  pathname.startsWith("/newsletter")
+                    ? "text-primary font-bold"
+                    : "text-on-surface-variant hover:text-primary"
+                }`}
+              >
+                <span>Newsletter</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary-container" />
+              </Link>
+            </li>
+            <li>
               <a
-                href="#apply"
+                href={getHref("#apply")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
                 Waitlist
@@ -85,7 +106,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <a
-              href="#apply"
+              href={getHref("#apply")}
               className="relative inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-secondary-container text-on-secondary font-semibold text-sm transition-all duration-200 hover:bg-secondary hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
             >
               Join the Waitlist
@@ -113,31 +134,41 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 md:hidden bg-surface pt-28 px-6 pb-8 flex flex-col justify-between"
           >
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-5">
               <a
                 onClick={() => setMobileMenuOpen(false)}
-                href="#why-join"
+                href={getHref("#why-join")}
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
                 Why Join
               </a>
               <a
                 onClick={() => setMobileMenuOpen(false)}
-                href="#playground"
+                href={getHref("#playground")}
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
                 Content Preview
               </a>
               <a
                 onClick={() => setMobileMenuOpen(false)}
-                href="#what-you-get"
+                href={getHref("#what-you-get")}
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
                 What You Get
               </a>
+              <Link
+                onClick={() => setMobileMenuOpen(false)}
+                href="/newsletter"
+                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim flex items-center justify-between"
+              >
+                <span>Newsletter & Articles</span>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded bg-secondary-container text-white">
+                  Weekly
+                </span>
+              </Link>
               <a
                 onClick={() => setMobileMenuOpen(false)}
-                href="#apply"
+                href={getHref("#apply")}
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
                 Waitlist
@@ -147,14 +178,14 @@ export default function Navbar() {
             <div className="flex flex-col gap-4">
               <a
                 onClick={() => setMobileMenuOpen(false)}
-                href="#apply"
+                href={getHref("#apply")}
                 className="w-full py-4 text-center rounded-xl bg-secondary-container text-on-secondary font-bold text-lg flex items-center justify-center gap-2 hover:bg-secondary transition-colors"
               >
                 Join the Waitlist
                 <ArrowRight className="w-5 h-5" />
               </a>
               <p className="text-center text-xs text-text-muted">
-                Join our waitlist for updates.
+                Join our waitlist for weekly briefings & community access.
               </p>
             </div>
           </motion.div>

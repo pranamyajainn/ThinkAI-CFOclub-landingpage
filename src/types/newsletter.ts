@@ -1,0 +1,68 @@
+export type ArticleCategory =
+  | "All"
+  | "AI Strategy"
+  | "FP&A Automation"
+  | "Risk & Governance"
+  | "Case Studies"
+  | "Executive Briefing";
+
+export interface ArticleAuthor {
+  name: string;
+  role: string;
+  avatar?: string;
+  company?: string;
+  linkedin?: string;
+}
+
+export interface MetricHighlight {
+  label: string;
+  value: string;
+  change?: string;
+  isPositive?: boolean;
+}
+
+export interface ArticleSection {
+  heading?: string;
+  subheading?: string;
+  paragraphs: string[];
+  callout?: {
+    type: "tip" | "warning" | "insight" | "stat";
+    title?: string;
+    text: string;
+  };
+  quote?: {
+    text: string;
+    author: string;
+    role?: string;
+  };
+  bullets?: string[];
+  checklist?: string[];
+  table?: {
+    headers: string[];
+    rows: string[][];
+  };
+}
+
+export interface NewsletterArticle {
+  slug: string;
+  editionNumber: number;
+  title: string;
+  subtitle: string;
+  excerpt: string;
+  category: Exclude<ArticleCategory, "All">;
+  tags: string[];
+  publishedAt: string; // YYYY-MM-DD
+  readTime: string;
+  featured?: boolean;
+  coverImage?: string;
+  author: ArticleAuthor;
+  metricsHighlight?: MetricHighlight[];
+  keyTakeaways: string[];
+  sections: ArticleSection[];
+  conclusion?: {
+    heading: string;
+    text: string;
+    actionItem?: string;
+  };
+  relatedSlugs?: string[];
+}
