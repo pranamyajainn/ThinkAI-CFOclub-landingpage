@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { getAllArticles } from "@/lib/newsletter";
 import { ArrowRight, Sparkles, Calendar, Clock, BookOpen } from "lucide-react";
 
@@ -44,49 +45,65 @@ export default function NewsletterTeaser() {
             return (
               <article
                 key={article.slug}
-                className="group flex flex-col justify-between bg-surface-pure rounded-xl border border-surface-dim/70 p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="group flex flex-col justify-between bg-surface-pure rounded-xl border border-surface-dim/70 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="px-2.5 py-0.5 rounded-md bg-surface-container text-primary text-[11px] font-semibold">
-                      {article.category}
-                    </span>
-                    <span className="text-[11px] font-semibold text-text-muted">
-                      Edition #{article.editionNumber}
-                    </span>
-                  </div>
-
-                  <Link href={`/newsletter/${article.slug}`}>
-                    <h3 className="text-base sm:text-lg font-bold font-display text-on-surface group-hover:text-primary transition-colors leading-snug line-clamp-2 mb-2.5">
-                      {article.title}
-                    </h3>
-                  </Link>
-
-                  <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-2 leading-relaxed mb-4">
-                    {article.excerpt}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-surface-dim/40 flex items-center justify-between text-xs text-text-muted">
-                  <div className="flex items-center gap-3 text-[11px]">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {formattedDate}
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {article.readTime}
-                    </span>
-                  </div>
-
+                {article.coverImage && (
                   <Link
                     href={`/newsletter/${article.slug}`}
-                    className="text-secondary font-semibold hover:underline inline-flex items-center gap-1 text-[11px]"
+                    className="relative aspect-[16/9] w-full overflow-hidden block bg-surface-container"
                   >
-                    Read
-                    <ArrowRight className="w-3 h-3" />
+                    <Image
+                      src={article.coverImage}
+                      alt={article.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
                   </Link>
+                )}
+
+                <div className="p-6 flex-grow flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="px-2.5 py-0.5 rounded-md bg-surface-container text-primary text-[11px] font-semibold">
+                        {article.category}
+                      </span>
+                      <span className="text-[11px] font-semibold text-text-muted">
+                        Edition #{article.editionNumber}
+                      </span>
+                    </div>
+
+                    <Link href={`/newsletter/${article.slug}`}>
+                      <h3 className="text-base sm:text-lg font-bold font-display text-on-surface group-hover:text-primary transition-colors leading-snug line-clamp-2 mb-2.5">
+                        {article.title}
+                      </h3>
+                    </Link>
+
+                    <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-2 leading-relaxed mb-4">
+                      {article.excerpt}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-surface-dim/40 flex items-center justify-between text-xs text-text-muted">
+                    <div className="flex items-center gap-3 text-[11px]">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {formattedDate}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {article.readTime}
+                      </span>
+                    </div>
+
+                    <Link
+                      href={`/newsletter/${article.slug}`}
+                      className="text-secondary font-semibold hover:underline inline-flex items-center gap-1 text-[11px]"
+                    >
+                      Read
+                      <ArrowRight className="w-3 h-3" />
+                    </Link>
+                  </div>
                 </div>
               </article>
             );

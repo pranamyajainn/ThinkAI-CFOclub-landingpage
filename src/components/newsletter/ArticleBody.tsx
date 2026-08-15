@@ -13,6 +13,8 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
+import VideoWalkthroughPlayer from "./VideoWalkthroughPlayer";
+import VisualDigitalLinkComparison from "./VisualDigitalLinkComparison";
 
 interface ArticleBodyProps {
   article: NewsletterArticle;
@@ -74,6 +76,14 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                 {p}
               </p>
             ))}
+
+            {/* Render Visual Flow Comparison Diagram in first/second section */}
+            {sIdx === 0 && <VisualDigitalLinkComparison />}
+
+            {/* Embedded Video / Media Walkthrough */}
+            {section.media && section.media.type === "video" && (
+              <VideoWalkthroughPlayer media={section.media} />
+            )}
 
             {/* Bullet Points */}
             {section.bullets && section.bullets.length > 0 && (

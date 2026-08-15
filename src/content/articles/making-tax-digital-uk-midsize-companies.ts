@@ -11,6 +11,12 @@ export const articleMakingTaxDigital: NewsletterArticle = {
   publishedAt: "2026-08-15",
   readTime: "5 min read",
   featured: true,
+  coverImage: "/images/newsletter/mtd-hero-cover.jpg",
+  coverImageCaption: "Continuous MTD Digital Link Flow: Unbroken audit lineage from invoice intake to HMRC ledger submission.",
+  audioBriefing: {
+    duration: "4:15",
+    title: "Executive Audio Teardown: Why MTD Digital Links Break in Mid-Size UK Businesses",
+  },
   author: {
     name: "Neoflo Finance Intelligence",
     role: "UK Tax & Financial Operations Practice",
@@ -81,6 +87,13 @@ export const articleMakingTaxDigital: NewsletterArticle = {
       paragraphs: [
         "This is an operations problem, not a software problem — and it's exactly what we built Neoflo to solve:"
       ],
+      media: {
+        type: "video",
+        poster: "/images/newsletter/neoflo-workflow-demo.jpg",
+        title: "Walkthrough: Automated 3-Way Matching & MTD Audit Lineage",
+        duration: "02:45",
+        caption: "Watch how Neoflo automatically digitizes incoming PDF invoices, conducts 3-way reconciliation against purchase orders, and preserves digital links straight to your ledger."
+      },
       bullets: [
         "Invoice extraction, at intake: Purchase and sales invoices are digitised the moment they arrive, so VAT data enters your system as a machine-read field — never a manually retyped total. This closes the single most common digital-link breach before it happens.",
         "Three-way matching, automated: Purchase order, invoice, and goods-received data stay linked and auditable throughout, removing the ad hoc, spreadsheet-patched reconciliation that trips up so many MTD reviews.",

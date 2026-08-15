@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { NewsletterArticle } from "@/types/newsletter";
 import { ChevronRight, Calendar, Clock, Sparkles } from "lucide-react";
+import AudioBriefingPlayer from "./AudioBriefingPlayer";
 
 interface ArticleHeaderProps {
   article: NewsletterArticle;
@@ -16,7 +17,7 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
   });
 
   return (
-    <header className="pt-32 pb-12 px-6 max-w-4xl mx-auto">
+    <header className="pt-32 pb-8 px-6 max-w-4xl mx-auto">
       {/* Breadcrumb navigation */}
       <nav className="flex items-center gap-2 text-xs text-text-muted mb-8" aria-label="Breadcrumb">
         <Link href="/" className="hover:text-primary transition-colors">
@@ -97,6 +98,36 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
           ))}
         </div>
       </div>
+
+      {/* Audio Briefing Player */}
+      {article.audioBriefing && (
+        <AudioBriefingPlayer
+          duration={article.audioBriefing.duration}
+          title={article.audioBriefing.title}
+        />
+      )}
+
+      {/* Hero Cover Graphic */}
+      {article.coverImage && (
+        <div className="my-8 rounded-2xl overflow-hidden bg-surface-pure border border-surface-dim/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+          <div className="relative aspect-[16/9] w-full">
+            <Image
+              src={article.coverImage}
+              alt={article.title}
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+          {article.coverImageCaption && (
+            <div className="p-3 bg-surface-subtle border-t border-surface-dim text-center">
+              <p className="text-xs text-text-muted italic">
+                {article.coverImageCaption}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Metrics Banner */}
       {article.metricsHighlight && article.metricsHighlight.length > 0 && (

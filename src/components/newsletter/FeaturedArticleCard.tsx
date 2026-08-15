@@ -21,12 +21,45 @@ export default function FeaturedArticleCard({ article }: FeaturedArticleCardProp
         {/* Top Accent Gradient Bar */}
         <div className="h-1.5 w-full bg-gradient-to-r from-primary via-primary-container to-secondary-container" />
 
-        <div className="p-8 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Metadata & Core Narrative */}
+        <div className="p-6 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Left Column: Cover Image & Takeaways Preview */}
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            {article.coverImage ? (
+              <Link
+                href={`/newsletter/${article.slug}`}
+                className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-surface-dim group-hover:shadow-md transition-all block"
+              >
+                <Image
+                  src={article.coverImage}
+                  alt={article.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                  <span className="text-xs text-white font-semibold flex items-center gap-1">
+                    Read Briefing <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+              </Link>
+            ) : null}
+
+            {/* Quick Takeaway box */}
+            <div className="bg-surface-subtle rounded-xl p-5 border border-surface-dim/60">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-primary mb-2.5 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-secondary-container animate-pulse" />
+                Executive Summary
+              </div>
+              <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                {article.keyTakeaways[0] || article.excerpt}
+              </p>
+            </div>
+          </div>
+
+          {/* Right Column: Metadata, Headline, Subtitle, Metric Highlights & CTA */}
           <div className="lg:col-span-7 flex flex-col justify-between">
             <div>
               {/* Badges */}
-              <div className="flex flex-wrap items-center gap-3 mb-4">
+              <div className="flex flex-wrap items-center gap-2.5 mb-3">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-secondary-container/15 text-secondary text-xs font-bold uppercase tracking-wider">
                   <Sparkles className="w-3.5 h-3.5" />
                   Featured Edition #{article.editionNumber}
@@ -46,28 +79,28 @@ export default function FeaturedArticleCard({ article }: FeaturedArticleCardProp
 
               {/* Title */}
               <Link href={`/newsletter/${article.slug}`}>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-on-surface hover:text-primary transition-colors tracking-tight leading-tight mb-4">
+                <h2 className="text-2xl sm:text-3xl font-bold font-display text-on-surface hover:text-primary transition-colors tracking-tight leading-snug mb-3">
                   {article.title}
                 </h2>
               </Link>
 
               {/* Subtitle / Excerpt */}
-              <p className="text-base sm:text-lg text-on-surface-variant leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed mb-6">
                 {article.excerpt}
               </p>
 
               {/* Key metric highlights */}
               {article.metricsHighlight && article.metricsHighlight.length > 0 && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                   {article.metricsHighlight.slice(0, 3).map((metric, idx) => (
                     <div
                       key={idx}
                       className="p-3 rounded-lg bg-surface-subtle border border-surface-dim/40"
                     >
-                      <div className="text-xl font-bold font-display text-primary">
+                      <div className="text-lg sm:text-xl font-bold font-display text-primary">
                         {metric.value}
                       </div>
-                      <div className="text-xs font-medium text-text-muted leading-tight mt-0.5">
+                      <div className="text-[11px] font-medium text-text-muted leading-tight mt-0.5">
                         {metric.label}
                       </div>
                     </div>
@@ -77,18 +110,18 @@ export default function FeaturedArticleCard({ article }: FeaturedArticleCardProp
             </div>
 
             {/* Author & CTA */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-surface-dim/50">
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-surface-dim/50">
               <div className="flex items-center gap-3">
                 {article.author.avatar ? (
                   <Image
                     src={article.author.avatar}
                     alt={article.author.name}
-                    width={44}
-                    height={44}
-                    className="w-11 h-11 rounded-full object-cover border border-surface-dim"
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 rounded-full object-cover border border-surface-dim"
                   />
                 ) : (
-                  <div className="w-11 h-11 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm">
+                  <div className="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm">
                     {article.author.name.charAt(0)}
                   </div>
                 )}
@@ -104,37 +137,6 @@ export default function FeaturedArticleCard({ article }: FeaturedArticleCardProp
               >
                 <span>Read Full Briefing</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Column: Executive Takeaways Box */}
-          <div className="lg:col-span-5 bg-surface-subtle/80 rounded-xl p-6 sm:p-8 border border-surface-dim/60 flex flex-col justify-between h-full">
-            <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-primary mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-secondary-container animate-pulse" />
-                Executive Summary & Takeaways
-              </div>
-
-              <ul className="space-y-3.5 mb-6">
-                {article.keyTakeaways.map((takeaway, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 text-primary font-bold text-[11px] flex items-center justify-center mt-0.5">
-                      {idx + 1}
-                    </span>
-                    <span>{takeaway}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="pt-4 border-t border-surface-dim/40 flex items-center justify-between text-xs text-text-muted">
-              <span>Includes Architecture Diagrams & Tables</span>
-              <Link
-                href={`/newsletter/${article.slug}`}
-                className="text-secondary font-semibold hover:underline"
-              >
-                Inspect Framework →
               </Link>
             </div>
           </div>

@@ -21,10 +21,21 @@ export interface MetricHighlight {
   isPositive?: boolean;
 }
 
+export interface ArticleMedia {
+  type: "image" | "video" | "workflow" | "timeline";
+  src?: string;
+  alt?: string;
+  caption?: string;
+  title?: string;
+  duration?: string;
+  poster?: string;
+}
+
 export interface ArticleSection {
   heading?: string;
   subheading?: string;
   paragraphs: string[];
+  media?: ArticleMedia;
   callout?: {
     type: "tip" | "warning" | "insight" | "stat";
     title?: string;
@@ -55,6 +66,11 @@ export interface NewsletterArticle {
   readTime: string;
   featured?: boolean;
   coverImage?: string;
+  coverImageCaption?: string;
+  audioBriefing?: {
+    duration: string;
+    title: string;
+  };
   author: ArticleAuthor;
   metricsHighlight?: MetricHighlight[];
   keyTakeaways: string[];
