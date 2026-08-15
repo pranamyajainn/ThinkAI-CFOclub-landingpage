@@ -3,17 +3,17 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PollHero from "@/components/polls/PollHero";
-import PollVotingCard from "@/components/polls/PollVotingCard";
+import ExecutivePollCard from "@/components/polls/ExecutivePollCard";
 import PollsGrid from "@/components/polls/PollsGrid";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import { getAllPolls, getActivePoll, getAllPollCategories } from "@/lib/polls";
 
 export const metadata: Metadata = {
   title: "Executive Finance Polls & Benchmarks — CFO AI Hub",
-  description: "Participate in weekly CFO community pulse polls on Making Tax Digital, AI budgeting, autonomous FP&A, and liquidity forecasting.",
+  description: "Participate in weekly CFO community pulse polls on AI adoption, Making Tax Digital, autonomous FP&A, and liquidity forecasting.",
   openGraph: {
     title: "Executive Finance Polls & Benchmarks — CFO AI Hub",
-    description: "Real-time practitioner sentiment from 1,200+ senior finance leaders across the UK and globally.",
+    description: "Real-time practitioner sentiment from 400+ senior finance leaders across the UK and globally.",
     type: "website",
   },
 };
@@ -25,25 +25,26 @@ export default function PollsHubPage() {
   const totalVotes = polls.reduce((sum, p) => sum + p.totalVotes, 0);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-surface text-on-surface">
+    <div className="min-h-screen flex flex-col justify-between bg-[#F8F9FD] text-on-surface">
       <Navbar />
 
       <main className="flex-grow">
         {/* Header Hero */}
         <PollHero totalPolls={polls.length} totalVotes={totalVotes} />
 
-        {/* Active Featured Poll Spotlight */}
+        {/* Featured Active Poll Card matching user design */}
         {activePoll && (
-          <div className="w-full max-w-4xl mx-auto px-6 mb-16">
-            <div className="mb-4 flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-secondary">
-                🔥 Active Community Spotlight
+          <div className="w-full max-w-4xl mx-auto px-6 mb-20">
+            <div className="max-w-[540px] mx-auto mb-4 flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-secondary flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                Featured Weekly Poll
               </span>
-              <span className="text-xs text-text-muted">
-                Closes {activePoll.closingDate ? new Date(activePoll.closingDate).toLocaleDateString() : "Soon"}
+              <span className="text-xs text-text-muted font-medium">
+                Live Community Survey
               </span>
             </div>
-            <PollVotingCard poll={activePoll} />
+            <ExecutivePollCard poll={activePoll} />
           </div>
         )}
 

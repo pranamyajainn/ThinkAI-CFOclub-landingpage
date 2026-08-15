@@ -1,7 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/poll/:pollId",
+        destination: "/polls/:pollId",
+      },
+      {
+        source: "/poll",
+        destination: "/polls",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
