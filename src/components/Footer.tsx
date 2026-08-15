@@ -45,6 +45,17 @@ export default function Footer() {
             </li>
             <li>
               <Link
+                href="/polls"
+                className="text-xs text-on-primary/80 hover:text-white transition-colors font-medium flex items-center gap-1.5"
+              >
+                <span>Community Polls</span>
+                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-secondary-container text-white">
+                  Live
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/#why-join"
                 className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
               >

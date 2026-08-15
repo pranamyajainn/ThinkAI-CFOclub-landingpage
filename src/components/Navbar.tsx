@@ -94,6 +94,21 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
+              <Link
+                href="/polls"
+                className={`transition-colors text-sm font-medium tracking-wide flex items-center gap-1.5 ${
+                  pathname.startsWith("/polls")
+                    ? "text-primary font-bold"
+                    : "text-on-surface-variant hover:text-primary"
+                }`}
+              >
+                <span>Polls</span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary/10 text-primary">
+                  Live
+                </span>
+              </Link>
+            </li>
+            <li>
               <a
                 href={getHref("#apply")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
@@ -164,6 +179,16 @@ export default function Navbar() {
                 <span>Newsletter & Articles</span>
                 <span className="text-xs font-semibold px-2.5 py-1 rounded bg-secondary-container text-white">
                   Weekly
+                </span>
+              </Link>
+              <Link
+                onClick={() => setMobileMenuOpen(false)}
+                href="/polls"
+                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim flex items-center justify-between"
+              >
+                <span>Executive Polls</span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                  Live Pulse
                 </span>
               </Link>
               <a

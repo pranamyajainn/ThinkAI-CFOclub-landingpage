@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import VideoWalkthroughPlayer from "./VideoWalkthroughPlayer";
 import VisualDigitalLinkComparison from "./VisualDigitalLinkComparison";
+import EmbeddedPollWidget from "@/components/polls/EmbeddedPollWidget";
+import { getPollByArticleSlug, getPollByEdition } from "@/lib/polls";
 
 interface ArticleBodyProps {
   article: NewsletterArticle;
@@ -30,6 +32,10 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
       [id]: !prev[id],
     }));
   };
+
+  const linkedPoll =
+    getPollByArticleSlug(article.slug) ||
+    getPollByEdition(article.editionNumber);
 
   return (
     <article className="max-w-4xl mx-auto px-6 pb-16">
@@ -77,7 +83,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
               </p>
             ))}
 
-            {/* Render Visual Flow Comparison Diagram in first/second section */}
+            {/* Render Visual Flow Comparison Diagram in first section */}
             {sIdx === 0 && <VisualDigitalLinkComparison />}
 
             {/* Embedded Video / Media Walkthrough */}
@@ -256,6 +262,9 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
             )}
           </div>
         )}
+
+        {/* Embedded Weekly Edition Poll Widget */}
+        {linkedPoll && <EmbeddedPollWidget poll={linkedPoll} />}
       </div>
     </article>
   );
