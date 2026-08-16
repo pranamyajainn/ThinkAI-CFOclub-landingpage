@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { NewsletterArticle } from "@/types/newsletter";
 import { ChevronRight, Calendar, Clock, Sparkles } from "lucide-react";
-import AudioBriefingPlayer from "./AudioBriefingPlayer";
 
 interface ArticleHeaderProps {
   article: NewsletterArticle;
@@ -98,14 +97,6 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
           ))}
         </div>
       </div>
-
-      {/* Audio Briefing Player */}
-      {article.audioBriefing && (
-        <AudioBriefingPlayer
-          duration={article.audioBriefing.duration}
-          title={article.audioBriefing.title}
-        />
-      )}
 
       {/* Hero Cover Graphic */}
       {article.coverImage && (

@@ -13,10 +13,6 @@ export const articleAppliedIntelligence: NewsletterArticle = {
   featured: true,
   coverImage: "/images/newsletter/applied-intelligence-hero-cover.jpg",
   coverImageCaption: "The Applied Intelligence Synergy: High-velocity algorithmic models guided by executive human judgment.",
-  audioBriefing: {
-    duration: "5:20",
-    title: "Executive Briefing: Why Corporate Finance Needs Applied Intelligence, Not Just AI Hype",
-  },
   author: {
     name: "Atul Kulshreshtha",
     role: "Strategic Advisor & Founder, GroByz Partners",

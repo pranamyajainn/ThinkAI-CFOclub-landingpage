@@ -107,7 +107,7 @@ export const templateArticle: NewsletterArticle = {
   
   // Slugs of related articles to display at the bottom
   relatedSlugs: [
-    "autonomous-fpa-stack-cfo-close-cycle",
-    "enterprise-ai-governance-framework-cfo"
+    "from-artificial-intelligence-to-applied-intelligence-human-ai-finance",
+    "making-tax-digital-permanent-operational-shift-midsize-uk"
   ]
 };

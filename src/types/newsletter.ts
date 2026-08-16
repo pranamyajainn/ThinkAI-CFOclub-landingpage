@@ -67,10 +67,6 @@ export interface NewsletterArticle {
   featured?: boolean;
   coverImage?: string;
   coverImageCaption?: string;
-  audioBriefing?: {
-    duration: string;
-    title: string;
-  };
   author: ArticleAuthor;
   metricsHighlight?: MetricHighlight[];
   keyTakeaways: string[];

@@ -13,10 +13,6 @@ export const articleMakingTaxDigital: NewsletterArticle = {
   featured: false,
   coverImage: "/images/newsletter/mtd-hero-cover.jpg",
   coverImageCaption: "Continuous MTD Digital Link Flow: Unbroken audit lineage from invoice intake to HMRC ledger submission.",
-  audioBriefing: {
-    duration: "4:15",
-    title: "Executive Audio Teardown: Why MTD Digital Links Break in Mid-Size UK Businesses",
-  },
   author: {
     name: "Neoflo Finance Intelligence",
     role: "UK Tax & Financial Operations Practice",
