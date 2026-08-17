@@ -17,8 +17,8 @@ export const articleAppliedIntelligence: NewsletterArticle = {
     name: "Atul Kulshreshtha",
     role: "Strategic Advisor & Founder, GroByz Partners",
     company: "GroByz Partners",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-    linkedin: "https://www.linkedin.com"
+    avatar: "/images/leaders/atul-kulshreshtha.png",
+    linkedin: "https://in.linkedin.com/in/atul-kulshreshtha"
   },
   metricsHighlight: [
     { label: "Workflow Reconfiguration", value: "87%", change: "Deloitte CFO Insights", isPositive: true },

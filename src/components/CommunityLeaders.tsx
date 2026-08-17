@@ -3,12 +3,13 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Sparkles, Award, Building2 } from "lucide-react";
+import { Sparkles, Award, Building2, ArrowUpRight } from "lucide-react";
 
 interface Leader {
   name: string;
   role: string;
   image: string;
+  linkedin: string;
   experiencePill: string;
   companies: string[];
   bio: string[];
@@ -19,6 +20,7 @@ const leaders: Leader[] = [
     name: "Atul Kulshreshtha",
     role: "Founder – GroByz Partners",
     image: "/images/leaders/atul-kulshreshtha.png",
+    linkedin: "https://in.linkedin.com/in/atul-kulshreshtha",
     experiencePill: "37+ Years Experience",
     companies: ["Capgemini", "GE", "American Express", "FIS", "Tata Group"],
     bio: [
@@ -30,6 +32,7 @@ const leaders: Leader[] = [
     name: "Rahul Jain",
     role: "CEO – Selona & Care By Tech",
     image: "/images/leaders/rahul-jain.png",
+    linkedin: "https://uk.linkedin.com/in/rahul-jain-1320681",
     experiencePill: "25+ Years Experience",
     companies: ["Capgemini", "IGATE", "Patni", "Perot Systems (NTT Data)", "Xansa"],
     bio: [
@@ -94,29 +97,57 @@ export default function CommunityLeaders() {
               className="bg-white rounded-[28px] sm:rounded-[32px] border border-surface-dim p-7 sm:p-10 shadow-[0_12px_40px_rgba(0,19,86,0.05)] hover:shadow-[0_20px_50px_rgba(0,19,86,0.09)] transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                {/* Top Row: Portrait + Identity */}
+                {/* Top Row: Portrait + Identity + LinkedIn Link */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-6 pb-6 border-b border-surface-dim">
-                  {/* Portrait Headshot (Clean, full-bleed square portrait with no text inside) */}
-                  <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-[#F0F3FA] border border-surface-dim shadow-sm flex-shrink-0">
+                  {/* Portrait Headshot (Clean, full square frame without any slide text) */}
+                  <a
+                    href={leader.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-[#F0F3FA] border border-surface-dim shadow-sm flex-shrink-0 group block"
+                  >
                     <Image
                       src={leader.image}
                       alt={leader.name}
                       fill
-                      className="object-cover object-top"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
                       priority
                     />
-                  </div>
+                  </a>
 
-                  {/* Name, Role & Experience Tag */}
+                  {/* Name, Role, LinkedIn CTA & Experience Tag */}
                   <div className="flex-grow">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider mb-2">
-                      <Award className="w-3 h-3" />
-                      {leader.experiencePill}
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider">
+                        <Award className="w-3 h-3" />
+                        {leader.experiencePill}
+                      </span>
+
+                      <a
+                        href={leader.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#0A66C2]/10 hover:bg-[#0A66C2] text-[#0A66C2] hover:text-white text-xs font-semibold transition-all duration-200"
+                        aria-label={`${leader.name} LinkedIn Profile`}
+                      >
+                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                        </svg>
+                        <span>LinkedIn</span>
+                        <ArrowUpRight className="w-3 h-3 opacity-70" />
+                      </a>
                     </div>
 
-                    <h3 className="text-2xl sm:text-[26px] font-bold font-display text-primary leading-tight">
-                      {leader.name}
-                    </h3>
+                    <a
+                      href={leader.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-block"
+                    >
+                      <h3 className="text-2xl sm:text-[26px] font-bold font-display text-primary leading-tight group-hover:text-secondary transition-colors">
+                        {leader.name}
+                      </h3>
+                    </a>
 
                     <p className="text-sm sm:text-base font-semibold text-secondary mt-1">
                       {leader.role}
