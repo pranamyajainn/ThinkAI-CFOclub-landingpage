@@ -72,6 +72,14 @@ export default function Footer() {
             </li>
             <li>
               <Link
+                href="/#community-leaders"
+                className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
+              >
+                Community Leaders
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/#apply"
                 className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
               >

@@ -81,6 +81,14 @@ export default function Navbar() {
               </a>
             </li>
             <li>
+              <a
+                href={getHref("#community-leaders")}
+                className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
+              >
+                Leaders
+              </a>
+            </li>
+            <li>
               <Link
                 href="/newsletter"
                 className={`transition-colors text-sm font-medium tracking-wide flex items-center gap-1.5 ${
@@ -170,6 +178,13 @@ export default function Navbar() {
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
                 What You Get
+              </a>
+              <a
+                onClick={() => setMobileMenuOpen(false)}
+                href={getHref("#community-leaders")}
+                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
+              >
+                Community Leaders
               </a>
               <Link
                 onClick={() => setMobileMenuOpen(false)}
