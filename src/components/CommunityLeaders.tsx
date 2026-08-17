@@ -24,8 +24,8 @@ const leaders: Leader[] = [
     experiencePill: "37+ Years Experience",
     companies: ["Capgemini", "GE", "American Express", "FIS", "Tata Group"],
     bio: [
-      "Atul is a seasoned business leader with over 37 years of global experience across the ITES industry, having held senior roles at Capgemini, GE, American Express, FIS, and the Tata Group. He founded GroByz Partners, a strategic advisory firm that empowers tech-driven businesses and startups to scale with clarity, precision, and purpose.",
-      "His rare combination of expertise across Finance, Business Strategy, Operations, Client Management, and Technology Consulting lets him approach challenges holistically. He is passionate about behavioural science, disruptive technologies, and talent development — and believes success is built on strong teams and flawless execution.",
+      "Atul is a seasoned business leader with over 37 years of global experience across the ITES industry, having held senior roles at Capgemini, GE, American Express, FIS, and the Tata Group. He founded GroByz Partners, a strategic advisory firm that empowers next-generation businesses and startup ventures with business strategy, digital enablement, operational turnaround, growth acceleration, go-to-market planning and execution.",
+      "A recognized expert in AI and emerging technologies, he brings a rare blend of expertise across Finance, Business Strategy, Operations, Client Management, and Technology Consulting, that lets him approach challenges holistically. He is passionate about behavioral science, disruptive technologies, and talent development — and believes success is built on strong teams and flawless execution.",
     ],
   },
   {
