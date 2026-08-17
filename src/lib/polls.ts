@@ -26,13 +26,6 @@ export function getPollById(id: string): Poll | undefined {
 }
 
 /**
- * Gets poll by edition number
- */
-export function getPollByEdition(editionNumber: number): Poll | undefined {
-  return allPolls.find((p) => p.editionNumber === editionNumber);
-}
-
-/**
  * Gets poll linked to a newsletter article slug
  */
 export function getPollByArticleSlug(slug: string): Poll | undefined {

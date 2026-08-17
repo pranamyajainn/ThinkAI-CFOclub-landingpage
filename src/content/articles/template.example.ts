@@ -1,22 +1,23 @@
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article } from "@/types/article";
 
 /**
- * 📝 TEMPLATE FOR WEEKLY NEWSLETTER ARTICLES
+ * 📝 TEMPLATE FOR STANDALONE ARTICLES
  *
- * To add a new weekly article or blog post:
+ * Articles are standalone thought-leadership pieces — NOT newsletter
+ * editions, so they carry no edition number. For a complete periodic
+ * newsletter issue, see src/content/newsletter/ instead.
+ *
+ * To add a new article:
  * 1. Duplicate this file and rename it (e.g. `your-article-topic.ts`)
  * 2. Fill in the fields below
  * 3. Import and add your article object in `src/content/articles/index.ts`
- * 4. Done! The article will automatically appear in `/newsletter` and at `/newsletter/[slug]`.
+ * 4. Done! The article will automatically appear in `/articles` and at `/articles/[slug]`.
  */
 
-export const templateArticle: NewsletterArticle = {
+export const templateArticle: Article = {
   // Unique URL identifier (e.g. "ai-vendor-selection-checklist")
   slug: "sample-article-slug-change-me",
-  
-  // Weekly newsletter issue number
-  editionNumber: 13,
-  
+
   // Compelling headline for finance leaders
   title: "Article Title: The Strategic Transformation of Finance Operations",
   

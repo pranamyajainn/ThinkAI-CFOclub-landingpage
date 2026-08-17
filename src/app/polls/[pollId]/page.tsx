@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ExecutivePollCard from "@/components/polls/ExecutivePollCard";
+import PollCard from "@/components/polls/PollCard";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import { getAllPolls, getPollById } from "@/lib/polls";
 import { ChevronRight, ArrowLeft } from "lucide-react";
@@ -54,7 +54,7 @@ export default async function SinglePollPage({ params }: PageProps) {
       <Navbar />
 
       <main className="flex-grow pt-32 pb-20 px-6">
-        <div className="max-w-[540px] mx-auto mb-6">
+        <div className="max-w-2xl mx-auto mb-6">
           {/* Breadcrumbs */}
           <nav className="flex items-center justify-between text-xs text-text-muted mb-4" aria-label="Breadcrumb">
             <div className="flex items-center gap-2">
@@ -83,7 +83,7 @@ export default async function SinglePollPage({ params }: PageProps) {
 
         {/* Executive Poll Card matching exact user screenshot UI */}
         <div className="mb-16">
-          <ExecutivePollCard poll={poll} />
+          <div className="max-w-2xl mx-auto"><PollCard poll={poll} /></div>
         </div>
 
         {/* Newsletter Subscription Footer Bar */}

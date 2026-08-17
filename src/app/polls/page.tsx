@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PollHero from "@/components/polls/PollHero";
-import ExecutivePollCard from "@/components/polls/ExecutivePollCard";
+import PollCard from "@/components/polls/PollCard";
 import PollsGrid from "@/components/polls/PollsGrid";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import { getAllPolls, getActivePoll, getAllPollCategories } from "@/lib/polls";
@@ -32,10 +32,10 @@ export default function PollsHubPage() {
         {/* Header Hero */}
         <PollHero totalPolls={polls.length} totalVotes={totalVotes} />
 
-        {/* Featured Active Poll Card matching user design */}
+        {/* Featured Active Poll Card */}
         {activePoll && (
-          <div className="w-full max-w-4xl mx-auto px-6 mb-20">
-            <div className="max-w-[540px] mx-auto mb-4 flex items-center justify-between">
+          <div className="w-full max-w-2xl mx-auto px-6 mb-20">
+            <div className="mb-4 flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-secondary flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
                 Featured Weekly Poll
@@ -44,7 +44,7 @@ export default function PollsHubPage() {
                 Live Community Survey
               </span>
             </div>
-            <ExecutivePollCard poll={activePoll} />
+            <PollCard poll={activePoll} />
           </div>
         )}
 

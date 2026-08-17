@@ -1,10 +1,10 @@
 import React from "react";
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article } from "@/types/article";
 import ArticleCard from "./ArticleCard";
 import { Compass } from "lucide-react";
 
 interface RelatedArticlesProps {
-  articles: NewsletterArticle[];
+  articles: Article[];
 }
 
 export default function RelatedArticles({ articles }: RelatedArticlesProps) {
@@ -15,7 +15,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
       <div className="flex items-center gap-2 mb-8">
         <Compass className="w-5 h-5 text-primary" />
         <h3 className="text-xl sm:text-2xl font-bold font-display text-on-surface">
-          Recommended Intelligence Briefings
+          Recommended Articles
         </h3>
       </div>
 

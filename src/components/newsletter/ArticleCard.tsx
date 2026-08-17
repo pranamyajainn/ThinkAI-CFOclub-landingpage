@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article, MetricHighlight } from "@/types/article";
 import { ArrowUpRight, Clock, Calendar } from "lucide-react";
 
 interface ArticleCardProps {
-  article: NewsletterArticle;
+  article: Article;
 }
 
 export default function ArticleCard({ article }: ArticleCardProps) {
@@ -19,7 +19,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     <article className="group flex flex-col justify-between bg-surface-pure rounded-xl border border-surface-dim/70 overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-200">
       {article.coverImage && (
         <Link
-          href={`/newsletter/${article.slug}`}
+          href={`/articles/${article.slug}`}
           className="relative aspect-[16/9] w-full overflow-hidden block bg-surface-container"
         >
           <Image
@@ -33,18 +33,18 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
       <div className="p-6 sm:p-7 flex-grow flex flex-col justify-between">
         <div>
-          {/* Category & Edition Meta */}
+          {/* Category & Read Time Meta */}
           <div className="flex items-center justify-between gap-2 mb-3">
             <span className="inline-block px-2.5 py-0.5 rounded-md bg-surface-container text-primary text-xs font-semibold">
               {article.category}
             </span>
             <span className="text-[11px] font-semibold text-text-muted">
-              Edition #{article.editionNumber}
+              {article.readTime}
             </span>
           </div>
 
           {/* Title */}
-          <Link href={`/newsletter/${article.slug}`} className="block mb-3">
+          <Link href={`/articles/${article.slug}`} className="block mb-3">
             <h3 className="text-lg sm:text-xl font-bold font-display text-on-surface group-hover:text-primary transition-colors leading-snug line-clamp-2">
               {article.title}
             </h3>
@@ -58,7 +58,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           {/* Metric Badges if present */}
           {article.metricsHighlight && article.metricsHighlight.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-6">
-              {article.metricsHighlight.slice(0, 2).map((m, idx) => (
+              {article.metricsHighlight.slice(0, 2).map((m: MetricHighlight, idx: number) => (
                 <span
                   key={idx}
                   className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-subtle text-xs font-medium text-primary border border-surface-dim/40"
@@ -98,7 +98,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           </div>
 
           <Link
-            href={`/newsletter/${article.slug}`}
+            href={`/articles/${article.slug}`}
             className="p-2 rounded-lg text-primary hover:bg-surface-container group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
             aria-label={`Read ${article.title}`}
           >

@@ -1,80 +1,66 @@
-export type ArticleCategory =
-  | "All"
-  | "AI Strategy"
-  | "FP&A Automation"
-  | "Risk & Governance"
-  | "Case Studies"
-  | "Executive Briefing";
+import { ArticleAuthor } from "@/types/article";
 
-export interface ArticleAuthor {
-  name: string;
-  role: string;
-  avatar?: string;
-  company?: string;
-  linkedin?: string;
-}
+/**
+ * A complete, periodic CFO AI Hub newsletter edition — the full multi-story
+ * issue as published on Beehiiv, reproduced natively. Lives at
+ * /newsletter/[slug]. This is distinct from an Article (src/types/article.ts):
+ * a newsletter edition bundles several short items (news roundup, a featured
+ * article teaser, a comparison, a poll, closing notes) under one edition
+ * number; an Article is a single standalone long-form piece.
+ */
 
-export interface MetricHighlight {
+export interface NewsletterLink {
   label: string;
-  value: string;
-  change?: string;
-  isPositive?: boolean;
+  url: string;
 }
 
-export interface ArticleMedia {
-  type: "image" | "video" | "workflow" | "timeline";
-  src?: string;
-  alt?: string;
-  caption?: string;
-  title?: string;
-  duration?: string;
-  poster?: string;
+export interface NewsletterStoryItem {
+  headline: string;
+  headlineUrl?: string;
+  body: string;
+  sourceLabel?: string; // e.g. "Mavvrik report via CFO Dive"
+  sourceUrl?: string;
 }
 
-export interface ArticleSection {
-  heading?: string;
-  subheading?: string;
+export interface NewsletterFeaturedContent {
+  heading: string;
+  headingUrl?: string;
   paragraphs: string[];
-  media?: ArticleMedia;
-  callout?: {
-    type: "tip" | "warning" | "insight" | "stat";
-    title?: string;
-    text: string;
-  };
-  quote?: {
-    text: string;
-    author: string;
-    role?: string;
-  };
-  bullets?: string[];
-  checklist?: string[];
-  table?: {
-    headers: string[];
-    rows: string[][];
-  };
+  /** Slug of a CFO AI Hub article this teaser links out to (/articles/[slug]) */
+  articleSlug?: string;
+  inlineLinks?: NewsletterLink[];
 }
 
-export interface NewsletterArticle {
+export interface NewsletterComparisonEntry {
+  name: string;
+  url: string;
+  description: string;
+}
+
+export interface NewsletterComparisonSection {
+  heading: string;
+  entries: NewsletterComparisonEntry[];
+}
+
+export interface NewsletterEdition {
   slug: string;
   editionNumber: number;
   title: string;
   subtitle: string;
   excerpt: string;
-  category: Exclude<ArticleCategory, "All">;
-  tags: string[];
   publishedAt: string; // YYYY-MM-DD
-  readTime: string;
-  featured?: boolean;
-  coverImage?: string;
-  coverImageCaption?: string;
+  readTime?: string;
   author: ArticleAuthor;
-  metricsHighlight?: MetricHighlight[];
-  keyTakeaways: string[];
-  sections: ArticleSection[];
-  conclusion?: {
-    heading: string;
-    text: string;
-    actionItem?: string;
-  };
-  relatedSlugs?: string[];
+  coverImage?: string;
+  storiesHeading?: string; // e.g. "Today in Finance AI"
+  stories: NewsletterStoryItem[];
+  featured?: NewsletterFeaturedContent;
+  comparison?: NewsletterComparisonSection;
+  /** id of an existing Poll (src/types/poll.ts) embedded natively in this edition */
+  pollId?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  closingHeading?: string;
+  closingText?: string;
+  signOff?: string;
 }

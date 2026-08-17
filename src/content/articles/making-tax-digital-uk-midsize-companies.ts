@@ -1,8 +1,7 @@
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article } from "@/types/article";
 
-export const articleMakingTaxDigital: NewsletterArticle = {
+export const articleMakingTaxDigital: Article = {
   slug: "making-tax-digital-permanent-operational-shift-midsize-uk",
-  editionNumber: 1,
   title: "Making Tax Digital Isn't a One-Time Project. For Mid-Size UK Companies, It's a Permanent Operational Shift.",
   subtitle: "Most finance leaders think VAT MTD was solved in 2022. But digital-link rules, HMRC enforcement penalties, and the upcoming ITSA expansion turn compliance into a continuous operational requirement.",
   excerpt: "MTD for VAT mandates an unbroken digital link from transaction creation to the VAT return. Discover why manual PDF keying and Excel reconciliations quietly break compliance—and how to fix AP/AR operations.",

@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Copy, Check, Share2, ArrowLeft } from "lucide-react";
-import { Article } from "@/types/article";
+import { NewsletterEdition } from "@/types/newsletter";
 
-interface ArticleShareProps {
-  article: Article;
+interface NewsletterEditionShareProps {
+  edition: NewsletterEdition;
 }
 
-export default function ArticleShare({ article }: ArticleShareProps) {
+export default function NewsletterEditionShare({ edition }: NewsletterEditionShareProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopyLink = () => {
@@ -21,26 +21,25 @@ export default function ArticleShare({ article }: ArticleShareProps) {
   };
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-  const shareTitle = encodeURIComponent(`${article.title} — CFO AI Hub`);
+  const shareTitle = encodeURIComponent(`${edition.title} — CFO AI Hub Newsletter`);
 
   return (
     <div className="max-w-4xl mx-auto px-6 mb-16">
       <div className="p-6 rounded-2xl bg-surface-subtle border border-surface-dim flex flex-col sm:flex-row items-center justify-between gap-4">
         <Link
-          href="/articles"
+          href="/newsletter"
           className="inline-flex items-center gap-2 text-xs font-semibold text-primary hover:text-primary-container transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to Articles</span>
+          <span>Back to All Editions</span>
         </Link>
 
         <div className="flex items-center gap-3">
           <span className="text-xs font-medium text-text-muted flex items-center gap-1.5">
             <Share2 className="w-3.5 h-3.5" />
-            Share Article:
+            Share Edition:
           </span>
 
-          {/* Copy Link Button */}
           <button
             onClick={handleCopyLink}
             className="p-2 rounded-lg bg-surface-pure hover:bg-surface-container border border-surface-dim text-xs font-medium text-on-surface flex items-center gap-1.5 transition-colors cursor-pointer"
@@ -59,11 +58,8 @@ export default function ArticleShare({ article }: ArticleShareProps) {
             )}
           </button>
 
-          {/* LinkedIn Share */}
           <a
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-              shareUrl
-            )}`}
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg bg-surface-pure hover:bg-surface-container border border-surface-dim text-on-surface transition-colors flex items-center justify-center"
@@ -75,11 +71,8 @@ export default function ArticleShare({ article }: ArticleShareProps) {
             </svg>
           </a>
 
-          {/* Twitter / X Share */}
           <a
-            href={`https://twitter.com/intent/tweet?text=${shareTitle}&url=${encodeURIComponent(
-              shareUrl
-            )}`}
+            href={`https://twitter.com/intent/tweet?text=${shareTitle}&url=${encodeURIComponent(shareUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg bg-surface-pure hover:bg-surface-container border border-surface-dim text-on-surface transition-colors flex items-center justify-center"

@@ -3,81 +3,63 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ArticleHeader from "@/components/newsletter/ArticleHeader";
-import ArticleBody from "@/components/newsletter/ArticleBody";
-import ArticleShare from "@/components/newsletter/ArticleShare";
+import NewsletterEditionHeader from "@/components/newsletter/NewsletterEditionHeader";
+import NewsletterEditionBody from "@/components/newsletter/NewsletterEditionBody";
+import NewsletterEditionShare from "@/components/newsletter/NewsletterEditionShare";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
-import RelatedArticles from "@/components/newsletter/RelatedArticles";
-import {
-  getAllArticles,
-  getArticleBySlug,
-  getRelatedArticles,
-} from "@/lib/newsletter";
+import { getAllEditions, getEditionBySlug } from "@/lib/newsletter";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  const articles = getAllArticles();
-  return articles.map((article) => ({
-    slug: article.slug,
+  const editions = getAllEditions();
+  return editions.map((edition) => ({
+    slug: edition.slug,
   }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const edition = getEditionBySlug(slug);
 
-  if (!article) {
+  if (!edition) {
     return {
-      title: "Article Not Found — CFO AI Hub",
+      title: "Edition Not Found — CFO AI Hub",
     };
   }
 
   return {
-    title: `Edition #${article.editionNumber}: ${article.title} — CFO AI Hub`,
-    description: article.excerpt,
+    title: `Edition #${edition.editionNumber}: ${edition.title} — CFO AI Hub Newsletter`,
+    description: edition.excerpt,
     openGraph: {
-      title: `${article.title} — CFO AI Hub`,
-      description: article.excerpt,
+      title: `${edition.title} — CFO AI Hub Newsletter`,
+      description: edition.excerpt,
       type: "article",
-      publishedTime: article.publishedAt,
-      authors: [article.author.name],
-      tags: article.tags,
+      publishedTime: edition.publishedAt,
+      authors: [edition.author.name],
     },
   };
 }
 
-export default async function ArticleDetailPage({ params }: PageProps) {
+export default async function NewsletterEditionPage({ params }: PageProps) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const edition = getEditionBySlug(slug);
 
-  if (!article) {
+  if (!edition) {
     notFound();
   }
-
-  const relatedArticles = getRelatedArticles(article.slug, 3);
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-surface text-on-surface">
       <Navbar />
 
       <main className="flex-grow">
-        {/* Article Header */}
-        <ArticleHeader article={article} />
-
-        {/* Article Body Content */}
-        <ArticleBody article={article} />
-
-        {/* Share & Navigation Bar */}
-        <ArticleShare article={article} />
-
-        {/* In-article newsletter subscription */}
+        <NewsletterEditionHeader edition={edition} />
+        <NewsletterEditionBody edition={edition} />
+        <NewsletterEditionShare edition={edition} />
         <NewsletterSubscribe />
-
-        {/* Contextual Related Reads */}
-        <RelatedArticles articles={relatedArticles} />
       </main>
 
       <Footer />

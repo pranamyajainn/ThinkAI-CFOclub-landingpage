@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getAllArticles } from "@/lib/newsletter";
+import { getAllArticles } from "@/lib/articles";
+import { Article } from "@/types/article";
 import { ArrowRight, Sparkles, Calendar, Clock, BookOpen } from "lucide-react";
 
 export default function NewsletterTeaser() {
@@ -18,25 +19,25 @@ export default function NewsletterTeaser() {
               <span>Weekly Intelligence</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold font-display text-on-surface tracking-tight">
-              Latest from the CFO AI Hub Newsletter
+              Latest CFO AI Hub Articles
             </h2>
             <p className="text-base text-on-surface-variant max-w-2xl mt-2 leading-relaxed">
-              Every week, we publish tactical briefings, algorithmic risk teardowns, and autonomous finance blueprints.
+              We publish tactical articles, algorithmic risk teardowns, and autonomous finance blueprints.
             </p>
           </div>
 
           <Link
-            href="/newsletter"
+            href="/articles"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary-container transition-all self-start md:self-end whitespace-nowrap"
           >
-            <span>Browse All Briefings</span>
+            <span>Browse All Articles</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
         {/* 3 Teaser Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {articles.map((article) => {
+          {articles.map((article: Article) => {
             const formattedDate = new Date(article.publishedAt).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -49,7 +50,7 @@ export default function NewsletterTeaser() {
               >
                 {article.coverImage && (
                   <Link
-                    href={`/newsletter/${article.slug}`}
+                    href={`/articles/${article.slug}`}
                     className="relative aspect-[16/9] w-full overflow-hidden block bg-surface-container"
                   >
                     <Image
@@ -68,11 +69,11 @@ export default function NewsletterTeaser() {
                         {article.category}
                       </span>
                       <span className="text-[11px] font-semibold text-text-muted">
-                        Edition #{article.editionNumber}
+                        {article.readTime}
                       </span>
                     </div>
 
-                    <Link href={`/newsletter/${article.slug}`}>
+                    <Link href={`/articles/${article.slug}`}>
                       <h3 className="text-base sm:text-lg font-bold font-display text-on-surface group-hover:text-primary transition-colors leading-snug line-clamp-2 mb-2.5">
                         {article.title}
                       </h3>
@@ -97,7 +98,7 @@ export default function NewsletterTeaser() {
                     </div>
 
                     <Link
-                      href={`/newsletter/${article.slug}`}
+                      href={`/articles/${article.slug}`}
                       className="text-secondary font-semibold hover:underline inline-flex items-center gap-1 text-[11px]"
                     >
                       Read

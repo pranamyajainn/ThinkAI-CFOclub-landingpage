@@ -20,12 +20,9 @@ export default function Footer() {
               />
             </Link>
           </div>
-          <p className="text-xs text-on-primary/70 max-w-sm leading-relaxed mb-4">
+          <p className="text-xs text-on-primary/70 max-w-sm leading-relaxed">
             {"CFO AI Hub is Selona's practitioner-built newsletter and community for finance leaders implementing AI. Built from 9 months of live CFO events across the UK and India."}
           </p>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-primary-container text-[11px] font-medium text-secondary-fixed">
-            <span>Weekly Friday Briefing</span>
-          </div>
         </div>
 
         {/* Platform Links */}
@@ -39,8 +36,16 @@ export default function Footer() {
                 href="/newsletter"
                 className="text-xs text-on-primary/80 hover:text-white transition-colors font-medium flex items-center gap-1.5"
               >
-                <span>Newsletter Hub</span>
+                <span>Newsletter</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-secondary-container" />
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/articles"
+                className="text-xs text-on-primary/80 hover:text-white transition-colors font-medium"
+              >
+                Articles
               </Link>
             </li>
             <li>
@@ -72,10 +77,10 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                href="/#community-leaders"
+                href="/#about-us"
                 className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
               >
-                Community Leaders
+                About Us
               </Link>
             </li>
             <li>

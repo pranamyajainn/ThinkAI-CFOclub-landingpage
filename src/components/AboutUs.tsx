@@ -42,9 +42,9 @@ const leaders: Leader[] = [
   },
 ];
 
-export default function CommunityLeaders() {
+export default function AboutUs() {
   return (
-    <section className="py-24 bg-surface relative overflow-hidden" id="community-leaders">
+    <section className="py-24 bg-surface relative overflow-hidden" id="about-us">
       {/* Ambient background decoration */}
       <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
       <div className="absolute bottom-10 right-0 w-80 h-80 bg-secondary-container/5 rounded-full blur-3xl pointer-events-none" />
@@ -60,7 +60,7 @@ export default function CommunityLeaders() {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary-container/15 text-secondary text-xs font-bold uppercase tracking-wider mb-4"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Community Leadership</span>
+            <span>About Us</span>
           </motion.div>
 
           <motion.h2
@@ -70,8 +70,19 @@ export default function CommunityLeaders() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display text-primary tracking-tight mb-4"
           >
-            Community Leaders
+            About Us
           </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="text-base sm:text-lg text-on-surface-variant leading-relaxed mb-3"
+          >
+            CFO AI Hub is Selona&apos;s practitioner-built newsletter and community for finance
+            leaders implementing AI. Built from 9 months of live CFO events across the UK and India.
+          </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 15 }}

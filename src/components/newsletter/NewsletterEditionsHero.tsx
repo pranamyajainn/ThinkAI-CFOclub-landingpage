@@ -4,12 +4,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Mail, TrendingUp, ShieldCheck } from "lucide-react";
 
-interface NewsletterHeroProps {
-  totalArticles: number;
+interface NewsletterEditionsHeroProps {
   latestEdition: number;
 }
 
-export default function NewsletterHero({ totalArticles, latestEdition }: NewsletterHeroProps) {
+export default function NewsletterEditionsHero({ latestEdition }: NewsletterEditionsHeroProps) {
   return (
     <section className="relative pt-32 pb-16 px-6 overflow-hidden bg-gradient-to-b from-surface via-surface-container-low to-surface">
       {/* Background Ambient Glow */}
@@ -24,7 +23,7 @@ export default function NewsletterHero({ totalArticles, latestEdition }: Newslet
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/5 border border-primary/15 text-primary text-xs font-semibold uppercase tracking-wider mb-6"
         >
           <Sparkles className="w-3.5 h-3.5 text-secondary-container" />
-          <span>Weekly Executive Intelligence Briefings</span>
+          <span>The CFO AI Hub Newsletter</span>
         </motion.div>
 
         {/* Main Headline */}
@@ -34,8 +33,8 @@ export default function NewsletterHero({ totalArticles, latestEdition }: Newslet
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl font-bold font-display text-on-surface tracking-tight leading-[1.15] mb-6"
         >
-          The Practitioner's Guide to <br className="hidden sm:inline" />
-          <span className="text-gradient-primary">AI in Modern Corporate Finance</span>
+          Complete Weekly Editions, <br className="hidden sm:inline" />
+          <span className="text-gradient-primary">Straight From the Newsroom</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -45,7 +44,7 @@ export default function NewsletterHero({ totalArticles, latestEdition }: Newslet
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg sm:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-8"
         >
-          Weekly operational teardowns, algorithmic risk frameworks, and real-world deployment case studies curated specifically for CFOs and senior finance leaders.
+          Every full edition of the CFO AI Hub newsletter — news roundups, featured practitioner articles, tool comparisons, and community polls — in one place.
         </motion.p>
 
         {/* Trust Badges */}

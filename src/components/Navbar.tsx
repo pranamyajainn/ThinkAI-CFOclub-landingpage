@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, Mail, Newspaper } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,8 +10,12 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const resourcesRef = useRef<HTMLLIElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isResourcesRoute = pathname.startsWith("/newsletter") || pathname.startsWith("/articles");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +28,27 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close the desktop Resources dropdown on outside click or Escape
+  useEffect(() => {
+    if (!resourcesOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (resourcesRef.current && !resourcesRef.current.contains(e.target as Node)) {
+        setResourcesOpen(false);
+      }
+    };
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourcesOpen(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [resourcesOpen]);
 
   const getHref = (hash: string) => {
     return isHomePage ? hash : `/${hash}`;
@@ -66,14 +91,6 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href={getHref("#playground")}
-                className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
-              >
-                Content Preview
-              </a>
-            </li>
-            <li>
-              <a
                 href={getHref("#what-you-get")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
@@ -82,40 +99,73 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href={getHref("#community-leaders")}
+                href={getHref("#about-us")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
-                Leaders
+                About Us
               </a>
             </li>
-            <li>
-              <Link
-                href="/newsletter"
-                className={`transition-colors text-sm font-medium tracking-wide flex items-center gap-1.5 ${
-                  pathname.startsWith("/newsletter")
+
+            {/* Resources Dropdown */}
+            <li
+              ref={resourcesRef}
+              className="relative"
+              onMouseEnter={() => setResourcesOpen(true)}
+              onMouseLeave={() => setResourcesOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setResourcesOpen((prev) => !prev)}
+                aria-haspopup="true"
+                aria-expanded={resourcesOpen}
+                className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors cursor-pointer ${
+                  isResourcesRoute
                     ? "text-primary font-bold"
                     : "text-on-surface-variant hover:text-primary"
                 }`}
               >
-                <span>Newsletter</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-secondary-container" />
-              </Link>
+                <span>Resources</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${resourcesOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {resourcesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-56"
+                  >
+                    <div className="rounded-xl bg-surface-pure border border-surface-dim shadow-[0_12px_32px_rgba(0,0,0,0.08)] overflow-hidden">
+                      <Link
+                        href="/newsletter"
+                        onClick={() => setResourcesOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-on-surface hover:bg-surface-subtle transition-colors"
+                      >
+                        <Mail className="w-4 h-4 text-secondary flex-shrink-0" />
+                        <span className="flex-grow">Newsletter</span>
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-secondary-container/15 text-secondary">
+                          Editions
+                        </span>
+                      </Link>
+                      <div className="border-t border-surface-dim/60" />
+                      <Link
+                        href="/articles"
+                        onClick={() => setResourcesOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-on-surface hover:bg-surface-subtle transition-colors"
+                      >
+                        <Newspaper className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span className="flex-grow">Articles</span>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </li>
-            <li>
-              <Link
-                href="/polls"
-                className={`transition-colors text-sm font-medium tracking-wide flex items-center gap-1.5 ${
-                  pathname.startsWith("/polls")
-                    ? "text-primary font-bold"
-                    : "text-on-surface-variant hover:text-primary"
-                }`}
-              >
-                <span>Polls</span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary/10 text-primary">
-                  Live
-                </span>
-              </Link>
-            </li>
+
             <li>
               <a
                 href={getHref("#apply")}
@@ -155,7 +205,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 md:hidden bg-surface pt-28 px-6 pb-8 flex flex-col justify-between"
+            className="fixed inset-0 z-40 md:hidden bg-surface pt-28 px-6 pb-8 flex flex-col justify-between overflow-y-auto"
           >
             <div className="flex flex-col space-y-5">
               <a
@@ -167,13 +217,6 @@ export default function Navbar() {
               </a>
               <a
                 onClick={() => setMobileMenuOpen(false)}
-                href={getHref("#playground")}
-                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
-              >
-                Content Preview
-              </a>
-              <a
-                onClick={() => setMobileMenuOpen(false)}
                 href={getHref("#what-you-get")}
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
@@ -181,31 +224,58 @@ export default function Navbar() {
               </a>
               <a
                 onClick={() => setMobileMenuOpen(false)}
-                href={getHref("#community-leaders")}
+                href={getHref("#about-us")}
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
-                Community Leaders
+                About Us
               </a>
-              <Link
-                onClick={() => setMobileMenuOpen(false)}
-                href="/newsletter"
-                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim flex items-center justify-between"
-              >
-                <span>Newsletter & Articles</span>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded bg-secondary-container text-white">
-                  Weekly
-                </span>
-              </Link>
-              <Link
-                onClick={() => setMobileMenuOpen(false)}
-                href="/polls"
-                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim flex items-center justify-between"
-              >
-                <span>Executive Polls</span>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-primary/10 text-primary">
-                  Live Pulse
-                </span>
-              </Link>
+
+              {/* Mobile Resources expandable submenu */}
+              <div className="border-b border-surface-dim pb-3">
+                <button
+                  type="button"
+                  onClick={() => setMobileResourcesOpen((prev) => !prev)}
+                  aria-expanded={mobileResourcesOpen}
+                  className="w-full flex items-center justify-between text-2xl font-display font-semibold text-primary cursor-pointer"
+                >
+                  <span>Resources</span>
+                  <ChevronDown
+                    className={`w-5 h-5 transition-transform duration-200 ${mobileResourcesOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {mobileResourcesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex flex-col gap-1 pt-4">
+                        <Link
+                          onClick={() => setMobileMenuOpen(false)}
+                          href="/newsletter"
+                          className="flex items-center gap-3 py-3 px-1 text-lg font-semibold text-on-surface active:text-primary"
+                        >
+                          <Mail className="w-5 h-5 text-secondary flex-shrink-0" />
+                          <span>Newsletter</span>
+                        </Link>
+                        <Link
+                          onClick={() => setMobileMenuOpen(false)}
+                          href="/articles"
+                          className="flex items-center gap-3 py-3 px-1 text-lg font-semibold text-on-surface active:text-primary"
+                        >
+                          <Newspaper className="w-5 h-5 text-primary flex-shrink-0" />
+                          <span>Articles</span>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <a
                 onClick={() => setMobileMenuOpen(false)}
                 href={getHref("#apply")}
@@ -215,7 +285,7 @@ export default function Navbar() {
               </a>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 mt-8">
               <a
                 onClick={() => setMobileMenuOpen(false)}
                 href={getHref("#apply")}

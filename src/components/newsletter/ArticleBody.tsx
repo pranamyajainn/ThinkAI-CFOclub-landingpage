@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article } from "@/types/article";
 import {
   Lightbulb,
   AlertTriangle,
@@ -15,11 +15,11 @@ import {
 } from "lucide-react";
 import VideoWalkthroughPlayer from "./VideoWalkthroughPlayer";
 import VisualDigitalLinkComparison from "./VisualDigitalLinkComparison";
-import EmbeddedPollWidget from "@/components/polls/EmbeddedPollWidget";
-import { getPollByArticleSlug, getPollByEdition } from "@/lib/polls";
+import PollCard from "@/components/polls/PollCard";
+import { getPollByArticleSlug } from "@/lib/polls";
 
 interface ArticleBodyProps {
-  article: NewsletterArticle;
+  article: Article;
 }
 
 export default function ArticleBody({ article }: ArticleBodyProps) {
@@ -33,9 +33,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
     }));
   };
 
-  const linkedPoll =
-    getPollByArticleSlug(article.slug) ||
-    getPollByEdition(article.editionNumber);
+  const linkedPoll = getPollByArticleSlug(article.slug);
 
   return (
     <article className="max-w-4xl mx-auto px-6 pb-16">
@@ -263,8 +261,12 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
           </div>
         )}
 
-        {/* Embedded Weekly Edition Poll Widget */}
-        {linkedPoll && <EmbeddedPollWidget poll={linkedPoll} />}
+        {/* Embedded Poll */}
+        {linkedPoll && (
+          <div className="my-4">
+            <PollCard poll={linkedPoll} variant="embedded" />
+          </div>
+        )}
       </div>
     </article>
   );

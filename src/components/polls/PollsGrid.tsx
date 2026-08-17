@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Poll, PollCategory } from "@/types/poll";
-import PollVotingCard from "./PollVotingCard";
+import PollCard from "./PollCard";
 import { Search, X, Filter, BarChart3, Sparkles } from "lucide-react";
 
 interface PollsGridProps {
@@ -106,9 +106,9 @@ export default function PollsGrid({ polls, categories }: PollsGridProps) {
 
       {/* List of Polls */}
       {filteredPolls.length > 0 ? (
-        <div className="space-y-10 max-w-4xl mx-auto">
+        <div className="space-y-8 max-w-2xl mx-auto">
           {filteredPolls.map((poll) => (
-            <PollVotingCard key={poll.id} poll={poll} />
+            <PollCard key={poll.id} poll={poll} />
           ))}
         </div>
       ) : (

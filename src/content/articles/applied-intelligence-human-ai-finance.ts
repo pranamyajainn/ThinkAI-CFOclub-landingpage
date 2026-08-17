@@ -1,8 +1,7 @@
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article } from "@/types/article";
 
-export const articleAppliedIntelligence: NewsletterArticle = {
+export const articleAppliedIntelligence: Article = {
   slug: "from-artificial-intelligence-to-applied-intelligence-human-ai-finance",
-  editionNumber: 2,
   title: "From Artificial Intelligence to Applied Intelligence: Why Finance Needs the Human + AI Equation",
   subtitle: "Moving Beyond Algorithmic Hype to Driving Strategic Business Impact in FP&A.",
   excerpt: "Artificial Intelligence provides the computational engine, but Applied Intelligence is created when algorithmic velocity is paired with human context, qualitative judgment, and strategic orchestration.",

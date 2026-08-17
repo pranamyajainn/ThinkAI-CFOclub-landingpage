@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { NewsletterArticle, ArticleCategory } from "@/types/newsletter";
+import { Article, ArticleCategory } from "@/types/article";
 import ArticleCard from "./ArticleCard";
 import { Search, X, Filter, BookOpen } from "lucide-react";
 
 interface ArticleGridProps {
-  initialArticles: NewsletterArticle[];
+  initialArticles: Article[];
   categories: ArticleCategory[];
 }
 
@@ -27,7 +27,7 @@ export default function ArticleGrid({ initialArticles, categories }: ArticleGrid
         article.subtitle.toLowerCase().includes(q) ||
         article.excerpt.toLowerCase().includes(q) ||
         article.category.toLowerCase().includes(q) ||
-        article.tags.some((t) => t.toLowerCase().includes(q)) ||
+        article.tags.some((t: string) => t.toLowerCase().includes(q)) ||
         article.author.name.toLowerCase().includes(q);
 
       return matchesCategory && matchesSearch;
@@ -63,7 +63,7 @@ export default function ArticleGrid({ initialArticles, categories }: ArticleGrid
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
           <input
             type="text"
-            placeholder="Search briefings, topics, tags..."
+            placeholder="Search articles, topics, tags..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-9 py-2 rounded-lg bg-surface-pure border border-surface-dim text-xs sm:text-sm text-on-surface placeholder:text-text-muted/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
@@ -85,7 +85,7 @@ export default function ArticleGrid({ initialArticles, categories }: ArticleGrid
         <h3 className="text-xl font-bold font-display text-on-surface flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-primary" />
           <span>
-            {selectedCategory === "All" ? "All Briefings & Analyses" : `${selectedCategory}`}
+            {selectedCategory === "All" ? "All Articles & Analyses" : `${selectedCategory}`}
           </span>
           <span className="text-xs font-normal text-text-muted bg-surface-container px-2 py-0.5 rounded-full">
             {filteredArticles.length} {filteredArticles.length === 1 ? "article" : "articles"}
@@ -119,7 +119,7 @@ export default function ArticleGrid({ initialArticles, categories }: ArticleGrid
             <Filter className="w-5 h-5" />
           </div>
           <h4 className="text-lg font-bold font-display text-on-surface mb-2">
-            No briefings found
+            No articles found
           </h4>
           <p className="text-sm text-text-muted max-w-sm mx-auto mb-6">
             We couldn't find any articles matching "{searchQuery}" in {selectedCategory}.

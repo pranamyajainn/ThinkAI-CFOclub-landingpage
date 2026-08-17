@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article, MetricHighlight } from "@/types/article";
 import { ChevronRight, Calendar, Clock, Sparkles } from "lucide-react";
 
 interface ArticleHeaderProps {
-  article: NewsletterArticle;
+  article: Article;
 }
 
 export default function ArticleHeader({ article }: ArticleHeaderProps) {
@@ -23,12 +23,12 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
           Home
         </Link>
         <ChevronRight className="w-3.5 h-3.5" />
-        <Link href="/newsletter" className="hover:text-primary transition-colors">
-          Newsletter
+        <Link href="/articles" className="hover:text-primary transition-colors">
+          Articles
         </Link>
         <ChevronRight className="w-3.5 h-3.5" />
         <span className="text-on-surface font-medium truncate max-w-[200px] sm:max-w-xs">
-          Edition #{article.editionNumber}
+          {article.title}
         </span>
       </nav>
 
@@ -36,7 +36,7 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-secondary-container/15 text-secondary text-xs font-bold uppercase tracking-wider">
           <Sparkles className="w-3.5 h-3.5" />
-          Edition #{article.editionNumber}
+          Article
         </span>
         <span className="px-3 py-1 rounded-md bg-surface-container text-primary text-xs font-semibold">
           {article.category}
@@ -87,7 +87,7 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
 
         {/* Tags */}
         <div className="hidden sm:flex items-center gap-1.5">
-          {article.tags.slice(0, 3).map((tag, idx) => (
+          {article.tags.slice(0, 3).map((tag: string, idx: number) => (
             <span
               key={idx}
               className="px-2 py-0.5 rounded bg-surface-subtle text-[11px] font-medium text-text-muted"
@@ -123,7 +123,7 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
       {/* Metrics Banner */}
       {article.metricsHighlight && article.metricsHighlight.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-          {article.metricsHighlight.map((metric, idx) => (
+          {article.metricsHighlight.map((metric: MetricHighlight, idx: number) => (
             <div
               key={idx}
               className="p-4 rounded-xl bg-surface-pure border border-surface-dim/70 shadow-[0_2px_10px_rgba(0,0,0,0.02)]"

@@ -1,10 +1,12 @@
-# CFO AI Hub — Newsletter & Blog Content Architecture
+# CFO AI Hub — Articles Content Architecture
 
-This directory (`src/content/articles/`) contains all weekly newsletter briefings, articles, and case studies for the CFO AI Hub platform.
+This directory (`src/content/articles/`) contains all standalone thought-leadership **articles** for the CFO AI Hub platform.
 
-## 🚀 How to Add a New Article (Weekly Workflow)
+Articles are distinct from newsletter editions (see `src/content/newsletter/`). An article is one standalone long-form piece with no edition number; a newsletter edition is a complete periodic issue that bundles several items. An article may be featured or linked from inside a newsletter edition, but it stays its own resource with its own `/articles/[slug]` URL — it is never duplicated as a separate "newsletter" copy.
 
-Adding a new weekly article is a 3-step, fully type-safe process:
+## 🚀 How to Add a New Article
+
+Adding a new article is a 3-step, fully type-safe process:
 
 ### Step 1: Create a new article file
 Create a new file in `src/content/articles/` named after your topic (e.g., `ai-vendor-selection-guide.ts`).
@@ -12,11 +14,10 @@ Create a new file in `src/content/articles/` named after your topic (e.g., `ai-v
 You can copy from `template.example.ts` as a starting point.
 
 ```typescript
-import { NewsletterArticle } from "@/types/newsletter";
+import { Article } from "@/types/article";
 
-export const articleVendorSelection: NewsletterArticle = {
+export const articleVendorSelection: Article = {
   slug: "ai-vendor-selection-guide",
-  editionNumber: 13,
   title: "AI Vendor Selection: The CFO's Procurement Checklist",
   subtitle: "Avoid locked-in contracts and evaluate true total cost of ownership.",
   excerpt: "A practical guide to negotiating enterprise AI contracts with strict SLAs and zero data retention.",
@@ -24,7 +25,7 @@ export const articleVendorSelection: NewsletterArticle = {
   tags: ["Procurement", "Vendor Management", "Contract Negotiation"],
   publishedAt: "2026-08-22",
   readTime: "5 min read",
-  featured: false, // Set to true to highlight as this week's featured hero article
+  featured: false, // Set to true to highlight as the featured hero article on /articles
   author: {
     name: "Alexandre Moreau",
     role: "Head of AI Architecture",
@@ -69,7 +70,7 @@ Open `src/content/articles/index.ts` and add the import and array entry:
 ```typescript
 import { articleVendorSelection } from "./ai-vendor-selection-guide";
 
-export const allArticles: NewsletterArticle[] = [
+export const allArticles: Article[] = [
   articleVendorSelection, // Add at top for latest
   ...
 ];
@@ -77,6 +78,9 @@ export const allArticles: NewsletterArticle[] = [
 
 ### Step 3: That's It!
 Next.js will automatically:
-1. Render the new article on the `/newsletter` hub page.
-2. Generate its dedicated dynamic page at `/newsletter/ai-vendor-selection-guide`.
+1. Render the new article on the `/articles` hub page.
+2. Generate its dedicated dynamic page at `/articles/ai-vendor-selection-guide`.
 3. Provide SEO metadata, breadcrumbs, search indexing, and category filtering.
+
+## Adding a newsletter edition instead?
+See `src/content/newsletter/README.md` — different content type, different directory.

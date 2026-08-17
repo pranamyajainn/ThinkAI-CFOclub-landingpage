@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Play, Sparkles, X, CheckCircle2, ShieldCheck, ArrowRight } from "lucide-react";
-import { ArticleMedia } from "@/types/newsletter";
+import { ArticleMedia } from "@/types/article";
 
 interface VideoWalkthroughPlayerProps {
   media: ArticleMedia;
