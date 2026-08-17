@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Poll } from "@/types/poll";
-import { Vote, ArrowRight, CheckCircle2, Check, Sparkles } from "lucide-react";
+import { Vote, ArrowRight, CheckCircle2, Check, Sparkles, AlertCircle } from "lucide-react";
 import confetti from "canvas-confetti";
+import { usePollVoting } from "@/hooks/usePollVoting";
 
 interface EmbeddedPollWidgetProps {
   poll: Poll;
@@ -12,67 +13,24 @@ interface EmbeddedPollWidgetProps {
 
 export default function EmbeddedPollWidget({ poll }: EmbeddedPollWidgetProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [hasVoted, setHasVoted] = useState(false);
-  const [votedOptionId, setVotedOptionId] = useState<string | null>(null);
-  const [pollData, setPollData] = useState<Poll>(poll);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(`cfo_poll_${poll.id}`);
-      if (stored) {
-        setHasVoted(true);
-        setVotedOptionId(stored);
-      }
-    }
-  }, [poll.id]);
+  const { pollData, hasVoted, votedOptionId, isSubmitting, error, vote } = usePollVoting(poll);
 
   const handleVote = async (optionId: string) => {
     if (hasVoted || isSubmitting) return;
-
     setSelectedOption(optionId);
-    setIsSubmitting(true);
+
+    const success = await vote(optionId, "Newsletter Reader");
+    if (!success) return;
+
+    // Only celebrate once the server has actually confirmed the vote.
     try {
-      await fetch("/api/polls/vote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pollId: poll.id,
-          optionId: optionId,
-          voterRole: "Newsletter Reader",
-        }),
+      confetti({
+        particleCount: 40,
+        spread: 55,
+        origin: { y: 0.8 },
       });
-
-      const updated = pollData.options.map((opt) =>
-        opt.id === optionId ? { ...opt, votes: opt.votes + 1 } : opt
-      );
-
-      setPollData({
-        ...pollData,
-        totalVotes: pollData.totalVotes + 1,
-        options: updated,
-      });
-
-      setHasVoted(true);
-      setVotedOptionId(optionId);
-
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`cfo_poll_${poll.id}`, optionId);
-      }
-
-      try {
-        confetti({
-          particleCount: 40,
-          spread: 55,
-          origin: { y: 0.8 },
-        });
-      } catch {
-        // ignore
-      }
-    } catch (err) {
-      console.error("Error voting:", err);
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      // ignore
     }
   };
 
@@ -111,6 +69,13 @@ export default function EmbeddedPollWidget({ poll }: EmbeddedPollWidgetProps) {
               </span>
             </button>
           ))}
+
+          {error && (
+            <div className="flex items-center gap-2 px-3.5 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs sm:text-sm font-medium">
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
         </div>
       ) : (
         <div className="space-y-2.5 mb-6 animate-fadeIn">

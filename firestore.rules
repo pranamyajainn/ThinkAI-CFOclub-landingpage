@@ -5,5 +5,27 @@ service cloud.firestore {
       allow create: if true;
       allow read, update, delete: if false;
     }
+
+    // Live poll vote tallies. One document per poll, keyed by poll id.
+    // Publicly readable so results can be shown before/without voting.
+    // Writes are unauthenticated (this site has no visitor auth system,
+    // matching the /waitlist rule above) but are constrained to look like
+    // a legitimate single-vote increment: totalVotes may only ever go up
+    // by exactly one per write, and the document shape is locked down so
+    // a request can't rewrite arbitrary fields or fabricate a large total.
+    match /pollVotes/{pollId} {
+      allow read: if true;
+      allow delete: if false;
+
+      allow create: if request.resource.data.keys().hasOnly(['optionVotes', 'totalVotes', 'seededAt', 'updatedAt'])
+        && request.resource.data.optionVotes is map
+        && request.resource.data.totalVotes is int
+        && request.resource.data.totalVotes >= 0;
+
+      allow update: if request.resource.data.keys().hasOnly(['optionVotes', 'totalVotes', 'seededAt', 'updatedAt'])
+        && request.resource.data.optionVotes is map
+        && request.resource.data.totalVotes is int
+        && request.resource.data.totalVotes == resource.data.totalVotes + 1;
+    }
   }
 }

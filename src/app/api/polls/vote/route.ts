@@ -1,47 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPollById } from "@/lib/polls";
+import { castVote, InvalidVoteError } from "@/lib/pollVotes";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { pollId, optionId, voterRole, voterCompanySize } = body;
 
-    if (!pollId || !optionId) {
+    if (!pollId || typeof pollId !== "string" || !optionId || typeof optionId !== "string") {
       return NextResponse.json(
         { error: "Poll ID and option ID are required." },
         { status: 400 }
       );
     }
 
-    const poll = getPollById(pollId);
-    if (!poll) {
-      return NextResponse.json(
-        { error: "Poll not found." },
-        { status: 404 }
-      );
-    }
+    // Atomically increments the real vote count in Firestore and returns
+    // the authoritative, live result — no random or optimistic numbers.
+    const poll = await castVote(pollId, optionId);
 
-    const option = poll.options.find((o) => o.id === optionId);
-    if (!option) {
-      return NextResponse.json(
-        { error: "Selected option not found in this poll." },
-        { status: 400 }
-      );
-    }
-
-    // In a stateless deployment with client-side optimistic updates,
-    // we return the updated percentage distribution.
-    // If Firestore is connected, this can also write to a `poll_votes` collection.
     return NextResponse.json({
       success: true,
       message: "Vote recorded successfully.",
-      pollId,
-      optionId,
+      poll,
       voterRole: voterRole || "Finance Executive",
       voterCompanySize: voterCompanySize || "100-300 employees",
       recordedAt: new Date().toISOString(),
     });
   } catch (error) {
+    if (error instanceof InvalidVoteError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     console.error("Error recording poll vote:", error);
     return NextResponse.json(
       { error: "Internal server error while recording vote." },

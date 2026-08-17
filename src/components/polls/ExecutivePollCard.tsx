@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Poll } from "@/types/poll";
 import {
@@ -8,11 +8,10 @@ import {
   Share2,
   Check,
   ArrowRight,
-  TrendingUp,
-  BarChart2,
-  RotateCcw,
+  AlertCircle,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { usePollVoting } from "@/hooks/usePollVoting";
 
 interface ExecutivePollCardProps {
   poll: Poll;
@@ -20,76 +19,25 @@ interface ExecutivePollCardProps {
 
 export default function ExecutivePollCard({ poll }: ExecutivePollCardProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [hasVoted, setHasVoted] = useState(false);
-  const [votedOptionId, setVotedOptionId] = useState<string | null>(null);
-  const [pollData, setPollData] = useState<Poll>(poll);
   const [copied, setCopied] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Check localStorage for prior vote
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(`cfo_poll_${poll.id}`);
-      if (stored) {
-        setHasVoted(true);
-        setVotedOptionId(stored);
-      }
-    }
-  }, [poll.id]);
+  const { pollData, hasVoted, votedOptionId, isSubmitting, error, vote } = usePollVoting(poll);
 
   const handleSelectAndVote = async (optionId: string) => {
     if (hasVoted || isSubmitting) return;
-
     setSelectedOption(optionId);
-    setIsSubmitting(true);
 
+    const success = await vote(optionId, "Finance Leader");
+    if (!success) return;
+
+    // Only celebrate once the server has actually confirmed the vote.
     try {
-      // Send vote to API
-      await fetch("/api/polls/vote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pollId: poll.id,
-          optionId: optionId,
-          voterRole: "Finance Leader",
-        }),
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 },
       });
-
-      // Optimistic update
-      const updatedOptions = pollData.options.map((opt) => {
-        if (opt.id === optionId) {
-          return { ...opt, votes: opt.votes + 1 };
-        }
-        return opt;
-      });
-
-      setPollData({
-        ...pollData,
-        totalVotes: pollData.totalVotes + 1,
-        options: updatedOptions,
-      });
-
-      setHasVoted(true);
-      setVotedOptionId(optionId);
-
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`cfo_poll_${poll.id}`, optionId);
-      }
-
-      // Trigger celebration confetti
-      try {
-        confetti({
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.7 },
-        });
-      } catch {
-        // ignore
-      }
-    } catch (err) {
-      console.error("Error casting vote:", err);
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      // ignore
     }
   };
 
@@ -172,6 +120,13 @@ export default function ExecutivePollCard({ poll }: ExecutivePollCardProps) {
                 </button>
               );
             })}
+
+            {error && (
+              <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs sm:text-sm font-medium">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
           </div>
         ) : (
           /* Results View with Live Animated Percentage Bars */

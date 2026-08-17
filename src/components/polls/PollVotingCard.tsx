@@ -1,21 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Poll } from "@/types/poll";
 import {
-  BarChart3,
   CheckCircle2,
   Share2,
   Sparkles,
   ArrowRight,
   Check,
   Calendar,
-  Lock,
   Vote,
   TrendingUp,
+  AlertCircle,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { usePollVoting } from "@/hooks/usePollVoting";
 
 interface PollVotingCardProps {
   poll: Poll;
@@ -25,76 +25,25 @@ interface PollVotingCardProps {
 export default function PollVotingCard({ poll, isStandalone = false }: PollVotingCardProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [userRole, setUserRole] = useState("CFO / VP Finance");
-  const [hasVoted, setHasVoted] = useState(false);
-  const [votedOptionId, setVotedOptionId] = useState<string | null>(null);
-  const [pollData, setPollData] = useState<Poll>(poll);
   const [copied, setCopied] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Check localStorage on mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedVote = localStorage.getItem(`cfo_poll_${poll.id}`);
-      if (storedVote) {
-        setHasVoted(true);
-        setVotedOptionId(storedVote);
-      }
-    }
-  }, [poll.id]);
+  const { pollData, hasVoted, votedOptionId, isSubmitting, error, vote } = usePollVoting(poll);
 
   const handleVoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedOption || hasVoted) return;
 
-    setIsSubmitting(true);
+    const success = await vote(selectedOption, userRole);
+    if (!success) return;
 
+    // Only celebrate once the server has actually confirmed the vote.
     try {
-      // Send vote to API endpoint
-      await fetch("/api/polls/vote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pollId: poll.id,
-          optionId: selectedOption,
-          voterRole: userRole,
-        }),
+      confetti({
+        particleCount: 45,
+        spread: 55,
+        origin: { y: 0.7 },
       });
-
-      // Optimistic update
-      const updatedOptions = pollData.options.map((opt) => {
-        if (opt.id === selectedOption) {
-          return { ...opt, votes: opt.votes + 1 };
-        }
-        return opt;
-      });
-
-      setPollData({
-        ...pollData,
-        totalVotes: pollData.totalVotes + 1,
-        options: updatedOptions,
-      });
-
-      setHasVoted(true);
-      setVotedOptionId(selectedOption);
-
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`cfo_poll_${poll.id}`, selectedOption);
-      }
-
-      // Trigger celebration confetti
-      try {
-        confetti({
-          particleCount: 45,
-          spread: 55,
-          origin: { y: 0.7 },
-        });
-      } catch {
-        // ignore confetti errors
-      }
-    } catch (err) {
-      console.error("Failed to submit vote", err);
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      // ignore confetti errors
     }
   };
 
@@ -216,6 +165,13 @@ export default function PollVotingCard({ poll, isStandalone = false }: PollVotin
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
+
+            {error && (
+              <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs sm:text-sm font-medium">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
           </form>
         ) : (
           /* Live Results View */
