@@ -3,57 +3,38 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Sparkles, Award, Building2, Briefcase } from "lucide-react";
+import { Sparkles, Award, Building2 } from "lucide-react";
 
 interface Leader {
   name: string;
   role: string;
-  company: string;
   image: string;
-  logo: string;
   experiencePill: string;
   companies: string[];
   bio: string[];
-  focusAreas: string[];
 }
 
 const leaders: Leader[] = [
   {
     name: "Atul Kulshreshtha",
     role: "Founder – GroByz Partners",
-    company: "GroByz Partners",
     image: "/images/leaders/atul-kulshreshtha.png",
-    logo: "/images/leaders/grobyz-logo.png",
     experiencePill: "37+ Years Experience",
     companies: ["Capgemini", "GE", "American Express", "FIS", "Tata Group"],
     bio: [
       "Atul is a seasoned business leader with over 37 years of global experience across the ITES industry, having held senior roles at Capgemini, GE, American Express, FIS, and the Tata Group. He founded GroByz Partners, a strategic advisory firm that empowers tech-driven businesses and startups to scale with clarity, precision, and purpose.",
       "His rare combination of expertise across Finance, Business Strategy, Operations, Client Management, and Technology Consulting lets him approach challenges holistically. He is passionate about behavioural science, disruptive technologies, and talent development — and believes success is built on strong teams and flawless execution.",
     ],
-    focusAreas: [
-      "Finance Strategy",
-      "Technology Consulting",
-      "Client Management",
-      "Executive Scaling",
-    ],
   },
   {
     name: "Rahul Jain",
     role: "CEO – Selona & Care By Tech",
-    company: "Selona & Care By Tech",
     image: "/images/leaders/rahul-jain.png",
-    logo: "/images/leaders/selona-logo.png",
     experiencePill: "25+ Years Experience",
     companies: ["Capgemini", "IGATE", "Patni", "Perot Systems (NTT Data)", "Xansa"],
     bio: [
       "Rahul is a professional business builder, entrepreneur and trainer with a passion for scaling AI-led businesses and developing people. As CEO of Care by Tech (AI-driven sales intelligence and digital marketing for B2B start-ups and scale-ups) and CEO of Selona (an AI-only services company automating back-office processes), he combines hands-on leadership with deep domain expertise. As a trainer at upGrad, he runs programmes on Business Consulting and AI for Business Leaders, CXOs and Women CXOs.",
       "With more than 25 years across P&L, portfolio, sales and account management in the insurance sector, he brings a proven track record of building consulting, advisory, digital, cloud, data & analytics and BPO businesses — having worked with Capgemini, IGATE, Patni, Perot Systems (now NTT Data) and Xansa.",
-    ],
-    focusAreas: [
-      "AI Back-Office Automation",
-      "B2B Scale-ups",
-      "CXO Executive Training",
-      "P&L Leadership",
     ],
   },
 ];
@@ -113,19 +94,20 @@ export default function CommunityLeaders() {
               className="bg-white rounded-[28px] sm:rounded-[32px] border border-surface-dim p-7 sm:p-10 shadow-[0_12px_40px_rgba(0,19,86,0.05)] hover:shadow-[0_20px_50px_rgba(0,19,86,0.09)] transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                {/* Top Row: Portrait + Identity + Brand */}
+                {/* Top Row: Portrait + Identity */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-6 pb-6 border-b border-surface-dim">
-                  {/* Portrait Headshot */}
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-[#F0F3FA] border-2 border-surface-dim shadow-sm flex-shrink-0">
+                  {/* Portrait Headshot (Clean, full-bleed square portrait with no text inside) */}
+                  <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-[#F0F3FA] border border-surface-dim shadow-sm flex-shrink-0">
                     <Image
                       src={leader.image}
                       alt={leader.name}
                       fill
                       className="object-cover object-top"
+                      priority
                     />
                   </div>
 
-                  {/* Name, Role & Tag */}
+                  {/* Name, Role & Experience Tag */}
                   <div className="flex-grow">
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider mb-2">
                       <Award className="w-3 h-3" />
@@ -139,18 +121,6 @@ export default function CommunityLeaders() {
                     <p className="text-sm sm:text-base font-semibold text-secondary mt-1">
                       {leader.role}
                     </p>
-
-                    {/* Associated Brand Logo */}
-                    <div className="mt-3 flex items-center gap-2">
-                      <div className="relative h-6 w-24 object-contain">
-                        <Image
-                          src={leader.logo}
-                          alt={leader.company}
-                          fill
-                          className="object-contain object-left"
-                        />
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -162,7 +132,7 @@ export default function CommunityLeaders() {
                 </div>
               </div>
 
-              {/* Bottom Metadata: Former Organizations & Expertise */}
+              {/* Bottom Metadata: Former Organizations & Enterprise Track Record */}
               <div className="mt-8 pt-6 border-t border-surface-dim">
                 <div className="mb-3 flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider">
                   <Building2 className="w-3.5 h-3.5 text-secondary" />
