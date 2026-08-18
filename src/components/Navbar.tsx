@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight, ChevronDown, Mail, Newspaper } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, Mail, Newspaper, BarChart3 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,7 +15,11 @@ export default function Navbar() {
   const resourcesRef = useRef<HTMLLIElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const isResourcesRoute = pathname.startsWith("/newsletter") || pathname.startsWith("/articles");
+  const isResourcesRoute =
+    pathname.startsWith("/newsletter") ||
+    pathname.startsWith("/articles") ||
+    pathname.startsWith("/polls") ||
+    pathname.startsWith("/poll/");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -160,6 +164,18 @@ export default function Navbar() {
                         <Newspaper className="w-4 h-4 text-primary flex-shrink-0" />
                         <span className="flex-grow">Articles</span>
                       </Link>
+                      <div className="border-t border-surface-dim/60" />
+                      <Link
+                        href="/polls"
+                        onClick={() => setResourcesOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-on-surface hover:bg-surface-subtle transition-colors"
+                      >
+                        <BarChart3 className="w-4 h-4 text-secondary flex-shrink-0" />
+                        <span className="flex-grow">Polls</span>
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-secondary-container/15 text-secondary">
+                          Live
+                        </span>
+                      </Link>
                     </div>
                   </motion.div>
                 )}
@@ -269,6 +285,14 @@ export default function Navbar() {
                         >
                           <Newspaper className="w-5 h-5 text-primary flex-shrink-0" />
                           <span>Articles</span>
+                        </Link>
+                        <Link
+                          onClick={() => setMobileMenuOpen(false)}
+                          href="/polls"
+                          className="flex items-center gap-3 py-3 px-1 text-lg font-semibold text-on-surface active:text-primary"
+                        >
+                          <BarChart3 className="w-5 h-5 text-secondary flex-shrink-0" />
+                          <span>Polls</span>
                         </Link>
                       </div>
                     </motion.div>

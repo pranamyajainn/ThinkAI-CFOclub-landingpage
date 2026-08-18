@@ -14,7 +14,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import VideoWalkthroughPlayer from "./VideoWalkthroughPlayer";
-import VisualDigitalLinkComparison from "./VisualDigitalLinkComparison";
 import PollCard from "@/components/polls/PollCard";
 import { getPollByArticleSlug } from "@/lib/polls";
 
@@ -80,9 +79,6 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                 {p}
               </p>
             ))}
-
-            {/* Render Visual Flow Comparison Diagram in first section */}
-            {sIdx === 0 && <VisualDigitalLinkComparison />}
 
             {/* Embedded Video / Media Walkthrough */}
             {section.media && section.media.type === "video" && (

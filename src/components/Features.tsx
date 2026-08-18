@@ -38,10 +38,10 @@ export default function Features() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="font-sans text-xs font-bold text-secondary-container uppercase tracking-wider mb-3 block">
-            Inside the Club
+            Inside the Hub
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold text-primary mb-4">
-            Everything Inside the Club
+            Everything Inside the Hub
           </h2>
           <p className="font-sans text-lg text-on-surface-variant leading-relaxed">
             A targeted, highly structured ecosystem designed to move you from AI curiosity to operational AI mastery.

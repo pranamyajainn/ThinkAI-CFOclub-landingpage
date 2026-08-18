@@ -78,7 +78,7 @@ export default function WaitlistForm() {
       return;
     }
     if (!formData.agreed) {
-      setErrorMsg("You must agree to receive club updates to join the waitlist.");
+      setErrorMsg("You must agree to receive Hub updates to join the waitlist.");
       return;
     }
 
