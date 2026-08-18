@@ -12,7 +12,7 @@ export default function NewsletterSubscribe() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) {
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setErrorMessage("Please enter a valid work email.");
       setStatus("error");
       return;
@@ -22,17 +22,17 @@ export default function NewsletterSubscribe() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/waitlist", {
+      const res = await fetch("/api/newsletter-subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName: "Newsletter Subscriber",
           email,
-          jobTitle: role,
-          company: "Subscribed via Newsletter Hub",
-          source: "newsletter-page",
+          role,
+          source: "newsletter-subscribe-box",
         }),
       });
+
+      const data = await res.json().catch(() => ({}));
 
       if (res.ok) {
         setStatus("success");
@@ -46,8 +46,7 @@ export default function NewsletterSubscribe() {
           // ignore confetti failure
         }
       } else {
-        const data = await res.json().catch(() => ({}));
-        setErrorMessage(data.error || "Failed to subscribe. Please try again.");
+        setErrorMessage(data.message || "Failed to subscribe. Please try again.");
         setStatus("error");
       }
     } catch {

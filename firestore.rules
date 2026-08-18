@@ -6,6 +6,14 @@ service cloud.firestore {
       allow read, update, delete: if false;
     }
 
+    // Lightweight email-only newsletter opt-ins (the "Subscribe" box on
+    // /newsletter, /articles, etc.) — kept separate from /waitlist so
+    // placeholder names never mix into the real applicant list.
+    match /newsletterSubscribers/{document} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
     // Live poll vote tallies. One document per poll, keyed by poll id.
     // Publicly readable so results can be shown before/without voting.
     // Writes are unauthenticated (this site has no visitor auth system,

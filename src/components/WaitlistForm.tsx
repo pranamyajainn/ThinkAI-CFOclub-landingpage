@@ -152,18 +152,6 @@ export default function WaitlistForm() {
     }
   };
 
-  const handleReset = () => {
-    localStorage.removeItem("selona_waitlist_applicant");
-    setAppliedInfo(null);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      role: "",
-      agreed: false,
-    });
-  };
-
   return (
     <section
       className="py-24 bg-gradient-to-b from-primary-container to-primary text-on-primary relative overflow-hidden"
@@ -351,14 +339,6 @@ export default function WaitlistForm() {
               transition={{ duration: 0.4 }}
               className="max-w-2xl mx-auto bg-surface text-on-surface rounded-2xl border border-surface-dim p-8 shadow-2xl relative"
             >
-              {/* Reset Debug Button */}
-              <button
-                onClick={handleReset}
-                className="absolute top-4 right-4 text-xs text-text-muted hover:text-primary underline font-medium"
-              >
-                Clear Submission (Demo Reset)
-              </button>
-
               <div className="flex flex-col items-center text-center mb-8">
                 <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-500 border border-emerald-100 flex items-center justify-center mb-4 shadow-inner">
                   <Check className="w-7 h-7 stroke-[3]" />
