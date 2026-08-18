@@ -33,9 +33,9 @@ export const templatePoll: Poll = {
   publishedAt: "2026-08-22",
   closingDate: "2026-09-05",
   
-  // Optional: Connect this poll to a specific newsletter article
-  relatedArticleSlug: "making-tax-digital-permanent-operational-shift-midsize-uk",
-  relatedArticleTitle: "Making Tax Digital Isn't a One-Time Project",
+  // Optional: Connect this poll to a specific article (its slug under src/content/articles/)
+  relatedArticleSlug: "your-related-article-slug",
+  relatedArticleTitle: "Your Related Article Title",
   
   // Optional: Takeaway summary or benchmark comment
   keyTakeawayInsight: "Insights will be analyzed and published in next week's executive newsletter.",

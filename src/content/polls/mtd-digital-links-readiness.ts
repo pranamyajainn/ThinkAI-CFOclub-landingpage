@@ -9,8 +9,6 @@ export const pollMTDReadiness: Poll = {
   status: "active",
   publishedAt: "2026-08-15",
   closingDate: "2026-08-30",
-  relatedArticleSlug: "making-tax-digital-permanent-operational-shift-midsize-uk",
-  relatedArticleTitle: "Making Tax Digital Isn't a One-Time Project. For Mid-Size UK Companies, It's a Permanent Operational Shift.",
   keyTakeawayInsight: "Initial responses from 340+ UK finance leaders show over 68% still rely on manual PDF entry or Excel VAT adjustments, leaving them exposed to broken digital link audits.",
   tags: ["Making Tax Digital", "UK VAT", "HMRC", "AP/AR Automation", "Compliance"],
   totalVotes: 342,

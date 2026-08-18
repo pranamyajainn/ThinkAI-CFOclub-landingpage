@@ -108,7 +108,6 @@ export const templateArticle: Article = {
   
   // Slugs of related articles to display at the bottom
   relatedSlugs: [
-    "from-artificial-intelligence-to-applied-intelligence-human-ai-finance",
-    "making-tax-digital-permanent-operational-shift-midsize-uk"
+    "from-artificial-intelligence-to-applied-intelligence-human-ai-finance"
   ]
 };

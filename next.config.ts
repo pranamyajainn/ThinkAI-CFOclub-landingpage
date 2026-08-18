@@ -31,11 +31,6 @@ const nextConfig: NextConfig = {
         destination: "/articles/from-artificial-intelligence-to-applied-intelligence-human-ai-finance",
         permanent: true,
       },
-      {
-        source: "/newsletter/making-tax-digital-permanent-operational-shift-midsize-uk",
-        destination: "/articles/making-tax-digital-permanent-operational-shift-midsize-uk",
-        permanent: true,
-      },
     ];
   },
 };

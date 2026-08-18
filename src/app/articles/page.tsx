@@ -39,11 +39,15 @@ export default function ArticlesHubPage() {
         {/* Featured Article Spotlight */}
         {featuredArticle && <FeaturedArticleCard article={featuredArticle} />}
 
-        {/* Search, Filter & Grid of Articles */}
-        <ArticleGrid
-          initialArticles={initialGridArticles}
-          categories={categories}
-        />
+        {/* Search, Filter & Grid of Articles — skip entirely when every
+            article is already shown in the Featured spotlight above, so
+            visitors don't hit a confusing "no articles found" empty state. */}
+        {initialGridArticles.length > 0 && (
+          <ArticleGrid
+            initialArticles={initialGridArticles}
+            categories={categories}
+          />
+        )}
 
         {/* Email Subscription Box */}
         <NewsletterSubscribe />

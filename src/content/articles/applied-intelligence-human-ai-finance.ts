@@ -101,8 +101,5 @@ export const articleAppliedIntelligence: Article = {
     heading: "Conclusion: The Path Forward for Finance Leaders",
     text: "The debate over whether AI will replace finance professionals is obsolete. The real competitive threat comes from finance teams that leverage Applied Intelligence replacing those that do not. By pairing AI's computational speed, pattern recognition, and scale with human intuition, ethical judgment, and strategic vision, financial leaders can elevate their organizations from reporting history to shaping the future.",
     actionItem: "Join the CFO AI Hub peer network to explore live FP&A Applied Intelligence frameworks."
-  },
-  relatedSlugs: [
-    "making-tax-digital-permanent-operational-shift-midsize-uk"
-  ]
+  }
 };
