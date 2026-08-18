@@ -14,8 +14,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import VideoWalkthroughPlayer from "./VideoWalkthroughPlayer";
-import PollCard from "@/components/polls/PollCard";
-import { getPollByArticleSlug } from "@/lib/polls";
 
 interface ArticleBodyProps {
   article: Article;
@@ -50,8 +48,6 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
       [id]: !prev[id],
     }));
   };
-
-  const linkedPoll = getPollByArticleSlug(article.slug);
 
   return (
     <article className="max-w-4xl mx-auto px-6 pb-16">
@@ -273,13 +269,6 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                 </a>
               </div>
             )}
-          </div>
-        )}
-
-        {/* Embedded Poll */}
-        {linkedPoll && (
-          <div className="my-4">
-            <PollCard poll={linkedPoll} variant="embedded" />
           </div>
         )}
       </div>

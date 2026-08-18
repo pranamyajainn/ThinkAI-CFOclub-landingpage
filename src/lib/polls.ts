@@ -26,13 +26,6 @@ export function getPollById(id: string): Poll | undefined {
 }
 
 /**
- * Gets poll linked to a newsletter article slug
- */
-export function getPollByArticleSlug(slug: string): Poll | undefined {
-  return allPolls.find((p) => p.relatedArticleSlug === slug);
-}
-
-/**
  * Get polls by category
  */
 export function getPollsByCategory(category: PollCategory): Poll[] {
