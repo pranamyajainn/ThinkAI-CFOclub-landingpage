@@ -35,13 +35,21 @@ export default function PollsHubPage() {
         {/* Featured Active Poll Card */}
         {activePoll && (
           <div className="w-full max-w-2xl mx-auto px-6 mb-20">
-            <div className="mb-4 flex items-center justify-between">
+            {/* Live Community Survey — the first thing visitors should notice here */}
+            <div className="flex justify-center mb-5">
+              <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-secondary text-white text-sm font-extrabold uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
+                <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
+                </span>
+                <span>Live Community Survey</span>
+              </div>
+            </div>
+
+            <div className="mb-4 flex items-center justify-center">
               <span className="text-xs font-bold uppercase tracking-wider text-secondary flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
                 Featured Weekly Poll
-              </span>
-              <span className="text-xs text-text-muted font-medium">
-                Live Community Survey
               </span>
             </div>
             <PollCard poll={activePoll} />
