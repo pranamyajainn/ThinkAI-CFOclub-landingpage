@@ -83,10 +83,12 @@ export const templateArticle: Article = {
       paragraphs: [
         "Detail the step-by-step methodology, architectural blueprints, or operational roadmap."
       ],
+      // Wrap a lead-in phrase in **double asterisks** to render it bold
+      // (e.g. a "Label: description" bullet) — the rest renders as plain text.
       bullets: [
-        "Step 1: Audit current data feeds and establish baseline accuracy.",
-        "Step 2: Implement deterministic verification layers.",
-        "Step 3: Train finance controllers on AI-assisted workflows."
+        "**Step 1: Audit current data feeds** and establish baseline accuracy.",
+        "**Step 2: Implement deterministic verification layers.**",
+        "**Step 3: Train finance controllers** on AI-assisted workflows."
       ],
       // Optional comparison or data table
       table: {

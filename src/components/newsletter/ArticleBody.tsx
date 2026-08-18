@@ -21,6 +21,25 @@ interface ArticleBodyProps {
   article: Article;
 }
 
+/**
+ * Renders inline `**bold**` segments (lightweight markdown) as <strong>,
+ * leaving the rest of the text untouched. Lets content authors bold a
+ * lead-in phrase within a bullet without needing structured markup.
+ */
+function renderWithInlineBold(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, idx) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={idx} className="font-bold text-on-surface">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <React.Fragment key={idx}>{part}</React.Fragment>;
+  });
+}
+
 export default function ArticleBody({ article }: ArticleBodyProps) {
   // Local state for interactive checklists
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
@@ -91,7 +110,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                 {section.bullets.map((bullet, bIdx) => (
                   <li key={bIdx} className="flex items-start gap-3 text-base text-on-surface-variant leading-relaxed">
                     <span className="w-1.5 h-1.5 rounded-full bg-secondary-container mt-2.5 flex-shrink-0" />
-                    <span>{bullet}</span>
+                    <span>{renderWithInlineBold(bullet)}</span>
                   </li>
                 ))}
               </ul>
