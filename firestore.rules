@@ -1,6 +1,12 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Document ID is a normalized-email-derived key (see /api/waitlist),
+    // not an auto-ID. That's load-bearing for duplicate-signup protection:
+    // a first signup for an address is a "create" (allowed); a repeat
+    // signup targets the same document ID, which Firestore classifies as
+    // an "update" — denied below — so it's rejected without needing any
+    // read/list permission to check for existing entries first.
     match /waitlist/{document} {
       allow create: if true;
       allow read, update, delete: if false;

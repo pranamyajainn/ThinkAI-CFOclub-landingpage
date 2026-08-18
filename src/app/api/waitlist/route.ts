@@ -1,6 +1,19 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+
+/**
+ * Deterministic queue number from an email — stable across repeat calls
+ * for the same address, so a duplicate-signup response can show the same
+ * number the person already has.
+ */
+function queueNumberFor(normalizedEmail: string): number {
+  let sum = 0;
+  for (let i = 0; i < normalizedEmail.length; i++) {
+    sum += normalizedEmail.charCodeAt(i);
+  }
+  return 300 + (sum % 199);
+}
 
 export async function POST(request: Request) {
   try {
@@ -24,32 +37,55 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Role is required." }, { status: 400 });
     }
 
-    // Save to Firestore
-    const docRef = await addDoc(collection(db, "waitlist"), {
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      email: email.trim(),
-      role: role.trim(),
-      timestamp: serverTimestamp()
-    });
+    const normalizedEmail = email.trim().toLowerCase();
+    const queueNo = queueNumberFor(normalizedEmail);
 
-    console.log(`[Waitlist Submission] Saved to Firebase with ID: ${docRef.id}`);
+    // Duplicate protection: key the document by the normalized email
+    // instead of an auto-generated ID. A first signup for that address
+    // is a Firestore "create" (allowed). A repeat signup targets the same
+    // document ID, which Firestore classifies as an "update" — and the
+    // security rules only allow create, never update — so the write is
+    // rejected server-side. This needs no read permission at all (nobody
+    // can list or scan the waitlist to check who's on it), and it's race
+    // -safe: Firestore evaluates the rule atomically against the write.
+    const docId = encodeURIComponent(normalizedEmail);
 
-    // Generate a deterministic queue number based on email hash or random for presentation
-    let sum = 0;
-    for (let i = 0; i < email.length; i++) {
-      sum += email.charCodeAt(i);
+    try {
+      await setDoc(doc(db, "waitlist", docId), {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: normalizedEmail,
+        role: role.trim(),
+        timestamp: serverTimestamp(),
+      });
+
+      console.log(`[Waitlist Submission] Saved to Firebase with ID: ${docId}`);
+
+      return NextResponse.json(
+        {
+          message: "Successfully joined the waitlist.",
+          id: docId,
+          queueNo,
+        },
+        { status: 200 }
+      );
+    } catch (writeError) {
+      const code = (writeError as { code?: string })?.code;
+      if (code === "permission-denied") {
+        // Already registered — treat as a friendly success, not an error.
+        console.log(`[Waitlist Submission] Duplicate signup for existing entry: ${docId}`);
+        return NextResponse.json(
+          {
+            message: "You're already on the waitlist — we'll notify you as soon as spots open.",
+            id: docId,
+            queueNo,
+            alreadyRegistered: true,
+          },
+          { status: 200 }
+        );
+      }
+      throw writeError;
     }
-    const queueNo = 300 + (sum % 199);
-
-    return NextResponse.json(
-      {
-        message: "Successfully joined the waitlist.",
-        id: docRef.id,
-        queueNo,
-      },
-      { status: 200 }
-    );
   } catch (error) {
     console.error("Waitlist API error:", error);
     return NextResponse.json(
@@ -58,4 +94,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

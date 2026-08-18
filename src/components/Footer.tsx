@@ -101,20 +101,20 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2.5">
             <li>
-              <a
-                href="#"
+              <Link
+                href="/privacy"
                 className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/terms"
                 className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
               >
                 Terms of Service
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
