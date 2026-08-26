@@ -1,5 +1,6 @@
 import { Article } from "@/types/article";
 import { articleAppliedIntelligence } from "./applied-intelligence-human-ai-finance";
+import { articleMakingTaxDigital } from "./making-tax-digital-permanent-operational-shift";
 
 /**
  * MASTER LIST OF ALL STANDALONE ARTICLES
@@ -7,5 +8,6 @@ import { articleAppliedIntelligence } from "./applied-intelligence-human-ai-fina
  * (Latest articles first)
  */
 export const allArticles: Article[] = [
+  articleMakingTaxDigital,
   articleAppliedIntelligence,
 ];
