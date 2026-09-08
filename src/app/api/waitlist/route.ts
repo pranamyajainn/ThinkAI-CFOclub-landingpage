@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import {
+  COMPANY_NAME_MAX_LENGTH,
+  isPlausiblePhone,
+  isWaitlistRegion,
+} from "@/lib/waitlist";
 
 /**
  * Deterministic queue number from an email — stable across repeat calls
@@ -18,7 +23,7 @@ function queueNumberFor(normalizedEmail: string): number {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { firstName, lastName, email, role } = body;
+    const { firstName, lastName, email, role, region, companyName, phone } = body;
 
     // Server-side validation
     if (!firstName || typeof firstName !== "string" || !firstName.trim()) {
@@ -35,6 +40,37 @@ export async function POST(request: Request) {
 
     if (!role || typeof role !== "string" || !role.trim()) {
       return NextResponse.json({ message: "Role is required." }, { status: 400 });
+    }
+
+    // Region drives geo-targeted campaign segmentation, so it's validated
+    // against the known code list rather than stored as free text.
+    if (!isWaitlistRegion(region)) {
+      return NextResponse.json({ message: "Please select your region." }, { status: 400 });
+    }
+
+    // Company name and phone are optional. Absent/blank values are dropped
+    // entirely below rather than written as empty strings, so a region or
+    // company export never has to filter out "" rows.
+    let cleanedCompanyName = "";
+    if (companyName !== undefined && companyName !== null && companyName !== "") {
+      if (typeof companyName !== "string") {
+        return NextResponse.json({ message: "Company name must be text." }, { status: 400 });
+      }
+      cleanedCompanyName = companyName.trim().slice(0, COMPANY_NAME_MAX_LENGTH);
+    }
+
+    let cleanedPhone = "";
+    if (phone !== undefined && phone !== null && phone !== "") {
+      if (typeof phone !== "string") {
+        return NextResponse.json({ message: "Phone number must be text." }, { status: 400 });
+      }
+      cleanedPhone = phone.trim();
+      if (cleanedPhone && !isPlausiblePhone(cleanedPhone)) {
+        return NextResponse.json(
+          { message: "Please enter a valid phone number, or leave it blank." },
+          { status: 400 }
+        );
+      }
     }
 
     const normalizedEmail = email.trim().toLowerCase();
@@ -56,6 +92,9 @@ export async function POST(request: Request) {
         lastName: lastName.trim(),
         email: normalizedEmail,
         role: role.trim(),
+        region,
+        ...(cleanedCompanyName ? { companyName: cleanedCompanyName } : {}),
+        ...(cleanedPhone ? { phone: cleanedPhone } : {}),
         timestamp: serverTimestamp(),
       });
 

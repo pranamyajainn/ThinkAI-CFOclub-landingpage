@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShieldCheck, Mail, User, Loader2, Sparkles, Check, ChevronRight, ChevronDown } from "lucide-react";
+import { ShieldCheck, Mail, User, Loader2, Sparkles, Check, ChevronRight, ChevronDown, Building2, Phone } from "lucide-react";
 import confetti from "canvas-confetti";
+import { COMPANY_NAME_MAX_LENGTH, WAITLIST_REGIONS } from "@/lib/waitlist";
+import { WaitlistRegion } from "@/types/waitlist";
 
 interface ApplicantInfo {
   firstName: string;
@@ -17,7 +19,10 @@ export default function WaitlistForm() {
     firstName: "",
     lastName: "",
     email: "",
+    companyName: "",
+    phone: "",
     role: "",
+    region: "" as WaitlistRegion | "",
     agreed: false,
   });
 
@@ -77,6 +82,10 @@ export default function WaitlistForm() {
       setErrorMsg("Please select your current role.");
       return;
     }
+    if (!formData.region) {
+      setErrorMsg("Please select your region.");
+      return;
+    }
     if (!formData.agreed) {
       setErrorMsg("You must agree to receive Hub updates to join the waitlist.");
       return;
@@ -93,6 +102,11 @@ export default function WaitlistForm() {
           lastName: formData.lastName,
           email: formData.email,
           role: formData.role,
+          region: formData.region,
+          // Optional: sent only when filled, so the API never has to
+          // distinguish "left blank" from "cleared".
+          companyName: formData.companyName.trim() || undefined,
+          phone: formData.phone.trim() || undefined,
         }),
       });
 
@@ -255,6 +269,50 @@ export default function WaitlistForm() {
                   </div>
                 </div>
 
+                {/* Optional details — deliberately not required, so a blank
+                    phone or company never blocks a signup. */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-on-primary/80 mb-1.5">
+                      Company Name{" "}
+                      <span className="font-medium text-on-primary/50">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-primary/40" />
+                      <input
+                        type="text"
+                        name="companyName"
+                        placeholder="Acme Ltd"
+                        autoComplete="organization"
+                        maxLength={COMPANY_NAME_MAX_LENGTH}
+                        value={formData.companyName}
+                        onChange={handleChange}
+                        className="w-full pl-9 pr-4 py-3 rounded-lg bg-surface-pure text-on-surface border border-surface-dim focus:ring-2 focus:ring-secondary-container outline-none transition-all text-sm font-semibold"
+                        disabled={isLoading}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-on-primary/80 mb-1.5">
+                      Phone{" "}
+                      <span className="font-medium text-on-primary/50">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-primary/40" />
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="+44 20 1234 5678"
+                        autoComplete="tel"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full pl-9 pr-4 py-3 rounded-lg bg-surface-pure text-on-surface border border-surface-dim focus:ring-2 focus:ring-secondary-container outline-none transition-all text-sm font-semibold"
+                        disabled={isLoading}
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 {/* Role dropdown */}
                 <div>
                   <label className="block text-xs font-semibold text-on-primary/80 mb-1.5">
@@ -279,6 +337,48 @@ export default function WaitlistForm() {
                     </select>
                     <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface/40 pointer-events-none" />
                   </div>
+                </div>
+
+                {/* Region — one tap, single choice. Drives geo-specific
+                    campaign segmentation (see WAITLIST_REGIONS), so it's
+                    a fixed code list rather than free text. */}
+                <div>
+                  <label className="block text-xs font-semibold text-on-primary/80 mb-1.5">
+                    Your Region
+                  </label>
+                  <div
+                    role="radiogroup"
+                    aria-label="Your region"
+                    className="grid grid-cols-2 sm:grid-cols-4 gap-2"
+                  >
+                    {WAITLIST_REGIONS.map((r) => {
+                      const isSelected = formData.region === r.code;
+                      return (
+                        <label
+                          key={r.code}
+                          className={`flex items-center justify-center text-center px-2 py-2.5 rounded-lg border text-xs font-bold cursor-pointer select-none transition-all focus-within:ring-2 focus-within:ring-secondary-container ${
+                            isSelected
+                              ? "bg-secondary-container border-secondary-container text-on-secondary shadow-md"
+                              : "bg-surface-pure border-surface-dim text-on-surface hover:border-secondary-container/60"
+                          } ${isLoading ? "opacity-50 pointer-events-none" : ""}`}
+                        >
+                          <input
+                            type="radio"
+                            name="region"
+                            value={r.code}
+                            checked={isSelected}
+                            onChange={handleChange}
+                            disabled={isLoading}
+                            className="sr-only"
+                          />
+                          {r.label}
+                        </label>
+                      );
+                    })}
+                  </div>
+                  <p className="text-[10px] text-on-primary/50 mt-1.5 font-medium">
+                    So we only send you invites and briefings relevant to your region.
+                  </p>
                 </div>
 
                 {/* Consent Checkbox */}
