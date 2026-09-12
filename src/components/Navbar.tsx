@@ -104,9 +104,13 @@ export default function Navbar() {
             <li>
               <a
                 href={getHref("#events")}
-                className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
+                className="relative text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
                 Events
+                <span className="absolute -top-1 -right-2.5 flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary-container" />
+                </span>
               </a>
             </li>
             <li>
@@ -249,9 +253,13 @@ export default function Navbar() {
               <a
                 onClick={() => setMobileMenuOpen(false)}
                 href={getHref("#events")}
-                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
+                className="flex items-center gap-2.5 text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
                 Events
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary-container" />
+                </span>
               </a>
               <a
                 onClick={() => setMobileMenuOpen(false)}

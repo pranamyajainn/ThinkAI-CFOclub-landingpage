@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, TrendingUp, DollarSign, Brain } from "lucide-react";
 import Image from "next/image";
+import EventsAnnouncementBar from "./EventsAnnouncementBar";
 
 export default function Hero() {
   const containerVariants = {
@@ -46,7 +47,10 @@ export default function Hero() {
         <div className="absolute -bottom-20 right-1/4 w-[400px] h-[400px] rounded-full bg-surface-container/50 blur-[90px] animate-float-delayed"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <EventsAnnouncementBar />
+
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
         {/* Left Side: Headline and Copy */}
         <motion.div
           variants={containerVariants}
@@ -231,6 +235,7 @@ export default function Hero() {
             </div>
           </div>
         </motion.div>
+        </div>
       </div>
     </section>
   );
