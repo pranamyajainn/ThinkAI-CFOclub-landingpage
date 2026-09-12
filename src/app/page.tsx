@@ -11,6 +11,13 @@ import AboutUs from "@/components/AboutUs";
 import WaitlistForm from "@/components/WaitlistForm";
 import Footer from "@/components/Footer";
 
+// The homepage is statically generated, so without this the "next event"
+// shown in the Hero banner and Events section would be frozen at whatever
+// was true at the last deploy. This makes Next.js re-check event dates
+// against the current date at most once an hour, in the background, with
+// no redeploy needed — see src/content/events.ts for the date logic.
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <>
