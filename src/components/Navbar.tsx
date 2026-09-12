@@ -103,6 +103,14 @@ export default function Navbar() {
             </li>
             <li>
               <a
+                href={getHref("#events")}
+                className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
+              >
+                Events
+              </a>
+            </li>
+            <li>
+              <a
                 href={getHref("#about-us")}
                 className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
               >
@@ -237,6 +245,13 @@ export default function Navbar() {
                 className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
               >
                 What You Get
+              </a>
+              <a
+                onClick={() => setMobileMenuOpen(false)}
+                href={getHref("#events")}
+                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
+              >
+                Events
               </a>
               <a
                 onClick={() => setMobileMenuOpen(false)}

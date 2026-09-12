@@ -6,6 +6,7 @@ import ProblemSolution from "@/components/ProblemSolution";
 import Playground from "@/components/Playground";
 import Features from "@/components/Features";
 import WhatWeCover from "@/components/WhatWeCover";
+import EventsSection from "@/components/EventsSection";
 import AboutUs from "@/components/AboutUs";
 import WaitlistForm from "@/components/WaitlistForm";
 import Footer from "@/components/Footer";
@@ -21,6 +22,7 @@ export default function Home() {
         <Playground />
         <Features />
         <WhatWeCover />
+        <EventsSection />
         <AboutUs />
         <WaitlistForm />
       </main>
