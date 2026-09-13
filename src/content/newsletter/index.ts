@@ -1,5 +1,7 @@
 import { NewsletterEdition } from "@/types/newsletter";
 import { edition1 } from "./edition-1";
+import { edition2 } from "./edition-2";
+import { edition3 } from "./edition-3";
 
 /**
  * MASTER LIST OF ALL COMPLETE NEWSLETTER EDITIONS
@@ -9,4 +11,4 @@ import { edition1 } from "./edition-1";
  * and src/content/articles/ instead if what you're adding is a single
  * standalone piece rather than a full edition.
  */
-export const allEditions: NewsletterEdition[] = [edition1];
+export const allEditions: NewsletterEdition[] = [edition3, edition2, edition1];
