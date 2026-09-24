@@ -98,7 +98,7 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary-container/15 text-secondary text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
-                Edition #{poll.editionNumber} Poll
+                Community Poll
               </span>
               <span className="px-2.5 py-1 rounded-md bg-surface-container text-primary text-xs font-semibold">
                 {poll.category}
