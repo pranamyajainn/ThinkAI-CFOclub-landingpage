@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PollCard from "@/components/polls/PollCard";
-import { getActivePoll } from "@/lib/polls";
+import PollHero from "@/components/polls/PollHero";
+import PollsGrid from "@/components/polls/PollsGrid";
+import { getActivePoll, getAllPolls, getAllPollCategories } from "@/lib/polls";
 
 export const metadata: Metadata = {
   title: "Executive Finance Polls & Benchmarks — CFO AI Hub",
@@ -17,15 +19,19 @@ export const metadata: Metadata = {
 
 export default function PollsHubPage() {
   const activePoll = getActivePoll();
+  const allPolls = getAllPolls();
+  const totalVotes = allPolls.reduce((sum, p) => sum + p.totalVotes, 0);
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#F8F9FD] text-on-surface">
       <Navbar />
 
       <main className="flex-grow">
+        <PollHero totalPolls={allPolls.length} totalVotes={totalVotes} />
+
         {activePoll && (
-          <div className="w-full max-w-2xl mx-auto px-6 pt-40 pb-20">
-            {/* Live Community Survey — the only thing above the poll itself */}
+          <div className="w-full max-w-2xl mx-auto px-6 pb-20">
+            {/* Live Community Survey — the currently featured poll */}
             <div className="flex justify-center mb-6">
               <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-secondary text-white text-sm font-extrabold uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
                 <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
@@ -39,6 +45,8 @@ export default function PollsHubPage() {
             <PollCard poll={activePoll} />
           </div>
         )}
+
+        <PollsGrid polls={allPolls} categories={getAllPollCategories()} />
       </main>
 
       <Footer />
