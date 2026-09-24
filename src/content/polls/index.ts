@@ -1,4 +1,5 @@
 import { Poll } from "@/types/poll";
+import { pollGenAIScalingBarrier } from "./genai-scaling-barrier";
 import { pollAIAdoptionBlocker } from "./ai-adoption-blocker";
 import { pollMTDReadiness } from "./mtd-digital-links-readiness";
 import { pollAIPriorityFinanceFunction } from "./ai-priority-finance-function";
@@ -11,6 +12,7 @@ import { pollAIPriorityFinanceFunction } from "./ai-priority-finance-function";
  * /polls/[pollId] and keep their live Firestore tallies.
  */
 export const allPolls: Poll[] = [
+  pollGenAIScalingBarrier,
   pollAIPriorityFinanceFunction,
   pollAIAdoptionBlocker, // Poll ID "1"
   pollMTDReadiness,
