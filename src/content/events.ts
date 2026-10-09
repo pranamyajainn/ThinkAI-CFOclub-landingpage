@@ -3,12 +3,13 @@ import { CFOEvent } from "@/types/event";
 /**
  * UPCOMING CFO AI HUB EVENTS
  *
- * Shown in the "Upcoming Events" section on the landing page. Each links
- * out to its Eventbrite page for registration — there's no in-app detail
- * page or checkout flow.
+ * Shown on the landing page: upcoming events in the Hero banner and the
+ * Events section, past events in a "Past Events" list below them. Each
+ * links out to its Eventbrite page — there's no in-app detail page or
+ * checkout flow.
  *
- * To add a new event: add an entry below (chronological order), and to
- * retire one, just remove it — nothing else needs to change.
+ * To add a new event: add an entry below (chronological order). Events
+ * move from upcoming to past automatically the day after their date.
  */
 export const events: CFOEvent[] = [
   {
@@ -53,13 +54,42 @@ export const events: CFOEvent[] = [
     eventbriteUrl:
       "https://www.eventbrite.com/e/scale-your-finance-function-ai-playbook-for-faster-accountable-operations-tickets-1998123304592?aff=oddtdtcreator",
   },
+  {
+    slug: "ai-for-cfos-starting-with-ai-in-finance-using-claude",
+    title: "AI for CFOs: Starting with AI in Finance Using Claude",
+    description:
+      "A working breakfast for finance leaders on getting started with Claude in finance operations — the five building blocks for adoption, plus live use cases taking month-end close from 10 days to 1 and cash forecasting down to minutes.",
+    format: "In-Person",
+    date: "2026-10-29",
+    displayDate: "Oct 29, 2026",
+    time: "8:30 – 10:00 AM GMT (UK time)",
+    location: "London, UK",
+    venue: "WeWork Moor Place, 1 Fore Street Avenue, London EC2Y 9DT",
+    hosts: ["Selona"],
+    eventbriteUrl:
+      "https://www.eventbrite.com/e/ai-for-cfos-starting-with-ai-in-finance-using-claude-tickets-2002930074771?aff=oddtdtcreator",
+    featured: true,
+  },
 ];
+
+function startOfToday(): Date {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+}
 
 /** Events with a date today or later, soonest first. */
 export function getUpcomingEvents(): CFOEvent[] {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const today = startOfToday();
   return [...events]
     .filter((e) => new Date(e.date) >= today)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+}
+
+/** Events dated before today, most recent first. */
+export function getPastEvents(): CFOEvent[] {
+  const today = startOfToday();
+  return [...events]
+    .filter((e) => new Date(e.date) < today)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
