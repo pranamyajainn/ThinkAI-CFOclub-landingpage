@@ -6,6 +6,7 @@ import {
   isPlausiblePhone,
   isWaitlistRegion,
 } from "@/lib/waitlist";
+import { subscribeToBeehiiv } from "@/lib/beehiiv";
 
 /**
  * Deterministic queue number from an email — stable across repeat calls
@@ -99,6 +100,22 @@ export async function POST(request: Request) {
       });
 
       console.log(`[Waitlist Submission] Saved to Firebase with ID: ${docId}`);
+
+      // The waitlist consent box covers our AI briefings, so new applicants
+      // are added to the Beehiiv newsletter too. A Beehiiv failure must not
+      // fail the waitlist signup itself — it's logged and the applicant is
+      // still safely stored in Firestore.
+      try {
+        await subscribeToBeehiiv({
+          email: normalizedEmail,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          utmMedium: "waitlist",
+          reactivateExisting: false,
+        });
+      } catch (beehiivError) {
+        console.error("[Waitlist Submission] Beehiiv signup failed:", beehiivError);
+      }
 
       return NextResponse.json(
         {

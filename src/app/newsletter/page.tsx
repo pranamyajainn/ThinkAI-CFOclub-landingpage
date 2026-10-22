@@ -17,8 +17,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NewsletterHubPage() {
-  const editions = getAllEditions();
+// Editions published on Beehiiv are pulled in automatically (see
+// src/lib/newsletter.ts). Re-check Beehiiv at most once an hour, in the
+// background, so a new edition appears here with no redeploy.
+export const revalidate = 3600;
+
+export default async function NewsletterHubPage() {
+  const editions = await getAllEditions();
   const latestEdition = editions.length > 0 ? editions[0].editionNumber : 1;
 
   return (

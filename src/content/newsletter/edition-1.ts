@@ -8,6 +8,7 @@ import { NewsletterEdition } from "@/types/newsletter";
  */
 export const edition1: NewsletterEdition = {
   slug: "edition-1",
+  beehiivSlug: "the-sec-just-started-checking-if-your-ai-claims-hold-up",
   editionNumber: 1,
   title: "OpenAI's CFO Is Seeking a Zero-Day Month-End Close",
   subtitle:

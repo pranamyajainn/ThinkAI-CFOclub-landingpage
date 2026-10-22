@@ -9,6 +9,7 @@ import WhatWeCover from "@/components/WhatWeCover";
 import EventsSection from "@/components/EventsSection";
 import AboutUs from "@/components/AboutUs";
 import WaitlistForm from "@/components/WaitlistForm";
+import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import Footer from "@/components/Footer";
 
 // The homepage is statically generated, so without this the "next event"
@@ -30,6 +31,7 @@ export default function Home() {
         <Features />
         <WhatWeCover />
         <EventsSection />
+        <NewsletterSubscribe />
         <AboutUs />
         <WaitlistForm />
       </main>

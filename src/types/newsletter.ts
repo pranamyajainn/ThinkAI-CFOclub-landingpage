@@ -63,4 +63,14 @@ export interface NewsletterEdition {
   closingHeading?: string;
   closingText?: string;
   signOff?: string;
+  /**
+   * Slug of the same post on Beehiiv. Set on hand-built editions so the
+   * Beehiiv sync (src/lib/newsletter.ts) shows this native version instead
+   * of a second, auto-generated copy.
+   */
+  beehiivSlug?: string;
+  /** Auto-synced editions only: the post body HTML, straight from Beehiiv. */
+  contentHtml?: string;
+  /** Auto-synced editions only: the post's page on Beehiiv. */
+  beehiivUrl?: string;
 }

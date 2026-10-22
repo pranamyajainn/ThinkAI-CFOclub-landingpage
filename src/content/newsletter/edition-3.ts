@@ -11,6 +11,7 @@ import { NewsletterEdition } from "@/types/newsletter";
  */
 export const edition3: NewsletterEdition = {
   slug: "edition-3",
+  beehiivSlug: "global-regulators-just-moved-in-sync-on-ai-oversight",
   editionNumber: 3,
   title: "Global Regulators Just Moved in Sync on AI Oversight",
   subtitle:

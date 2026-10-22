@@ -13,8 +13,12 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Beehiiv-synced editions refresh hourly; a brand-new edition's page is
+// generated on its first visit (dynamicParams defaults to true).
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
-  const editions = getAllEditions();
+  const editions = await getAllEditions();
   return editions.map((edition) => ({
     slug: edition.slug,
   }));
@@ -22,7 +26,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const edition = getEditionBySlug(slug);
+  const edition = await getEditionBySlug(slug);
 
   if (!edition) {
     return {
@@ -45,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function NewsletterEditionPage({ params }: PageProps) {
   const { slug } = await params;
-  const edition = getEditionBySlug(slug);
+  const edition = await getEditionBySlug(slug);
 
   if (!edition) {
     notFound();

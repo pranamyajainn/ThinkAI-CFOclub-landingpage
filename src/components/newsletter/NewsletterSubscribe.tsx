@@ -56,7 +56,7 @@ export default function NewsletterSubscribe() {
   };
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 py-16">
+    <section id="subscribe" className="w-full max-w-7xl mx-auto px-6 py-16 scroll-mt-24">
       <div className="relative overflow-hidden bg-primary text-on-primary rounded-2xl p-8 sm:p-12 lg:p-16 border border-primary-container shadow-[0_12px_40px_rgba(0,19,86,0.12)]">
         {/* Subtle decorative glow */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none" />
@@ -72,7 +72,7 @@ export default function NewsletterSubscribe() {
           </h3>
 
           <p className="text-sm sm:text-base text-on-primary/80 leading-relaxed mb-8 max-w-xl mx-auto">
-            Every Friday morning: 1 tactical workflow teardown, 1 algorithmic governance checklist, and zero vendor marketing.
+            Every week: 1 tactical workflow teardown, 1 algorithmic governance checklist, and zero vendor marketing.
           </p>
 
           {status === "success" ? (
@@ -80,7 +80,7 @@ export default function NewsletterSubscribe() {
               <CheckCircle2 className="w-10 h-10 text-secondary-container mx-auto mb-2" />
               <h4 className="text-lg font-bold text-white mb-1">You're Subscribed!</h4>
               <p className="text-xs text-on-primary/80">
-                You will receive our next executive intelligence briefing this Friday.
+                Watch your inbox for the next edition of the CFO AI Hub newsletter.
               </p>
             </div>
           ) : (

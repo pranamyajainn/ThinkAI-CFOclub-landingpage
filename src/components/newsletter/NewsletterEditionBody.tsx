@@ -14,6 +14,30 @@ export default function NewsletterEditionBody({ edition }: NewsletterEditionBody
 
   return (
     <article className="max-w-4xl mx-auto px-6 pb-16 space-y-12">
+      {/* Beehiiv-synced edition: the post body as published on Beehiiv.
+          It comes from our own Beehiiv account, so it's trusted HTML. */}
+      {edition.contentHtml && (
+        <div
+          className="beehiiv-content"
+          dangerouslySetInnerHTML={{ __html: edition.contentHtml }}
+        />
+      )}
+
+      {/* Synced edition whose body couldn't be loaded right now */}
+      {!edition.contentHtml && edition.beehiivUrl && (
+        <div className="flex justify-center">
+          <a
+            href={edition.beehiivUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary-container transition-colors"
+          >
+            <span>Read This Edition</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </div>
+      )}
+
       {/* Today in Finance AI — story roundup */}
       {edition.stories.length > 0 && (
         <section className="space-y-6">
