@@ -69,7 +69,7 @@ export interface NewsletterEdition {
    * of a second, auto-generated copy.
    */
   beehiivSlug?: string;
-  /** Auto-synced editions only: the post body HTML, straight from Beehiiv. */
+  /** The post body HTML straight from Beehiiv. When set, it replaces the hand-built sections. */
   contentHtml?: string;
   /** Auto-synced editions only: the post's page on Beehiiv. */
   beehiivUrl?: string;

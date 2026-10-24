@@ -89,18 +89,25 @@ export async function getAllEditions(): Promise<NewsletterEdition[]> {
 }
 
 /**
- * One edition by its URL slug. For a Beehiiv-synced edition this also
- * loads the full post body.
+ * One edition by its URL slug, with its body loaded from Beehiiv so every
+ * edition looks the same as the email. A hand-built edition keeps its own
+ * URL (e.g. /newsletter/edition-1) and its native body is used only if
+ * Beehiiv can't be reached.
  */
 export async function getEditionBySlug(slug: string): Promise<NewsletterEdition | undefined> {
   const native = allEditions.find((e) => e.slug === slug);
-  if (native) return native;
-
-  const edition = (await getAllEditions()).find((e) => e.slug === slug);
+  const edition = native ?? (await getAllEditions()).find((e) => e.slug === slug);
   if (!edition) return undefined;
 
-  const html = (await getBeehiivPostWithContent(slug))?.content?.free?.rss;
+  const beehiivSlug = native ? native.beehiivSlug : slug;
+  if (!beehiivSlug) return edition;
+
+  const html = (await getBeehiivPostWithContent(beehiivSlug))?.content?.free?.rss;
   if (!html) return edition;
 
-  return { ...edition, contentHtml: stripScriptsAndStyles(html), readTime: readTimeFor(html) };
+  return {
+    ...edition,
+    contentHtml: stripScriptsAndStyles(html),
+    ...(native ? {} : { readTime: readTimeFor(html) }),
+  };
 }

@@ -12,17 +12,23 @@ interface NewsletterEditionBodyProps {
 export default function NewsletterEditionBody({ edition }: NewsletterEditionBodyProps) {
   const poll = edition.pollId ? getPollById(edition.pollId) : undefined;
 
-  return (
-    <article className="max-w-4xl mx-auto px-6 pb-16 space-y-12">
-      {/* Beehiiv-synced edition: the post body as published on Beehiiv.
-          It comes from our own Beehiiv account, so it's trusted HTML. */}
-      {edition.contentHtml && (
+  // The post body as published on Beehiiv — same colourful sections as the
+  // email. It comes from our own Beehiiv account, so it's trusted HTML. It
+  // replaces the hand-built sections below, which remain only as the
+  // fallback when Beehiiv can't be reached.
+  if (edition.contentHtml) {
+    return (
+      <article className="max-w-4xl mx-auto px-6 pb-16">
         <div
           className="beehiiv-content"
           dangerouslySetInnerHTML={{ __html: edition.contentHtml }}
         />
-      )}
+      </article>
+    );
+  }
 
+  return (
+    <article className="max-w-4xl mx-auto px-6 pb-16 space-y-12">
       {/* Synced edition whose body couldn't be loaded right now */}
       {!edition.contentHtml && edition.beehiivUrl && (
         <div className="flex justify-center">
