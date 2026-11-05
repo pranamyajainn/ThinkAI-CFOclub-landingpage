@@ -6,10 +6,9 @@ import { BarChart3, Users, Sparkles, CheckCircle2, ShieldCheck } from "lucide-re
 
 interface PollHeroProps {
   totalPolls: number;
-  totalVotes: number;
 }
 
-export default function PollHero({ totalPolls, totalVotes }: PollHeroProps) {
+export default function PollHero({ totalPolls }: PollHeroProps) {
   return (
     <section className="relative pt-32 pb-14 px-6 overflow-hidden bg-gradient-to-b from-surface via-surface-container-low to-surface">
       {/* Ambient background glow */}
@@ -61,7 +60,7 @@ export default function PollHero({ totalPolls, totalVotes }: PollHeroProps) {
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-secondary" />
-            <span>Instant Results Breakdown</span>
+            <span>Results Shared in the Newsletter</span>
           </div>
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-primary" />

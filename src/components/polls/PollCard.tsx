@@ -6,7 +6,6 @@ import { Poll } from "@/types/poll";
 import {
   Sparkles,
   Calendar,
-  Vote,
   CheckCircle2,
   Check,
   Share2,
@@ -52,6 +51,7 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
   const { pollData, hasVoted, votedOptionId, isSubmitting, error, vote } = usePollVoting(poll);
 
   const isEmbedded = variant === "embedded";
+  const votedOption = pollData.options.find((o) => o.id === votedOptionId);
 
   const handleVoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,10 +110,6 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
                 <Calendar className="w-3.5 h-3.5" />
                 {formattedDate}
               </span>
-              <span className="inline-flex items-center gap-1 font-semibold text-primary">
-                <Vote className="w-3.5 h-3.5 text-secondary" />
-                {pollData.totalVotes.toLocaleString()} votes
-              </span>
             </div>
           </div>
         )}
@@ -123,10 +119,6 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-container/15 text-secondary text-[11px] font-bold uppercase tracking-wider">
               <Sparkles className="w-3 h-3" />
               Community Pulse
-            </span>
-            <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
-              <Vote className="w-3 h-3 text-primary" />
-              {pollData.totalVotes.toLocaleString()} votes
             </span>
           </div>
         )}
@@ -214,56 +206,23 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
             )}
           </form>
         ) : (
-          /* Live Results */
-          <div className={isEmbedded ? "mt-3 space-y-2" : "mt-5 space-y-2.5"}>
-            <div className="p-2.5 rounded-xl bg-secondary-container/10 border border-secondary-container/20 flex items-center justify-between gap-3 text-xs">
-              <span className="flex items-center gap-1.5 text-secondary font-bold">
-                <CheckCircle2 className="w-4 h-4" />
-                Your vote is counted! Live results:
-              </span>
-              <span className="text-text-muted font-medium">
-                {pollData.totalVotes.toLocaleString()} responses
-              </span>
-            </div>
-
-            {pollData.options.map((option) => {
-              const percentage =
-                pollData.totalVotes > 0
-                  ? Math.round((option.votes / pollData.totalVotes) * 100)
-                  : 0;
-              const isUserChoice = votedOptionId === option.id;
-
-              return (
-                <div
-                  key={option.id}
-                  className={`relative px-3.5 py-2.5 rounded-xl border overflow-hidden transition-all ${
-                    isUserChoice
-                      ? "border-primary bg-primary/5 shadow-sm ring-1 ring-primary/30"
-                      : "border-surface-dim bg-surface-subtle/40"
-                  }`}
-                >
-                  <div
-                    className={`absolute top-0 bottom-0 left-0 transition-all duration-700 ${
-                      isUserChoice ? "bg-secondary-container/20" : "bg-surface-container-high/60"
-                    }`}
-                    style={{ width: `${percentage}%` }}
-                  />
-                  <div className="relative z-10 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2 min-w-0">
-                      {isUserChoice && (
-                        <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                      )}
-                      <span className="text-sm font-bold text-on-surface truncate">
-                        {option.label}
-                      </span>
-                    </div>
-                    <span className="text-sm font-bold font-display text-primary flex-shrink-0">
-                      {percentage}%
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+          /* Vote confirmation. Vote counts and results are not shown on the
+             site; results are shared in the newsletter instead. */
+          <div
+            className={`${isEmbedded ? "mt-3" : "mt-5"} p-4 rounded-xl bg-secondary-container/10 border border-secondary-container/20`}
+          >
+            <p className="flex items-center gap-1.5 text-sm text-secondary font-bold">
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+              Thanks, your vote is in.
+            </p>
+            {votedOption && (
+              <p className="mt-1.5 text-sm text-on-surface">
+                You chose: <strong>{votedOption.label}</strong>
+              </p>
+            )}
+            <p className="mt-1.5 text-xs text-text-muted">
+              We&apos;ll share the results in an upcoming CFO AI Hub briefing.
+            </p>
           </div>
         )}
 

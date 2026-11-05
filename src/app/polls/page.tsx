@@ -20,14 +20,13 @@ export const metadata: Metadata = {
 export default function PollsHubPage() {
   const activePoll = getActivePoll();
   const allPolls = getAllPolls();
-  const totalVotes = allPolls.reduce((sum, p) => sum + p.totalVotes, 0);
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#F8F9FD] text-on-surface">
       <Navbar />
 
       <main className="flex-grow">
-        <PollHero totalPolls={allPolls.length} totalVotes={totalVotes} />
+        <PollHero totalPolls={allPolls.length} />
 
         {activePoll && (
           <div className="w-full max-w-2xl mx-auto px-6 pb-20">
