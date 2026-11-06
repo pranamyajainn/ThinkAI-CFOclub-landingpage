@@ -70,6 +70,22 @@ export const events: CFOEvent[] = [
       "https://www.eventbrite.com/e/ai-for-cfos-starting-with-ai-in-finance-using-claude-tickets-2002930074771?aff=oddtdtcreator",
     featured: true,
   },
+  {
+    slug: "ai-for-cfos-transforming-month-end-close-using-ai",
+    title: "AI for CFOs: Transforming Month-End Close Using AI",
+    description:
+      "A working breakfast for finance leaders on where AI helps most in the month-end close — reconciliations, accruals, variance analysis, and reporting — with a live use case taking a spreadsheet-based close from 10 days to 1, and a 30-day roadmap for your first pilots.",
+    format: "In-Person",
+    date: "2026-11-24",
+    displayDate: "Nov 24, 2026",
+    time: "8:30 – 10:00 AM GMT (UK time)",
+    location: "London, UK",
+    venue: "WeWork, 2 Eastbourne Terrace, Paddington, London W2 6LG",
+    hosts: ["Selona"],
+    eventbriteUrl:
+      "https://www.eventbrite.com/e/ai-for-cfos-transforming-month-end-close-using-ai-tickets-2004449088181",
+    featured: true,
+  },
 ];
 
 function startOfToday(): Date {
