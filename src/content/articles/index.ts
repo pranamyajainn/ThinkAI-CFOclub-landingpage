@@ -1,4 +1,5 @@
 import { Article } from "@/types/article";
+import { articleHindsightToForesight } from "./from-hindsight-to-foresight-elevating-the-finance-function";
 import { articleProcessIntelligence } from "./before-ai-comes-process-intelligence";
 import { articleStableSystemTCO } from "./stable-system-most-expensive-asset";
 import { articleSmbOutsmartEnterprises } from "./smbs-can-outsmart-enterprises-on-ai";
@@ -12,6 +13,7 @@ import { articleMakingTaxDigital } from "./making-tax-digital-permanent-operatio
  * (Latest articles first)
  */
 export const allArticles: Article[] = [
+  articleHindsightToForesight,
   articleProcessIntelligence,
   articleStableSystemTCO,
   articleSmbOutsmartEnterprises,
