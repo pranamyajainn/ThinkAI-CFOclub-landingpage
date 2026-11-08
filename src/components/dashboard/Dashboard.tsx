@@ -27,8 +27,10 @@ import {
   Vote,
 } from "lucide-react";
 import type {
+  DashboardCollection,
   DashboardData,
   DashboardPoll,
+  DashboardRecord,
   DashboardSubscriber,
   DashboardWaitlistMember,
 } from "@/lib/dashboardData";
@@ -38,6 +40,7 @@ import {
   dayKey,
   formatDate,
   formatDateTime,
+  humanize,
   inPeriod,
   isRecent,
   monthKey,
@@ -172,8 +175,8 @@ export default function Dashboard({ data }: { data: DashboardData }) {
         {/* Polls */}
         <PollsSection polls={data.polls} nowMs={nowMs} />
 
-        {/* People tables */}
-        <PeopleTables subscribers={subscribers} waitlist={waitlist} nowMs={nowMs} period={period} />
+        {/* Every collection and field in the database */}
+        <DataTables collections={data.collections} nowMs={nowMs} period={period} />
 
         <p className="text-xs text-text-muted text-center pb-4">
           Refreshes by itself every minute while this tab is open.
@@ -643,60 +646,62 @@ function PollDetail({ poll, isLatest, nowMs }: { poll: DashboardPoll; isLatest: 
 
 /* ------------------------------------------------------------------ */
 
-function PeopleTables({
-  subscribers,
-  waitlist,
+function DataTables({
+  collections,
   nowMs,
   period,
 }: {
-  subscribers: DashboardSubscriber[];
-  waitlist: DashboardWaitlistMember[];
+  collections: DashboardCollection[];
   nowMs: number;
   period: Period;
 }) {
-  const [tab, setTab] = useState<"newsletter" | "waitlist">("newsletter");
+  const [tab, setTab] = useState(collections[0]?.name ?? "");
   const [query, setQuery] = useState("");
   const [limit, setLimit] = useState(PAGE_SIZE);
 
-  const q = query.trim().toLowerCase();
-  const subRows = subscribers.filter(
-    (s) => !q || [s.email, s.role, s.source].some((v) => v?.toLowerCase().includes(q))
-  );
-  const wlRows = waitlist.filter(
-    (w) => !q || [w.name, w.email, w.role, w.companyName, w.region].some((v) => v?.toLowerCase().includes(q))
-  );
-  const total = tab === "newsletter" ? subRows.length : wlRows.length;
-  // The very newest record overall gets the "Latest" tag, but only if it is in view.
-  const newestId = tab === "newsletter" ? subscribers[0]?.id : waitlist[0]?.id;
+  const active = collections.find((c) => c.name === tab) ?? collections[0];
+  if (!active) return null;
 
-  const tabs = [
-    { id: "newsletter" as const, label: "Subscribers", count: subscribers.length },
-    { id: "waitlist" as const, label: "Waitlist", count: waitlist.length },
-  ];
+  // Collections without a sign-up date (like poll votes) are never filtered by period.
+  const dated = active.records.some((r) => r.createdAt);
+  const inView = (r: DashboardRecord) => !dated || inPeriod(r.createdAt, period, nowMs);
+  const q = query.trim().toLowerCase();
+  const rows = active.records.filter(
+    (r) =>
+      inView(r) &&
+      (!q ||
+        r.id.toLowerCase().includes(q) ||
+        Object.values(r.values).some((v) => v.toLowerCase().includes(q)))
+  );
+  // The very newest record overall gets the "Latest" tag, but only if it is in view.
+  const newestId = dated ? active.records[0]?.id : undefined;
 
   return (
-    <section className={`${cardClass} overflow-hidden`} aria-label="People">
+    <section className={`${cardClass} overflow-hidden`} aria-label="All database records">
       <div className="px-4 sm:px-5 pt-4 sm:pt-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div className="flex gap-1 p-1 bg-surface-subtle rounded-lg" role="tablist">
-          {tabs.map((t) => (
+        <div className="flex flex-wrap gap-1 p-1 bg-surface-subtle rounded-lg" role="tablist">
+          {collections.map((c) => (
             <button
-              key={t.id}
+              key={c.name}
               role="tab"
-              aria-selected={tab === t.id}
+              aria-selected={active.name === c.name}
               onClick={() => {
-                setTab(t.id);
+                setTab(c.name);
                 setLimit(PAGE_SIZE);
               }}
               className={`flex-1 md:flex-none h-9 px-3 rounded-md text-sm font-semibold cursor-pointer transition whitespace-nowrap ${
-                tab === t.id ? "bg-white text-primary shadow-sm" : "text-text-muted hover:text-primary"
+                active.name === c.name ? "bg-white text-primary shadow-sm" : "text-text-muted hover:text-primary"
               }`}
             >
-              {t.label} <span className="tabular-nums text-text-muted font-medium">({t.count})</span>
+              {c.label}{" "}
+              <span className="tabular-nums text-text-muted font-medium">
+                ({c.records.filter((r) => !c.records.some((x) => x.createdAt) || inPeriod(r.createdAt, period, nowMs)).length})
+              </span>
             </button>
           ))}
         </div>
         <label className="relative md:w-72">
-          <span className="sr-only">Search people</span>
+          <span className="sr-only">Search all fields</span>
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" aria-hidden />
           <input
             type="search"
@@ -705,100 +710,81 @@ function PeopleTables({
               setQuery(e.target.value);
               setLimit(PAGE_SIZE);
             }}
-            placeholder="Search name, email, role…"
+            placeholder="Search any field…"
             className="w-full h-10 pl-9 pr-3 rounded-lg border border-outline-variant text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
           />
         </label>
       </div>
       <p className="px-4 sm:px-5 mt-2 text-xs text-text-muted">
-        {periodLabel(period)} · newest first · rows marked New joined in the last 7 days
+        Every field from the &ldquo;{active.name}&rdquo; collection in Firebase ·{" "}
+        {dated ? `${periodLabel(period)} · newest first · rows marked New joined in the last 7 days` : "not filtered by date"}{" "}
+        · scroll sideways to see all {active.fields.length + 1} columns
       </p>
 
       <div className="mt-3 overflow-x-auto">
-        <table className="w-full text-sm min-w-[640px]">
+        <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-xs text-text-muted uppercase tracking-wider border-y border-surface-container bg-surface-subtle/60">
-              {tab === "newsletter" ? (
-                <>
-                  <th className="font-semibold px-4 sm:px-5 py-2.5">Email</th>
-                  <th className="font-semibold px-3 py-2.5">Role</th>
-                  <th className="font-semibold px-3 py-2.5">Signed up from</th>
-                  <th className="font-semibold px-4 sm:px-5 py-2.5 text-right">Joined</th>
-                </>
-              ) : (
-                <>
-                  <th className="font-semibold px-4 sm:px-5 py-2.5">Name</th>
-                  <th className="font-semibold px-3 py-2.5">Role / company</th>
-                  <th className="font-semibold px-3 py-2.5">Region</th>
-                  <th className="font-semibold px-3 py-2.5">Phone</th>
-                  <th className="font-semibold px-4 sm:px-5 py-2.5 text-right">Joined</th>
-                </>
-              )}
+              <th className="font-semibold px-4 sm:px-5 py-2.5 w-0" aria-label="Tag" />
+              {active.fields.map((f) => (
+                <th key={f} className="font-semibold px-3 py-2.5 whitespace-nowrap">
+                  {fieldLabel(f)}
+                </th>
+              ))}
+              <th className="font-semibold px-4 sm:px-5 py-2.5 whitespace-nowrap">Document ID</th>
             </tr>
           </thead>
           <tbody>
-            {total === 0 && (
+            {rows.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-5 py-10 text-center text-text-muted">
-                  Nobody matches this period or search.
+                <td colSpan={active.fields.length + 2} className="px-5 py-10 text-center text-text-muted">
+                  Nothing matches this period or search.
                 </td>
               </tr>
             )}
-            {tab === "newsletter"
-              ? subRows.slice(0, limit).map((s) => (
-                  <tr key={s.id} className="border-b border-surface-container hover:bg-surface-subtle/60 transition-colors">
-                    <td className="px-4 sm:px-5 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-on-surface break-all">{s.email}</span>
-                        <RowBadge isNewest={s.id === newestId} isNew={isRecent(s.createdAt, nowMs)} />
-                      </div>
-                    </td>
-                    <td className="px-3 py-3 text-on-surface-variant">{s.role ?? "—"}</td>
-                    <td className="px-3 py-3 text-on-surface-variant">{s.source}</td>
-                    <td className="px-4 sm:px-5 py-3 text-right text-on-surface-variant whitespace-nowrap tabular-nums">
-                      {formatDateTime(s.createdAt)}
-                    </td>
-                  </tr>
-                ))
-              : wlRows.slice(0, limit).map((w) => (
-                  <tr key={w.id} className="border-b border-surface-container hover:bg-surface-subtle/60 transition-colors">
-                    <td className="px-4 sm:px-5 py-3">
-                      <div className="flex items-center gap-2">
-                        <div className="min-w-0">
-                          <div className="font-semibold text-on-surface">{w.name || "—"}</div>
-                          <div className="text-xs text-text-muted break-all">{w.email}</div>
-                        </div>
-                        <RowBadge isNewest={w.id === newestId} isNew={isRecent(w.createdAt, nowMs)} />
-                      </div>
-                    </td>
-                    <td className="px-3 py-3 text-on-surface-variant">
-                      {w.role}
-                      {w.companyName && <div className="text-xs text-text-muted">{w.companyName}</div>}
-                    </td>
-                    <td className="px-3 py-3 text-on-surface-variant">{w.region}</td>
-                    <td className="px-3 py-3 text-on-surface-variant whitespace-nowrap">{w.phone ?? "—"}</td>
-                    <td className="px-4 sm:px-5 py-3 text-right text-on-surface-variant whitespace-nowrap tabular-nums">
-                      {formatDateTime(w.createdAt)}
-                    </td>
-                  </tr>
+            {rows.slice(0, limit).map((r) => (
+              <tr key={r.id} className="border-b border-surface-container hover:bg-surface-subtle/60 transition-colors align-top">
+                <td className="px-4 sm:px-5 py-3 w-0">
+                  <RowBadge isNewest={r.id === newestId} isNew={dated && isRecent(r.createdAt, nowMs)} />
+                </td>
+                {active.fields.map((f) => (
+                  <td
+                    key={f}
+                    className={`px-3 py-3 min-w-[120px] max-w-[320px] break-words ${
+                      f === "email" || f === "firstName" || f === "lastName"
+                        ? "text-on-surface font-medium"
+                        : "text-on-surface-variant"
+                    }`}
+                  >
+                    {r.values[f] || <span className="text-text-muted">—</span>}
+                  </td>
                 ))}
+                <td className="px-4 sm:px-5 py-3 text-xs text-text-muted break-all min-w-[160px]">{r.id}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      {total > limit && (
+      {rows.length > limit && (
         <div className="p-4 flex justify-center">
           <button
             type="button"
             onClick={() => setLimit((l) => l + PAGE_SIZE)}
             className="h-10 px-4 rounded-lg border border-primary text-primary text-sm font-semibold cursor-pointer hover:bg-primary hover:text-white transition"
           >
-            Show more ({total - limit} left)
+            Show more ({rows.length - limit} left)
           </button>
         </div>
       )}
     </section>
   );
+}
+
+/** "firstName" → "First name", "timestamp" → "Joined (timestamp)". */
+function fieldLabel(field: string): string {
+  if (field === "timestamp") return "Joined (timestamp)";
+  return humanize(field);
 }
 
 function RowBadge({ isNewest, isNew }: { isNewest: boolean; isNew: boolean }) {

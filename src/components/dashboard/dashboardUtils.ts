@@ -132,3 +132,13 @@ export function percent(part: number, total: number): number {
 export function isRecent(iso: string | null, nowMs: number, days = 7): boolean {
   return !!iso && nowMs - new Date(iso).getTime() <= days * DAY_MS;
 }
+
+/** "firstName" → "First name", "newsletter_subscribers" → "Newsletter subscribers". */
+export function humanize(name: string): string {
+  const words = name
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .trim()
+    .toLowerCase();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
