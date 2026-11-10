@@ -15,6 +15,7 @@ export interface CFOEvent {
   location: string; // "London, UK" | "Online"
   venue?: string; // full venue name/address, in-person only
   hosts?: string[];
+  /** Registration page. Named for Eventbrite, but can be any platform (e.g. Luma). */
   eventbriteUrl: string;
   featured?: boolean;
 }

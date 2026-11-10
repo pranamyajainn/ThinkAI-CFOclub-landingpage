@@ -1,5 +1,5 @@
 import React from "react";
-import { getUpcomingEvents, getPastEvents } from "@/content/events";
+import { getUpcomingEvents, getPastEvents, registrationLabel } from "@/content/events";
 import { CFOEvent } from "@/types/event";
 import { CalendarDays, Clock, MapPin, Radio, ArrowUpRight, History } from "lucide-react";
 
@@ -88,7 +88,7 @@ export default function EventsSection() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-primary text-white font-semibold text-xs hover:bg-primary-container transition-all"
                 >
-                  <span>Register on Eventbrite</span>
+                  <span>{registrationLabel(event.eventbriteUrl)}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </div>

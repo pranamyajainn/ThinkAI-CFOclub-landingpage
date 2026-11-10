@@ -5,7 +5,7 @@ import { CFOEvent } from "@/types/event";
  *
  * Shown on the landing page: upcoming events in the Hero banner and the
  * Events section, past events in a "Past Events" list below them. Each
- * links out to its Eventbrite page — there's no in-app detail page or
+ * links out to its registration page (Eventbrite or Luma) — there's no in-app detail page or
  * checkout flow.
  *
  * To add a new event: add an entry below (chronological order). Events
@@ -71,6 +71,20 @@ export const events: CFOEvent[] = [
     featured: true,
   },
   {
+    slug: "aifp-optimising-finance-workflows-with-claude",
+    title: "AI for CFOs & Finance Professionals (AIFP): Optimising Your Finance Workflows with Claude",
+    description:
+      "A live online webinar on speeding up the finance workflows you already run — accruals, cash forecasting, month-end close, and management packs — with Claude, no rip-and-replace, plus how to pick your first one to tackle. Hosted by Selona and GroByz, with Guftagu as networking partner. Q&A included, and attendees can choose a free workflow assessment or a one-week ThinkAIWork trial.",
+    format: "Online",
+    date: "2026-11-18",
+    displayDate: "Nov 18, 2026",
+    time: "4:00 – 5:00 PM IST (10:30 AM UK | 11:30 AM CET)",
+    location: "Online",
+    hosts: ["Selona", "GroByz"],
+    // Registration page is on Luma (host approval required), not Eventbrite.
+    eventbriteUrl: "https://luma.com/6lfrg5w7",
+  },
+  {
     slug: "ai-for-cfos-transforming-month-end-close-using-ai",
     title: "AI for CFOs: Transforming Month-End Close Using AI",
     description:
@@ -87,6 +101,17 @@ export const events: CFOEvent[] = [
     featured: true,
   },
 ];
+
+/**
+ * Button text for an event's registration link. Most events register on
+ * Eventbrite, but some use another platform (e.g. Luma), so the label
+ * follows the link instead of always saying Eventbrite.
+ */
+export function registrationLabel(url: string): string {
+  if (url.includes("eventbrite.")) return "Register on Eventbrite";
+  if (url.includes("luma.com") || url.includes("lu.ma")) return "Register on Luma";
+  return "Register Now";
+}
 
 function startOfToday(): Date {
   const today = new Date();
