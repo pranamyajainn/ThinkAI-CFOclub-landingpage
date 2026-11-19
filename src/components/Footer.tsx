@@ -50,6 +50,14 @@ export default function Footer() {
             </li>
             <li>
               <Link
+                href="/courses"
+                className="text-xs text-on-primary/80 hover:text-white transition-colors font-medium"
+              >
+                Courses
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/polls"
                 className="text-xs text-on-primary/80 hover:text-white transition-colors font-medium flex items-center gap-1.5"
               >

@@ -1,0 +1,288 @@
+// Claude 101 course content for /courses.
+//
+// To publish a video:
+//   1. Prepare it for fast loading (moves the index to the front, lighter audio,
+//      keeps the picture untouched) and add a cover image:
+//        ffmpeg -i in.mp4 -c:v copy -c:a aac -b:a 96k -movflags +faststart public/course-videos/claude-101-mX-vY.mp4
+//        ffmpeg -ss 20 -i public/course-videos/claude-101-mX-vY.mp4 -frames:v 1 -vf scale=1280:-1 -q:v 3 public/course-videos/claude-101-mX-vY-poster.jpg
+//   2. Set `status: "live"`, `videoUrl`, `poster` and `duration` on that video.
+//   Each live video gets its own page at /courses/<slug>. The slug is made from
+//   the title. Once a video's link has been shared, set `slug` by hand before
+//   changing its title, so the old link keeps working.
+//   Files in /course-videos are cached for a year, so a changed video needs a new file name.
+// Videos marked "coming-soon" (and modules with no live video) show blurred and locked.
+
+export type LessonStatus = "live" | "coming-soon";
+
+export interface CourseLesson {
+  id: string;
+  /** Web address of the video page: /courses/<slug> */
+  slug: string;
+  number: number;
+  title: string;
+  topics: string[];
+  status: LessonStatus;
+  duration?: string;
+  /** Path in /public, e.g. /course-videos/claude-101-m1-v1.mp4 */
+  videoUrl?: string;
+  /** Cover image shown before the video plays. */
+  poster?: string;
+}
+
+export interface CourseModule {
+  id: string;
+  number: number;
+  title: string;
+  lessons: CourseLesson[];
+}
+
+export const courseName = "Claude 101";
+
+type LessonInput = Omit<CourseLesson, "id" | "number" | "status" | "slug"> &
+  Partial<Pick<CourseLesson, "status" | "slug">>;
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function buildModule(number: number, title: string, lessons: LessonInput[]): CourseModule {
+  return {
+    id: `module-${number}`,
+    number,
+    title,
+    lessons: lessons.map((l, i) => ({
+      status: "coming-soon",
+      ...l,
+      slug: l.slug ?? slugify(l.title),
+      id: `m${number}-v${i + 1}`,
+      number: i + 1,
+    })),
+  };
+}
+
+export const courseModules: CourseModule[] = [
+  buildModule(1, "The basics", [
+    {
+      title: "Meet Claude, your new analyst",
+      status: "live",
+      duration: "4:30",
+      videoUrl: "/course-videos/claude-101-m1-v1.mp4",
+      poster: "/course-videos/claude-101-m1-v1-poster.jpg",
+      topics: [
+        "What Claude is and who makes it",
+        "The one rule: Claude drafts, you decide",
+        "Which plan to start on, and the rule on company data",
+        "First task: summarise a public annual report and check two numbers",
+      ],
+    },
+    {
+      title: "Your first conversation",
+      topics: [
+        "A tour of the chat screen",
+        "What a good brief contains",
+        "Choosing a model and effort level",
+        "Replying to improve an answer instead of starting over",
+      ],
+    },
+    {
+      title: "Claude makes things",
+      topics: [
+        "Real files: Excel, Word and slides",
+        "Artifacts: pages and small tools Claude builds in the chat",
+        "When to use web search and when to use Research",
+        "Asking for changes to a file Claude made",
+      ],
+    },
+    {
+      title: "Projects, memory and privacy",
+      topics: [
+        "One project for each piece of work",
+        "Adding files and house rules once",
+        "How memory works, and where its settings are",
+        "Who can see your data",
+      ],
+    },
+    {
+      title: "Skills and plugins",
+      topics: [
+        "What a skill is",
+        "Turning a monthly task into a skill",
+        "Finance plugins",
+        "Testing a skill on last month's work",
+      ],
+    },
+    {
+      title: "Connectors and Claude in your tools",
+      topics: [
+        "What a connector is and what it can reach",
+        "Claude inside Excel",
+        "Connecting only what you need",
+        "A first-week plan: one small task a day",
+      ],
+    },
+  ]),
+  buildModule(2, "Prompting for finance", [
+    {
+      title: "Why your prompts disappoint",
+      topics: [
+        "Why answers come back weak",
+        "Where AI helps in finance, and where it does not",
+        "The new-hire test for any prompt",
+      ],
+    },
+    {
+      title: "PTCF: the four-part brief",
+      topics: ["Persona, Task, Context, Format", "Building a real prompt live", "Spotting the missing part"],
+    },
+    {
+      title: "Before and after: variance commentary",
+      topics: [
+        "One common prompt and the five decisions it hides",
+        "Rebuilding it for a board pack",
+        "Basis, period, currency and threshold",
+      ],
+    },
+    {
+      title: "Prompt clinic: three near-misses",
+      topics: [
+        "A cash forecast prompt",
+        "An overhead review prompt",
+        "An accounting question prompt",
+        "The one fault all three share",
+      ],
+    },
+    {
+      title: "The five-step prompting loop",
+      topics: [
+        "Define, Supply, Constrain, Audit, Iterate",
+        "Why you should not start over",
+        "Asking for the rows behind each figure",
+      ],
+    },
+  ]),
+  buildModule(3, "Real work, end to end", [
+    {
+      title: "Case study: the pack and the brief",
+      topics: [
+        "The raw workbook, untouched",
+        "The prompt, mapped to the four-part brief",
+        "Claude checking the data first",
+      ],
+    },
+    {
+      title: "Case study: the output, checked",
+      topics: [
+        "What Claude caught",
+        "What stays with you",
+        "A ratio that changed between two runs",
+        "Tracing figures back to their cells",
+      ],
+    },
+    {
+      title: "Prompt library: analysis and forecasting",
+      topics: [
+        "Ready prompts for analysis and forecasting",
+        "The inputs each prompt needs",
+        "Swapping in your own figures",
+      ],
+    },
+    {
+      title: "Prompt library: strategy and the thought partner",
+      topics: ["Board and deal work", "Covenants and policy", "Claude as your critic before you send a paper"],
+    },
+    {
+      title: "Your role, your first task",
+      topics: [
+        "Three tests for a good AI task",
+        "Task ideas by role",
+        "Three tracks to choose from",
+        "Running your first task end to end",
+      ],
+    },
+  ]),
+  buildModule(4, "Context, trust and guardrails", [
+    {
+      title: "What Claude actually sees",
+      topics: [
+        "What context means: files, figures and earlier turns",
+        "Why long threads change answers",
+        "Asking Claude what it is using",
+      ],
+    },
+    {
+      title: "When context goes wrong",
+      topics: [
+        "Four failures: poisoning, drift, distraction, clash",
+        "The clue for each one",
+        "Checking numbers against the source",
+      ],
+    },
+    {
+      title: "Six habits for clean context",
+      topics: ["Six habits, and the words to use", "One thread for each deliverable", "When to start fresh"],
+    },
+    {
+      title: "Trust the numbers",
+      topics: [
+        "Why typed numbers can wander",
+        "Calculate, do not generate",
+        "Recalculating figures before you use them",
+      ],
+    },
+    {
+      title: "Guardrails and the confident wrong answer",
+      topics: [
+        "What never goes into Claude",
+        "How to catch an answer that sounds right and is wrong",
+        "One monthly task, with a saved brief and an owner",
+      ],
+    },
+  ]),
+];
+
+export function isModuleLive(mod: CourseModule): boolean {
+  return mod.lessons.some((l) => l.status === "live");
+}
+
+export interface LessonRef {
+  lesson: CourseLesson;
+  mod: CourseModule;
+}
+
+/** Every video in course order, with its module. */
+export function getAllLessons(): LessonRef[] {
+  return courseModules.flatMap((mod) => mod.lessons.map((lesson) => ({ lesson, mod })));
+}
+
+export function getLiveLessons(): LessonRef[] {
+  return getAllLessons().filter((x) => x.lesson.status === "live");
+}
+
+/** Only live videos have a page; locked ones return undefined. */
+export function getLiveLessonBySlug(slug: string): LessonRef | undefined {
+  return getLiveLessons().find((x) => x.lesson.slug === slug);
+}
+
+export function getNextLesson(id: string): LessonRef | undefined {
+  const all = getAllLessons();
+  const i = all.findIndex((x) => x.lesson.id === id);
+  return i >= 0 ? all[i + 1] : undefined;
+}
+
+export function getPreviousLiveLesson(id: string): LessonRef | undefined {
+  const all = getAllLessons();
+  const i = all.findIndex((x) => x.lesson.id === id);
+  for (let j = i - 1; j >= 0; j--) if (all[j].lesson.status === "live") return all[j];
+  return undefined;
+}
+
+export function lessonHref(lesson: CourseLesson): string {
+  return `/courses/${lesson.slug}`;
+}
+
+export const SITE_URL = "https://cfoaihub.com";
+export const INTRO_VIDEO = "/course-videos/cfo-ai-hub-intro.mp4";

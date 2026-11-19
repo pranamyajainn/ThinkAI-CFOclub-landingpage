@@ -20,6 +20,7 @@ export default function Navbar() {
     pathname.startsWith("/articles") ||
     pathname.startsWith("/polls") ||
     pathname.startsWith("/poll/");
+  const isCoursesRoute = pathname.startsWith("/courses");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,7 +85,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Links */}
-          <ul className="hidden md:flex items-center space-x-7 lg:space-x-8">
+          <ul className="hidden md:flex items-center whitespace-nowrap space-x-4 lg:space-x-6 xl:space-x-8">
             <li>
               <a
                 href={getHref("#why-join")}
@@ -194,6 +195,20 @@ export default function Navbar() {
               </AnimatePresence>
             </li>
 
+            <li className="pr-4">
+              <Link
+                href="/courses"
+                className={`relative text-sm font-medium tracking-wide transition-colors ${
+                  isCoursesRoute ? "text-primary font-bold" : "text-on-surface-variant hover:text-primary"
+                }`}
+              >
+                Courses
+                <span className="absolute -top-2.5 -right-6 text-[9px] font-bold px-1 py-px rounded bg-secondary-container text-white leading-tight">
+                  New
+                </span>
+              </Link>
+            </li>
+
             <li>
               <a
                 href={getHref("#apply")}
@@ -204,11 +219,11 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
+          {/* Desktop CTA (hidden on small laptops so the links do not wrap; "Waitlist" stays in the menu) */}
+          <div className="hidden lg:block">
             <a
               href={getHref("#apply")}
-              className="relative inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-secondary-container text-on-secondary font-semibold text-sm transition-all duration-200 hover:bg-secondary hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              className="relative inline-flex items-center justify-center whitespace-nowrap px-5 py-2.5 rounded-lg bg-secondary-container text-on-secondary font-semibold text-sm transition-all duration-200 hover:bg-secondary hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
             >
               Join the Waitlist
             </a>
@@ -322,6 +337,17 @@ export default function Navbar() {
                   )}
                 </AnimatePresence>
               </div>
+
+              <Link
+                onClick={() => setMobileMenuOpen(false)}
+                href="/courses"
+                className="flex items-center gap-2.5 text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
+              >
+                Courses
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-secondary-container text-white">
+                  New
+                </span>
+              </Link>
 
               <a
                 onClick={() => setMobileMenuOpen(false)}
