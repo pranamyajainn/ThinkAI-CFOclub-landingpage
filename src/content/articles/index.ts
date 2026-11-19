@@ -1,4 +1,5 @@
 import { Article } from "@/types/article";
+import { articleExcelAuditTrail } from "./ai-wont-kill-excel-unvetted-plugins-audit-trail";
 import { articleEntryLevelFinance } from "./ai-doing-the-making-entry-level-finance-professional";
 import { articleHindsightToForesight } from "./from-hindsight-to-foresight-elevating-the-finance-function";
 import { articleProcessIntelligence } from "./before-ai-comes-process-intelligence";
@@ -14,6 +15,7 @@ import { articleMakingTaxDigital } from "./making-tax-digital-permanent-operatio
  * (Latest articles first)
  */
 export const allArticles: Article[] = [
+  articleExcelAuditTrail,
   articleEntryLevelFinance,
   articleHindsightToForesight,
   articleProcessIntelligence,
