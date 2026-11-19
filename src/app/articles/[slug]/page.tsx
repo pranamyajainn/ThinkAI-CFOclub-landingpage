@@ -13,6 +13,7 @@ import {
   getArticleBySlug,
   getRelatedArticles,
 } from "@/lib/articles";
+import { OG_IMAGE } from "@/lib/site";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -39,6 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${article.title} — CFO AI Hub`,
     description: article.excerpt,
     openGraph: {
+      images: article.coverImage ? [article.coverImage] : [OG_IMAGE],
       title: `${article.title} — CFO AI Hub`,
       description: article.excerpt,
       type: "article",

@@ -99,7 +99,7 @@ interface SubscribeOptions {
   email: string;
   firstName?: string;
   lastName?: string;
-  /** Which form the signup came from, e.g. "newsletter-box" or "waitlist". */
+  /** Which form the signup came from, e.g. "newsletter-box" or "join-form". */
   utmMedium: string;
   /**
    * Only true when the person explicitly asked for the newsletter just now,

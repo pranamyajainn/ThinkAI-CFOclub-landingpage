@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, Mail, User, Loader2, Sparkles, Check, ChevronRight, ChevronDown, Building2, Phone } from "lucide-react";
 import confetti from "canvas-confetti";
+import Link from "next/link";
 import { COMPANY_NAME_MAX_LENGTH, WAITLIST_REGIONS } from "@/lib/waitlist";
 import { WaitlistRegion } from "@/types/waitlist";
 
@@ -87,7 +88,7 @@ export default function WaitlistForm() {
       return;
     }
     if (!formData.agreed) {
-      setErrorMsg("You must agree to receive Hub updates to join the waitlist.");
+      setErrorMsg("Please agree to receive Hub updates to join.");
       return;
     }
 
@@ -192,13 +193,13 @@ export default function WaitlistForm() {
               <div className="text-center mb-10">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/40 border border-on-primary/10 text-xs font-semibold tracking-wider text-secondary-container mb-4">
                   <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-                  Early Access Waitlist
+                  Membership open
                 </span>
                 <h2 className="font-display text-4xl md:text-5xl font-extrabold text-white mb-4">
-                  Join the Waitlist
+                  Join CFO AI Hub
                 </h2>
                 <p className="font-sans text-sm md:text-base text-on-primary/80">
-                  Get notified when spots open and receive our monthly AI briefings.
+                  Get our monthly AI briefings, workshop invites and new Claude 101 videos as they are released.
                 </p>
               </div>
 
@@ -396,7 +397,7 @@ export default function WaitlistForm() {
                     htmlFor="agreed"
                     className="text-xs text-on-primary/70 leading-relaxed cursor-pointer font-medium select-none"
                   >
-                    I agree to receive monthly AI briefings, workshop updates, and waitlist notifications.
+                    I agree to receive monthly AI briefings, workshop updates and news from CFO AI Hub.
                   </label>
                 </div>
 
@@ -409,17 +410,17 @@ export default function WaitlistForm() {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      Joining Waitlist...
+                      Joining...
                     </>
                   ) : (
                     <>
-                      Join the Waitlist
+                      Join CFO AI Hub
                       <ChevronRight className="w-5 h-5" />
                     </>
                   )}
                 </button>
                 <p className="text-center text-xs text-on-primary/60 mt-1 font-medium">
-                  No spam. Your data stays private. We will notify you when spots open.
+                  No spam. Your data stays private. Unsubscribe at any time.
                 </p>
 
                 {/* Privacy Guarantee */}
@@ -444,31 +445,34 @@ export default function WaitlistForm() {
                   <Check className="w-7 h-7 stroke-[3]" />
                 </div>
                 <h3 className="font-display text-2xl font-bold text-primary mb-1">
-                  You're on the Waitlist!
+                  You&apos;re in!
                 </h3>
                 <p className="text-xs text-text-muted font-semibold">
-                  Thank you, {appliedInfo.firstName}. We'll notify you as soon as spots become available.
+                  Welcome to CFO AI Hub, {appliedInfo.firstName}. Look out for our next briefing in your inbox.
                 </p>
               </div>
 
               {/* Status Tracking Roster Card */}
               <div className="grid md:grid-cols-3 gap-4 mb-2">
                 {/* Stats 1 */}
-                <div className="p-4 bg-surface-container-low rounded-xl border border-surface-dim text-center">
+                <Link
+                  href="/courses"
+                  className="p-4 bg-surface-container-low rounded-xl border border-surface-dim text-center hover:border-secondary-container transition-colors"
+                >
                   <span className="text-[10px] text-text-muted font-bold block uppercase tracking-wider mb-1">
-                    Queue Position
+                    Start here
                   </span>
-                  <span className="text-2xl font-display font-extrabold text-primary">
-                    #{appliedInfo.queueNo}
+                  <span className="text-sm font-bold text-secondary block mt-1.5">
+                    Watch Claude 101 &rarr;
                   </span>
-                </div>
+                </Link>
                 {/* Stats 2 */}
                 <div className="p-4 bg-surface-container-low rounded-xl border border-surface-dim text-center">
                   <span className="text-[10px] text-text-muted font-bold block uppercase tracking-wider mb-1">
-                    Waitlist Status
+                    Membership
                   </span>
                   <span className="text-sm font-bold text-emerald-600 block mt-1.5">
-                    Confirmed
+                    Active
                   </span>
                 </div>
                 {/* Stats 3 */}

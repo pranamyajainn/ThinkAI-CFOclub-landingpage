@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Copy, Check, Share2, ArrowLeft } from "lucide-react";
+import { SITE_URL } from "@/lib/site";
 import { NewsletterEdition } from "@/types/newsletter";
 
 interface NewsletterEditionShareProps {
@@ -14,13 +15,14 @@ export default function NewsletterEditionShare({ edition }: NewsletterEditionSha
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
   };
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  // Fixed public address, so the server-rendered share links are never empty.
+  const shareUrl = `${SITE_URL}/newsletter/${edition.slug}`;
   const shareTitle = encodeURIComponent(`${edition.title} — CFO AI Hub Newsletter`);
 
   return (

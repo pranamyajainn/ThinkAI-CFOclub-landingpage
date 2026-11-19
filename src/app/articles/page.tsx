@@ -7,11 +7,13 @@ import FeaturedArticleCard from "@/components/newsletter/FeaturedArticleCard";
 import ArticleGrid from "@/components/newsletter/ArticleGrid";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import { getAllArticles, getFeaturedArticle, getAllCategories } from "@/lib/articles";
+import { OG_IMAGE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Articles — AI in Finance for Practitioners — CFO AI Hub",
   description: "Standalone operational teardowns, algorithmic risk frameworks, and real-world deployment case studies curated specifically for CFOs and senior finance leaders.",
   openGraph: {
+    images: [OG_IMAGE],
     title: "Articles — CFO AI Hub",
     description: "Tactical articles on AI deployment in corporate finance, autonomous FP&A, and treasury.",
     type: "website",

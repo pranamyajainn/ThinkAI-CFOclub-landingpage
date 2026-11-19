@@ -208,24 +208,16 @@ export default function Navbar() {
                 </span>
               </Link>
             </li>
-
-            <li>
-              <a
-                href={getHref("#apply")}
-                className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium tracking-wide"
-              >
-                Waitlist
-              </a>
-            </li>
           </ul>
 
-          {/* Desktop CTA (hidden on small laptops so the links do not wrap; "Waitlist" stays in the menu) */}
-          <div className="hidden lg:block">
+          {/* Desktop CTA. Shorter label on small laptops so the header never wraps. */}
+          <div className="hidden md:block">
             <a
               href={getHref("#apply")}
-              className="relative inline-flex items-center justify-center whitespace-nowrap px-5 py-2.5 rounded-lg bg-secondary-container text-on-secondary font-semibold text-sm transition-all duration-200 hover:bg-secondary hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              className="relative inline-flex items-center justify-center whitespace-nowrap px-4 lg:px-5 py-2.5 rounded-lg bg-secondary-container text-on-secondary font-semibold text-sm transition-all duration-200 hover:bg-secondary hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
             >
-              Join the Waitlist
+              <span className="lg:hidden">Join</span>
+              <span className="hidden lg:inline">Join CFO AI Hub</span>
             </a>
           </div>
 
@@ -348,14 +340,6 @@ export default function Navbar() {
                   New
                 </span>
               </Link>
-
-              <a
-                onClick={() => setMobileMenuOpen(false)}
-                href={getHref("#apply")}
-                className="text-2xl font-display font-semibold text-primary pb-3 border-b border-surface-dim"
-              >
-                Waitlist
-              </a>
             </div>
 
             <div className="flex flex-col gap-4 mt-8">
@@ -364,11 +348,11 @@ export default function Navbar() {
                 href={getHref("#apply")}
                 className="w-full py-4 text-center rounded-xl bg-secondary-container text-on-secondary font-bold text-lg flex items-center justify-center gap-2 hover:bg-secondary transition-colors"
               >
-                Join the Waitlist
+                Join CFO AI Hub
                 <ArrowRight className="w-5 h-5" />
               </a>
               <p className="text-center text-xs text-text-muted">
-                Join our waitlist for weekly briefings & community access.
+                Monthly AI briefings, workshops and a peer community of finance leaders.
               </p>
             </div>
           </motion.div>

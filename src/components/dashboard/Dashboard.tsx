@@ -130,7 +130,7 @@ export default function Dashboard({ data }: { data: DashboardData }) {
           />
           <KpiCard
             icon={<Users className="w-4 h-4" />}
-            label="Waitlist members"
+            label="Members"
             value={waitlist.length}
             hint={period === "all" ? "All time" : `${periodLabel(period)} · ${data.waitlist.length} all time`}
             accent={ORANGE}
@@ -362,7 +362,7 @@ function LatestStrip({ data, nowMs }: { data: DashboardData; nowMs: number }) {
       sub: sub ? `${sub.role ?? "No role given"} · ${timeAgo(sub.createdAt, nowMs)}` : "",
     },
     {
-      title: "Newest waitlist member",
+      title: "Newest member",
       main: wl ? wl.name || wl.email : "No members yet",
       sub: wl ? `${[wl.role, wl.companyName].filter(Boolean).join(", ")} · ${timeAgo(wl.createdAt, nowMs)}` : "",
     },
@@ -426,7 +426,7 @@ function SignupsChart({
         key: k,
         label: byDay ? formatDate(k).replace(/ \d{4}$/, "") : monthLabel(k, true),
         Newsletter: counts.get(k)!.newsletter,
-        Waitlist: counts.get(k)!.waitlist,
+        Members: counts.get(k)!.waitlist,
       })),
     };
   }, [subscribers, waitlist, period, nowMs, earliest]);
@@ -449,7 +449,7 @@ function SignupsChart({
             />
             <Legend iconType="square" wrapperStyle={{ fontSize: 12 }} />
             <Bar dataKey="Newsletter" stackId="a" fill={NAVY} isAnimationActive={!reduce} maxBarSize={36} />
-            <Bar dataKey="Waitlist" stackId="a" fill={ORANGE} radius={[4, 4, 0, 0]} isAnimationActive={!reduce} maxBarSize={36} />
+            <Bar dataKey="Members" stackId="a" fill={ORANGE} radius={[4, 4, 0, 0]} isAnimationActive={!reduce} maxBarSize={36} />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -480,7 +480,7 @@ function Breakdown({
     { id: "region", label: "Region" },
   ];
   const caption =
-    view === "source" ? "Newsletter subscribers by page" : view === "role" ? "Subscribers and waitlist" : "Waitlist members";
+    view === "source" ? "Newsletter subscribers by page" : view === "role" ? "Subscribers and members" : "Members";
 
   return (
     <div className={`${cardClass} p-4 sm:p-5`}>

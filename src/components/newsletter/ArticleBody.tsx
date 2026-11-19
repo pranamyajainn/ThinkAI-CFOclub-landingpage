@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Article } from "@/types/article";
 import {
   Lightbulb,
@@ -159,7 +160,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
               <div className="relative p-6 sm:p-8 my-8 rounded-2xl bg-surface-container-high/60 border-l-4 border-primary">
                 <Quote className="w-8 h-8 text-primary/20 absolute top-4 right-4" />
                 <blockquote className="text-lg sm:text-xl font-display italic text-primary leading-snug mb-3">
-                  "{section.quote.text}"
+                  &ldquo;{section.quote.text}&rdquo;
                 </blockquote>
                 <div className="text-xs sm:text-sm font-bold text-on-surface">
                   — {section.quote.author}
@@ -260,13 +261,13 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                 <div className="text-sm font-semibold text-secondary">
                   <strong>Recommended Action:</strong> {article.conclusion.actionItem}
                 </div>
-                <a
-                  href="#apply"
+                <Link
+                  href="/#apply"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-secondary text-white text-xs font-semibold hover:bg-secondary-container transition-all flex-shrink-0"
                 >
-                  <span>Member Access</span>
+                  <span>Join CFO AI Hub</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </a>
+                </Link>
               </div>
             )}
           </div>

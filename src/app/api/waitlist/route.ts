@@ -110,7 +110,8 @@ export async function POST(request: Request) {
           email: normalizedEmail,
           firstName: firstName.trim(),
           lastName: lastName.trim(),
-          utmMedium: "waitlist",
+          // "join-form" from 19 Nov 2026, when the waitlist closed; older sign-ups say "waitlist".
+          utmMedium: "join-form",
           reactivateExisting: false,
         });
       } catch (beehiivError) {
@@ -119,7 +120,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json(
         {
-          message: "Successfully joined the waitlist.",
+          message: "Welcome to CFO AI Hub.",
           id: docId,
           queueNo,
         },
@@ -132,7 +133,7 @@ export async function POST(request: Request) {
         console.log(`[Waitlist Submission] Duplicate signup for existing entry: ${docId}`);
         return NextResponse.json(
           {
-            message: "You're already on the waitlist — we'll notify you as soon as spots open.",
+            message: "You're already a member of CFO AI Hub.",
             id: docId,
             queueNo,
             alreadyRegistered: true,

@@ -8,6 +8,7 @@ import NewsletterEditionBody from "@/components/newsletter/NewsletterEditionBody
 import NewsletterEditionShare from "@/components/newsletter/NewsletterEditionShare";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import { getAllEditions, getEditionBySlug } from "@/lib/newsletter";
+import { OG_IMAGE } from "@/lib/site";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -38,6 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `Edition #${edition.editionNumber}: ${edition.title} — CFO AI Hub Newsletter`,
     description: edition.excerpt,
     openGraph: {
+      images: edition.coverImage ? [edition.coverImage] : [OG_IMAGE],
       title: `${edition.title} — CFO AI Hub Newsletter`,
       description: edition.excerpt,
       type: "article",

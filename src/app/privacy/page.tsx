@@ -13,18 +13,18 @@ const ul = "list-disc pl-5 space-y-2";
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalPageLayout title="Privacy Policy" lastUpdated="August 18, 2026">
+    <LegalPageLayout title="Privacy Policy" lastUpdated="November 19, 2026">
       <p>
         CFO AI Hub (&quot;CFO AI Hub,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is operated by Selona.
         This Privacy Policy explains what information we collect when you visit cfoaihub.com
-        (the &quot;Site&quot;), join our waitlist, subscribe to our newsletter, or otherwise interact with
+        (the &quot;Site&quot;), join CFO AI Hub, subscribe to our newsletter, or otherwise interact with
         us, and how we use, store, and protect it.
       </p>
 
       <h2 className={h2}>1. Information We Collect</h2>
       <p>We collect information you provide directly to us, specifically:</p>
       <ul className={ul}>
-        <li><strong>Waitlist signups:</strong> first name, last name, work email address, and your current role.</li>
+        <li><strong>Membership sign-ups:</strong> first name, last name, work email address, and your current role.</li>
         <li><strong>Newsletter subscriptions:</strong> email address and, optionally, your role.</li>
         <li><strong>Poll participation:</strong> your selected answer and self-reported role. Poll responses are recorded anonymously and are not linked to your name or email.</li>
       </ul>
@@ -37,7 +37,7 @@ export default function PrivacyPolicyPage() {
       <h2 className={h2}>2. How We Use Your Information</h2>
       <p>We use the information we collect to:</p>
       <ul className={ul}>
-        <li>Manage the CFO AI Hub early-access waitlist and notify you when a spot opens;</li>
+        <li>Manage your CFO AI Hub membership;</li>
         <li>Send the newsletter and related briefings, workshop updates, and community communications you signed up for;</li>
         <li>Aggregate and display anonymous, non-identifying poll results (e.g. &quot;62% of respondents said...&quot;);</li>
         <li>Operate, maintain, and improve the Site; and</li>
@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
 
       <h2 className={h2}>3. How We Store and Protect Your Information</h2>
       <p>
-        Waitlist and subscriber information is stored using Google Firebase (Cloud Firestore)
+        Member and subscriber information is stored using Google Firebase (Cloud Firestore)
         infrastructure. Data is transmitted over encrypted (HTTPS/TLS) connections. Access to stored
         data is restricted — our systems are configured so this information cannot be read back out
         through the Site itself, only through our own administrative access.
@@ -61,14 +61,14 @@ export default function PrivacyPolicyPage() {
       <h2 className={h2}>4. Cookies and Local Storage</h2>
       <p>
         The Site uses your browser&apos;s local storage (not third-party tracking cookies) to remember
-        things like whether you&apos;ve already joined the waitlist or voted in a poll, so you don&apos;t see
+        things like whether you&apos;ve already joined CFO AI Hub or voted in a poll, so you don&apos;t see
         the same form twice. This information stays on your device and is not used to track you across
         other websites.
       </p>
 
       <h2 className={h2}>5. Data Retention</h2>
       <p>
-        We retain waitlist and subscriber information for as long as needed to operate the community
+        We retain member and subscriber information for as long as needed to operate the community
         and send the communications you signed up for, or until you ask us to delete it.
       </p>
 

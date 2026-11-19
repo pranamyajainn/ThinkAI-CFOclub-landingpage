@@ -8,6 +8,7 @@ import PollCard from "@/components/polls/PollCard";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import { getAllPolls, getPollById } from "@/lib/polls";
 import { ChevronRight, ArrowLeft } from "lucide-react";
+import { OG_IMAGE } from "@/lib/site";
 
 interface PageProps {
   params: Promise<{ pollId: string }>;
@@ -34,6 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `Poll: ${poll.question} — CFO AI Hub`,
     description: poll.context,
     openGraph: {
+      images: [OG_IMAGE],
       title: `Executive Poll: ${poll.question}`,
       description: poll.context,
       type: "website",

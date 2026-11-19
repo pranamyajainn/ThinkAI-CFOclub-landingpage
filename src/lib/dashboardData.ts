@@ -86,7 +86,7 @@ function toIso(value: unknown): string | null {
 
 const COLLECTION_LABELS: Record<string, string> = {
   newsletterSubscribers: "Subscribers",
-  waitlist: "Waitlist",
+  waitlist: "Members", // Firestore collection is still named "waitlist"
   pollVotes: "Poll votes",
 };
 const COLLECTION_ORDER = ["newsletterSubscribers", "waitlist"];

@@ -6,11 +6,13 @@ import NewsletterEditionsHero from "@/components/newsletter/NewsletterEditionsHe
 import NewsletterEditionCard from "@/components/newsletter/NewsletterEditionCard";
 import NewsletterSubscribe from "@/components/newsletter/NewsletterSubscribe";
 import { getAllEditions } from "@/lib/newsletter";
+import { OG_IMAGE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "The CFO AI Hub Newsletter — Weekly Editions",
   description: "Every complete weekly edition of the CFO AI Hub newsletter: news roundups, featured practitioner articles, tool comparisons, and community polls.",
   openGraph: {
+    images: [OG_IMAGE],
     title: "The CFO AI Hub Newsletter",
     description: "Complete weekly newsletter editions for CFOs and senior finance leaders.",
     type: "website",

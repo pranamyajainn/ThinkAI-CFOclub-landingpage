@@ -13,19 +13,19 @@ const ul = "list-disc pl-5 space-y-2";
 
 export default function TermsOfServicePage() {
   return (
-    <LegalPageLayout title="Terms of Service" lastUpdated="August 18, 2026">
+    <LegalPageLayout title="Terms of Service" lastUpdated="November 19, 2026">
       <p>
         These Terms of Service (&quot;Terms&quot;) govern your access to and use of cfoaihub.com and the
         CFO AI Hub newsletter, community, and related content (together, the &quot;Service&quot;), operated by
-        Selona (&quot;Selona,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). By using the Service — including joining the
-        waitlist, subscribing to the newsletter, or voting in a poll — you agree to these Terms.
+        Selona (&quot;Selona,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). By using the Service — including joining CFO AI
+        Hub, subscribing to the newsletter, watching a course video, or voting in a poll — you agree to these Terms.
       </p>
 
       <h2 className={h2}>1. The Service</h2>
       <p>
         CFO AI Hub is a practitioner-built newsletter and community for finance leaders implementing
         AI. The Service currently includes editorial articles, periodic newsletter editions, community
-        polls, and an early-access waitlist for future community features.
+        polls, video courses such as Claude 101, and membership sign-up.
       </p>
 
       <h2 className={h2}>2. Eligibility</h2>
@@ -35,11 +35,11 @@ export default function TermsOfServicePage() {
         as your name, email, and role) is accurate.
       </p>
 
-      <h2 className={h2}>3. Waitlist &amp; Early Access</h2>
+      <h2 className={h2}>3. Membership</h2>
       <p>
-        Joining the waitlist registers your interest in early access to CFO AI Hub. It is not a purchase,
-        contract, or guarantee of admission, a specific queue position, or a specific timeline. We may
-        change the scope, features, availability, or timing of early access at any time.
+        Joining CFO AI Hub signs you up for our briefings, workshop updates, and community news. It is
+        not a purchase or a contract. We may change the scope, features, or availability of membership
+        and its content at any time.
       </p>
 
       <h2 className={h2}>4. Acceptable Use</h2>
@@ -47,7 +47,7 @@ export default function TermsOfServicePage() {
       <ul className={ul}>
         <li>Submit false, misleading, or someone else&apos;s personal information;</li>
         <li>Attempt to disrupt, overload, or gain unauthorized access to the Service or its underlying systems;</li>
-        <li>Use automated means (bots, scrapers) to submit waitlist entries or poll votes; or</li>
+        <li>Use automated means (bots, scrapers) to submit sign-ups or poll votes; or</li>
         <li>Use the Service for any unlawful purpose.</li>
       </ul>
 

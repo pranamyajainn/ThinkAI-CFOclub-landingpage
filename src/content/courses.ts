@@ -284,5 +284,5 @@ export function lessonHref(lesson: CourseLesson): string {
   return `/courses/${lesson.slug}`;
 }
 
-export const SITE_URL = "https://cfoaihub.com";
+export { SITE_URL } from "@/lib/site";
 export const INTRO_VIDEO = "/course-videos/cfo-ai-hub-intro.mp4";

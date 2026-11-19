@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
+import { OG_IMAGE, SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,9 +17,22 @@ const outfit = Outfit({
   display: "swap",
 });
 
+const description =
+  "Monthly briefings, live workshops, the Claude 101 video course, and a peer community of finance leaders implementing AI. Built by practitioners, not publishers.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "CFO AI Hub — AI in Finance for Practitioners",
-  description: "Monthly briefings, live workshops, and a peer community of finance leaders implementing AI. Built by practitioners, not publishers.",
+  description,
+  openGraph: {
+    title: "CFO AI Hub — AI in Finance for Practitioners",
+    description,
+    url: "/",
+    siteName: "CFO AI Hub",
+    type: "website",
+    images: [OG_IMAGE],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

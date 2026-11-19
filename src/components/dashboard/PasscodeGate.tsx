@@ -38,7 +38,7 @@ export default function PasscodeGate() {
           </div>
           <h1 className="font-display text-2xl font-semibold text-primary">Team dashboard</h1>
           <p className="mt-1.5 text-sm text-text-muted leading-6">
-            Live numbers for subscribers, waitlist and polls. Enter the team passcode to continue.
+            Live numbers for subscribers, members and polls. Enter the team passcode to continue.
           </p>
 
           <label htmlFor="passcode" className="block mt-6 text-sm font-semibold text-on-surface">

@@ -1,5 +1,4 @@
 import React from "react";
-import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -96,7 +95,7 @@ export default function Footer() {
                 href="/#apply"
                 className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
               >
-                Join Waitlist
+                Join CFO AI Hub
               </Link>
             </li>
           </ul>
@@ -139,17 +138,6 @@ export default function Footer() {
                 className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium"
               >
                 Contact Us
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-on-primary/70 hover:text-white transition-colors font-medium inline-flex items-center gap-1 group"
-              >
-                LinkedIn
-                <ArrowUpRight className="w-3.5 h-3.5 text-on-primary/40 group-hover:text-white transition-colors" />
               </a>
             </li>
           </ul>

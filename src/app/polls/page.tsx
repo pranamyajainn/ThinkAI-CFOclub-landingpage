@@ -6,11 +6,13 @@ import PollCard from "@/components/polls/PollCard";
 import PollHero from "@/components/polls/PollHero";
 import PollsGrid from "@/components/polls/PollsGrid";
 import { getActivePoll, getAllPolls, getAllPollCategories } from "@/lib/polls";
+import { OG_IMAGE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Executive Finance Polls & Benchmarks — CFO AI Hub",
   description: "Participate in weekly CFO community pulse polls on AI adoption, Making Tax Digital, autonomous FP&A, and liquidity forecasting.",
   openGraph: {
+    images: [OG_IMAGE],
     title: "Executive Finance Polls & Benchmarks — CFO AI Hub",
     description: "Real-time practitioner sentiment from 400+ senior finance leaders across the UK and globally.",
     type: "website",

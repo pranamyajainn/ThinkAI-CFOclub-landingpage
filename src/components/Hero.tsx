@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, TrendingUp, DollarSign, Brain } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp, DollarSign, Brain, PlayCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import EventsAnnouncementBar from "./EventsAnnouncementBar";
 
 export default function Hero() {
@@ -65,7 +66,7 @@ export default function Hero() {
           >
             <span className="w-2.5 h-2.5 rounded-full bg-secondary-container animate-pulse"></span>
             <span className="font-sans text-xs font-semibold text-primary tracking-wide">
-              Early Access Waitlist Open
+              Now open · Claude 101 course is live
             </span>
           </motion.div>
 
@@ -96,15 +97,16 @@ export default function Hero() {
               href="#apply"
               className="bg-secondary-container hover:bg-secondary text-on-secondary px-8 py-4 rounded-xl font-bold text-base text-center transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group"
             >
-              Join the Waitlist
+              Join CFO AI Hub
               <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
             </a>
-            <a
-              href="#playground"
-              className="border border-outline-variant hover:border-outline text-primary bg-surface-pure/40 hover:bg-surface-pure/80 backdrop-blur-sm px-7 py-4 rounded-xl font-semibold text-base text-center transition-all duration-200 hover:shadow-sm"
+            <Link
+              href="/courses"
+              className="border border-outline-variant hover:border-outline text-primary bg-surface-pure/40 hover:bg-surface-pure/80 backdrop-blur-sm px-7 py-4 rounded-xl font-semibold text-base text-center transition-all duration-200 hover:shadow-sm flex items-center justify-center gap-2"
             >
-              Explore AI Playground
-            </a>
+              <PlayCircle className="w-5 h-5 text-secondary-container" />
+              Watch Claude 101
+            </Link>
           </motion.div>
 
           {/* Integrations row */}
