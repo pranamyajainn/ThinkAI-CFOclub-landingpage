@@ -199,7 +199,7 @@ export default function WaitlistForm() {
                   Join CFO AI Hub
                 </h2>
                 <p className="font-sans text-sm md:text-base text-on-primary/80">
-                  Get our monthly AI briefings, workshop invites and new Claude 101 videos as they are released.
+                  Get our weekly AI briefing every Friday, workshop invites and new Claude 101 videos as they are released.
                 </p>
               </div>
 
@@ -397,7 +397,7 @@ export default function WaitlistForm() {
                     htmlFor="agreed"
                     className="text-xs text-on-primary/70 leading-relaxed cursor-pointer font-medium select-none"
                   >
-                    I agree to receive monthly AI briefings, workshop updates and news from CFO AI Hub.
+                    I agree to receive weekly AI briefings, workshop updates and news from CFO AI Hub.
                   </label>
                 </div>
 
