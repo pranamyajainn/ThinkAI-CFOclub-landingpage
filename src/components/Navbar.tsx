@@ -352,7 +352,7 @@ export default function Navbar() {
                 <ArrowRight className="w-5 h-5" />
               </a>
               <p className="text-center text-xs text-text-muted">
-                Monthly AI briefings, workshops and a peer community of finance leaders.
+                Weekly AI briefings, workshops and a peer community of finance leaders.
               </p>
             </div>
           </motion.div>

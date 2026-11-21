@@ -8,7 +8,7 @@ export default function Features() {
   const features = [
     {
       icon: <BookOpen className="w-6 h-6 text-on-primary" />,
-      title: "Monthly Briefings",
+      title: "Weekly Briefings",
       description: "15-minute executive summaries of AI breakthroughs impacting finance.",
       popular: false,
     },

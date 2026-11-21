@@ -18,7 +18,7 @@ const outfit = Outfit({
 });
 
 const description =
-  "Monthly briefings, live workshops, the Claude 101 video course, and a peer community of finance leaders implementing AI. Built by practitioners, not publishers.";
+  "Weekly briefings, live workshops, the Claude 101 video course, and a peer community of finance leaders implementing AI. Built by practitioners, not publishers.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

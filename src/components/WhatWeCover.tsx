@@ -46,7 +46,7 @@ export default function WhatWeCover() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary tracking-tight mb-4">
-            What We Cover Every Month
+            What We Cover Every Week
           </h2>
           <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed">
             11 content categories. Every issue covers 3–4 of them. Skim to what matters to you.

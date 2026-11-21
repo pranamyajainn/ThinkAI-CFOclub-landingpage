@@ -85,7 +85,7 @@ export default function Hero() {
             variants={itemVariants}
             className="font-sans text-base md:text-lg text-on-surface-variant mb-8 leading-relaxed max-w-2xl"
           >
-            We close that gap. Get monthly practitioner briefings, interactive workshops, and a peer community of finance leaders actually executing AI integrations.
+            We close that gap. Get weekly practitioner briefings, interactive workshops, and a peer community of finance leaders actually executing AI integrations.
           </motion.p>
 
           {/* CTAs */}
