@@ -100,6 +100,36 @@ export const events: CFOEvent[] = [
       "https://www.eventbrite.com/e/ai-for-cfos-transforming-month-end-close-using-ai-tickets-2004449088181",
     featured: true,
   },
+  {
+    slug: "ai-for-cfos-month-end-close-claude-and-local-models",
+    title: "AI for CFOs: Transforming Month-End Close - Claude and Local Models",
+    description:
+      "A working breakfast for finance leaders on taking the close from a spreadsheet-driven process to a faster, more controlled one — Claude for speed and reasoning, local models deployed on-premise to keep sensitive financial data inside your own environment. Includes a live Excel close cut from 10 days to 1, plus control and audit trail.",
+    format: "In-Person",
+    date: "2026-12-10",
+    displayDate: "Dec 10, 2026",
+    time: "8:30 – 10:00 AM GMT (UK time)",
+    location: "London, UK",
+    venue: "WeWork, 2 Eastbourne Terrace, Paddington, London W2 6LG",
+    hosts: ["Selona"],
+    eventbriteUrl:
+      "https://www.eventbrite.com/e/ai-for-cfos-transforming-month-end-close-claude-and-local-models-tickets-2005128967719?aff=oddtdtcreator",
+    featured: true,
+  },
+  {
+    slug: "ai-for-cfos-month-end-close-10-days-to-1-day",
+    title: "AI for CFOs: Taking the Month-End Close from 10 Days to 1 Day",
+    description:
+      "A one-hour webinar on how AI, including tools like Claude, takes the close from a manual, spreadsheet-driven scramble to a faster, more controlled and more transparent process — where AI fits, a live close run cut from 10 days to 1, control and audit trail, and a 30-day roadmap.",
+    format: "Online",
+    date: "2026-12-16",
+    displayDate: "Dec 16, 2026",
+    time: "4:00 – 5:00 PM GMT (9:30 – 10:30 PM IST)",
+    location: "Online",
+    hosts: ["Selona"],
+    eventbriteUrl:
+      "https://www.eventbrite.com/e/ai-for-cfos-taking-the-month-end-close-from-10-days-to-1-day-tickets-2005129407033?aff=oddtdtcreator",
+  },
 ];
 
 /**
