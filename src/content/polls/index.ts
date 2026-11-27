@@ -1,4 +1,5 @@
 import { Poll } from "@/types/poll";
+import { pollAIOutputSignoff } from "./ai-output-signoff";
 import { pollAIFinanceUseCase } from "./ai-finance-use-case";
 import { pollAISecurityConcern } from "./ai-security-concern";
 import { pollAIROIMeasurement } from "./ai-roi-measurement";
@@ -17,6 +18,7 @@ import { pollAIPriorityFinanceFunction } from "./ai-priority-finance-function";
  * /polls/[pollId] and keep their live Firestore tallies.
  */
 export const allPolls: Poll[] = [
+  pollAIOutputSignoff,
   pollAIFinanceUseCase,
   pollAISecurityConcern,
   pollAIROIMeasurement,

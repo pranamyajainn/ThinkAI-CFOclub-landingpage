@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Poll } from "@/types/poll";
 import {
@@ -50,14 +50,24 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
   const [copied, setCopied] = useState(false);
   const { pollData, hasVoted, votedOptionId, isSubmitting, error, vote } = usePollVoting(poll);
 
+  // Newsletter answer links (?a=1, ?a=2, …) pre-select that option. The reader
+  // still presses Cast Your Vote, so email link scanners can't cast votes.
+  const urlAnswer = useSyncExternalStore(
+    () => () => {},
+    () => new URLSearchParams(window.location.search).get("a"),
+    () => null
+  );
+  const urlOptionId = poll.options[Number(urlAnswer) - 1]?.id ?? null;
+  const chosenOption = selectedOption ?? urlOptionId;
+
   const isEmbedded = variant === "embedded";
   const votedOption = pollData.options.find((o) => o.id === votedOptionId);
 
   const handleVoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedOption || hasVoted) return;
+    if (!chosenOption || hasVoted) return;
 
-    const success = await vote(selectedOption, userRole);
+    const success = await vote(chosenOption, userRole);
     if (!success) return;
 
     try {
@@ -144,7 +154,7 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
             {/* Compact option grid — all choices visible together, never in a scroll container */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
               {pollData.options.map((option) => {
-                const isSelected = selectedOption === option.id;
+                const isSelected = chosenOption === option.id;
                 return (
                   <label
                     key={option.id}
@@ -190,7 +200,7 @@ export default function PollCard({ poll, variant = "full", className = "" }: Pol
 
               <button
                 type="submit"
-                disabled={!selectedOption || isSubmitting}
+                disabled={!chosenOption || isSubmitting}
                 className="px-6 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary-container disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 shadow-sm"
               >
                 <span>{isSubmitting ? "Recording Vote..." : "Cast Your Vote"}</span>
