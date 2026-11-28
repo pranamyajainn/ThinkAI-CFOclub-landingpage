@@ -27,6 +27,19 @@ export interface CourseLesson {
   videoUrl?: string;
   /** Cover image shown before the video plays. */
   poster?: string;
+  /** One line shown under the title. */
+  summary?: string;
+  /** "Task & resources" panel. The button shows only when task or readMore is set. */
+  task?: string;
+  /** Small muted tip shown under the task. */
+  taskTip?: string;
+  /** Rows of the sample table; the first row is the header. Copied as "a, b, c" per line. */
+  sampleData?: string[][];
+  /** Shown next to the "Sample data" heading, e.g. "USD thousands". */
+  sampleDataNote?: string;
+  /** File name in /public/course-files, offered as "Download Excel". */
+  sampleFile?: string;
+  readMore?: { title: string; url: string }[];
 }
 
 export interface CourseModule {
@@ -81,6 +94,19 @@ export const courseModules: CourseModule[] = [
     },
     {
       title: "Your first conversation",
+      summary: "Same data, same Claude, two very different answers. The difference is the brief.",
+      task: "Open Claude and attach the annual report you used in Lesson 1. Write a brief that says who it is for, what data Claude has, what to do, and what to send back. Send it. Then reply twice: once to fix something, and once to change the format.",
+      readMore: [
+        {
+          title: "Change the model, effort and thinking settings",
+          url: "https://support.claude.com/en/articles/8664678-change-the-model-effort-and-extended-thinking-settings",
+        },
+        { title: "Upload files to Claude", url: "https://support.claude.com/en/articles/8241126-upload-files-to-claude" },
+      ],
+      status: "live",
+      duration: "4:31",
+      videoUrl: "/course-videos/claude-101-m1-v2.mp4",
+      poster: "/course-videos/claude-101-m1-v2-poster.jpg",
       topics: [
         "A tour of the chat screen",
         "What a good brief contains",
@@ -90,6 +116,33 @@ export const courseModules: CourseModule[] = [
     },
     {
       title: "Claude makes things",
+      summary: "Most finance work ends in a file. In this lesson, you ask Claude for the file itself.",
+      task: "Copy the sample table below into Claude, or attach the Excel file. Ask for an Excel tracker with a growth formula for each region and a total row. Open the file and click two growth cells to see the formulas. Then ask for one change: add a column for each region's share of total sales. Check that the shares add up to 100%.",
+      taskTip: "If Claude replies in text instead of sending a file, go to Settings, then Capabilities, and turn on Code execution and file creation.",
+      sampleData: [
+        ["Region", "Q2", "Q3"],
+        ["North", "410", "490"],
+        ["South", "380", "320"],
+        ["West", "220", "260"],
+        ["East", "500", "570"],
+      ],
+      sampleDataNote: "USD thousands",
+      sampleFile: "claude101-sample-sales.xlsx",
+      readMore: [
+        {
+          title: "Create and edit files with Claude",
+          url: "https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude",
+        },
+        {
+          title: "What are artifacts and how do I use them?",
+          url: "https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them",
+        },
+        { title: "Use Research on Claude", url: "https://support.claude.com/en/articles/11088861-use-research-on-claude" },
+      ],
+      status: "live",
+      duration: "4:23",
+      videoUrl: "/course-videos/claude-101-m1-v3.mp4",
+      poster: "/course-videos/claude-101-m1-v3-poster.jpg",
       topics: [
         "Real files: Excel, Word and slides",
         "Artifacts: pages and small tools Claude builds in the chat",

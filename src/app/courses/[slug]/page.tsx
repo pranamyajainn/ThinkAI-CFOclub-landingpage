@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CoursePlayer from "@/components/courses/CoursePlayer";
 import ShareButtons from "@/components/courses/ShareButtons";
+import TaskResources from "@/components/courses/TaskResources";
 import { ModuleList } from "@/components/courses/CourseOutline";
 import {
   INTRO_VIDEO,
@@ -78,7 +79,8 @@ export default async function CourseVideoPage({ params }: PageProps) {
     <div className="min-h-screen flex flex-col bg-white text-on-surface">
       <Navbar />
 
-      <main className="flex-grow px-4 sm:px-6 pt-24 sm:pt-28 pb-24">
+      {/* The "Task & resources" panel sets data-task-panel on <html>; on desktop the page makes room so the video is never covered. */}
+      <main className="flex-grow px-4 sm:px-6 pt-24 sm:pt-28 pb-24 lg:transition-[padding] lg:duration-300 lg:in-data-[task-panel=open]:pr-[444px]">
         <div className="max-w-6xl mx-auto">
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-text-muted mb-5">
             <Link href="/courses" className="font-semibold text-on-surface hover:text-secondary transition-colors">
@@ -90,16 +92,18 @@ export default async function CourseVideoPage({ params }: PageProps) {
             <span>Video {lesson.number}</span>
           </nav>
 
-          <CoursePlayer
-            src={lesson.videoUrl!}
-            poster={lesson.poster}
-            intro={INTRO_VIDEO}
-            title={lesson.title}
-            eyebrow={`Module ${mod.number} · Video ${lesson.number}`}
-            duration={lesson.duration}
-            endNote={endNote}
-            autoPlay
-          />
+          <div data-course-player>
+            <CoursePlayer
+              src={lesson.videoUrl!}
+              poster={lesson.poster}
+              intro={INTRO_VIDEO}
+              title={lesson.title}
+              eyebrow={`Module ${mod.number} · Video ${lesson.number}`}
+              duration={lesson.duration}
+              endNote={endNote}
+              autoPlay
+            />
+          </div>
 
           <div className="mt-10 sm:mt-12 grid gap-12 lg:gap-16 lg:grid-cols-[minmax(0,1fr)_340px]">
             {/* About this video */}
@@ -119,7 +123,17 @@ export default async function CourseVideoPage({ params }: PageProps) {
                 {lesson.title}
               </h1>
 
-              <div className="mt-6">
+              {lesson.summary && <p className="mt-3 text-base leading-relaxed text-text-muted">{lesson.summary}</p>}
+
+              <div className="mt-6 flex flex-wrap items-center gap-2">
+                <TaskResources
+                  task={lesson.task}
+                  taskTip={lesson.taskTip}
+                  sampleData={lesson.sampleData}
+                  sampleDataNote={lesson.sampleDataNote}
+                  sampleFile={lesson.sampleFile}
+                  readMore={lesson.readMore}
+                />
                 <ShareButtons path={lessonHref(lesson)} title={lesson.title} />
               </div>
 
